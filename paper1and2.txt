@@ -1,0 +1,1331 @@
+
+View
+Online
+
+Export
+Citation
+RESEARCH ARTICLE | OCTOBER 12 2015
+All-metal metamaterial slow-wave structure for high-power
+sources with high efficiency 
+Yanshuai Wang; Zhaoyun Duan ; Xianfeng Tang; Zhanliang Wang; Yabin Zhang; Jinjun Feng; Yubin Gong
+Appl. Phys. Lett. 107, 153502 (2015)
+https://doi.org/10.1063/1.4933106
+Articles You May Be Interested In
+Reversed Cherenkov radiation amplifier with compact structure and high efficiency
+Phys. Plasmas (September 2023)
+Efficient linear analysis of coupled-cavity traveling-wave tubes using minimum number of dispersion
+frequency points
+Phys. Plasmas (October 2024)
+Compact reversed Cherenkov radiation oscillator with high efficiency
+Appl. Phys. Lett. (January 2022)
+ 06 April 2026 11:48:41
+All-metal metamaterial slow-wave structure for high-power sources
+with high efficiency
+Yanshuai Wang,1 Zhaoyun Duan,1,a) Xianfeng Tang,1 Zhanliang Wang,1 Yabin Zhang,1
+Jinjun Feng,2 and Yubin Gong1
+1
+National Key Laboratory of Science and Technology on Vacuum Electronics in Chengdu,
+School of Physical Electronics, University of Electronic Science and Technology of China,
+No. 4, Section 2, North Jianshe Road, Chengdu 610054, China
+2
+National Key Laboratory of Science and Technology on Vacuum Electronics in Beijing,
+Beijing Vacuum Electronics Research Institute, Beijing 100015, China
+(Received 12 July 2015; accepted 29 September 2015; published online 12 October 2015)
+In this paper, we have proposed a metamaterial (MTM) which is suitable for the compact highpower vacuum electron devices. For example, an S-band slow-wave structure (SWS) based on the
+all-metal MTMs has been studied by both simulation and experiment. The results show that this
+MTM SWS is very helpful to miniaturize the high-power vacuum electron devices and largely
+improve the output power and the electronic efficiency. The simulation model of an S-band MTM
+backward wave oscillator (BWO) is built, and the particle-in-cell simulated results are presented
+here: a 2.454 GHz signal is generated and its peak output power is 4.0 MW with a higher electronic
+efficiency of 31.5% relative to the conventional BWOs. VC 2015 AIP Publishing LLC.
+[http://dx.doi.org/10.1063/1.4933106]
+The concept of left-handed metamaterials (MTMs) was
+introduced by Veselago as early as in 19681 and first realized
+until in 2000.2 The MTMs have many unique electromagnetic properties that cannot be achieved in the natural materials, such as negative refractive index, reversed Cherenkov
+radiation (RCR), reversed Doppler effect, and so on.1
+Researchers around the world show intense interests in the
+realization of different types of MTMs and their potential
+applications at microwave, millimeter wave, terahertz (THz),
+and optical bands, such as an electromagnetic cloak and a
+super-lens. Specially, one of current research hot topics is
+the MTM’s application to the vacuum electron devices3–6
+based on the in-depth studies of the RCR,7,8 particularly
+RCR in a waveguide with double-negative MTMs.9,10
+High-power vacuum electron devices such as travelingwave tubes (TWTs) and backward wave oscillators (BWOs)
+have been widely developed for decades. Motivated by
+urgent demands in the various areas such as civil and military fields, in particular, the military field, the research on
+this relatively matured subject has been done continuously.11,12 At present, main serious challenges with the highpower vacuum electron devices are from the miniaturization
+and high electronic efficiency of the devices. Generally
+speaking, the slow-wave structure (SWS) greatly determines
+the performance of the vacuum electron devices. The MTM
+SWS has important advantages such as the miniaturization
+and high interaction impedance due to the local strong axial
+electric field, which largely benefit the high power vacuum
+electron oscillators and amplifiers with high efficiency. In
+recent years, the fundamental physics of the beam-wave
+interaction in MTMs has been studied.13–16
+The realizable MTM-loaded waveguide was first studied
+as early as 2002.17 Marques and Esteban et al. described that
+a MTM-loaded waveguide can support the quasi-TE or TM
+mode wave below the cutoff frequency of the empty metal
+waveguide, respectively.17,18 This behavior is beneficial to the
+miniaturization of the waveguide.19 Of course, the traditional
+coupled-cavity (CC) SWS also has the similar feature.20,21
+In addition, a study of the propagation characteristics of
+MTM-lined circular waveguides has been reported.22 These
+unique features can provide the possibility for applying the
+MTM SWS to the vacuum electron devices and accelerators.
+In this paper, we present a MTM unit cell,23,24 which can be
+used to construct a SWS for the coherent high-power vacuum
+electron devices, as shown in Fig. 1.
+O’Brien and Pendry proposed a nanostructured photonic
+crystal composed of a circular metallic resonator.25 This resonator has a strongly dispersive magnetic permeability due
+to the large internal inductance and capacitance of the structure. Based on the Babinet’s principle, a MTM unit cell has
+been creatively developed as shown in Fig. 1. This MTM
+cell has a strongly dispersive electrical response. As a result,
+a strong local electronic field is formed in the central area of
+the structure, which can be utilized to effectively interact
+FIG. 1. Schematic of a MTM unit cell. a)E-mail: zhyduan@uestc.edu.cn
+0003-6951/2015/107(15)/153502/4/$30.00 107, 153502-1 VC 2015 AIP Publishing LLC
+APPLIED PHYSICS LETTERS 107, 153502 (2015)
+ 06 April 2026 11:48:41
+with the electron beam. The dimensions of the unit cell are
+set as r1¼ 6 mm, r2 ¼ 15 mm, r3 ¼ 18 mm, r4¼ 20 mm,
+d1¼ 3 mm, d2 ¼ 2 mm, d3¼ 13 mm, p ¼ 30 mm (the period
+of the MTM unit cells), and thickness t ¼ 1 mm (not shown
+here) in order to operate at frequencies from 2.2 to 2.6 GHz.
+Due to the fact that the frequency of the proposed MTM
+SWS is 2.45 GHz, which means that k0/p (k0 is the wavelength in free space) is about 4.08, it can be considered as an
+effective medium.26,27 Then, we use the S parameter-based
+retrieval method26 to retrieve the effective permittivity eyy
+and lxx as well as exx and lyy, as shown in Figs. 2(a) and
+2(b), respectively. The permittivity tensor and permeability
+are determined for the waves propagating along the z-direction. Thus, the effective permittivity is anisotropic and the
+effective permeability is isotropic. The results are similar to
+those in the paper.28
+Then, a SWS based on the MTM unit cells has been proposed as shown in Fig. 3, the MTM SWS consists of a closed
+metallic circular waveguide loaded with the MTM unit cells
+periodically with the period p. The pencil electron beam tunnel with the radius 6 mm locates in the center axis of the
+MTM SWS. Here, the inner radius of the circular waveguide
+is 20 mm, thus the MTM SWS can be considered as onedimensional MTM for the TM-dominant mode at frequencies
+2.45–2.53 GHz (as shown in Fig. 6(a)), while the crosssectional area of the SWS of a S-band CCTWT is between
+25  25 mm2 and 30  30 mm2
+, so this fact means there is a
+smaller dimension at the same operating frequency for this
+proposed MTM SWS, which is very helpful to miniaturize
+the devices.27
+In fact, there are pivotal differences between this MTM
+SWS and the traditional CCSWS. The axial electric field of
+the MTM SWS is enhanced by the strongly electrical
+response of the MTM which has no need of a drift tube, in
+contrast to the CCSWS. Based on the MTM theory, the
+grooves in the MTM unit cell mainly determine the frequency range in which the effective permittivity is negative.
+Meanwhile, the n ¼ 0 space harmonic of the fundamental
+mode (see Fig. 6(a)) for the MTM SWS would only be a
+“backward” wave, and the interaction impedance of the fundamental mode is more larger than the higher-order modes,
+these features do not exist in the conventional CCSWS.
+More detailed discussions have been described.27
+In order to verify the transmission characteristics of the
+MTM SWS, both simulation and experiment have been carried out as shown in Fig. 4.
+27 Here, the MTM SWS consists
+of 11 unit cells and the corresponding size parameters are
+structured, as previously mentioned. A vector network analyzer Agilent N5230A PNA-L is used as the signal generator
+and receiver in the experiment, the signal is fed and received
+by two SMA coaxial lines to the circular waveguide junctions15 (the radius of the junction is 50 mm, the optimized
+lengths of the input coaxial line and the junction are
+L1¼ 100 mm and L2 ¼ 16 mm). In addition, it needs to be
+pointed out that the signaling system is symmetric about the
+center of the MTM SWS. The results simulated by CST
+Studio Suite 2012 indicate that a TM-dominant mode electromagnetic wave can be propagated at certain frequencies
+that are below the cutoff frequency of the empty circular
+waveguide. Fig. 4 illustrates the simulated results and the
+measured results of the S-parameters for comparison, which
+clearly shows that the measured results are in good consistent with the simulated results. It can be observed that the
+operating frequency range of the MTM SWS is from 2.40 to
+2.48 GHz which are below the cutoff frequency of the
+TM-dominant mode for the circular waveguide, i.e.,
+5.7 GHz. We also find that the simulated results have lower
+FIG. 2. Retrieved permittivities and
+permeabilities of the MTM as functions of frequency for y (a) and x (b)
+polarizations, respectively.
+FIG. 3. Sketch of the experimental setup for the transmission characteristics
+of the MTM SWS.
+FIG. 4. Comparison between simulated and measured results of S parameters for the MTM SWS.
+153502-2 Wang et al. Appl. Phys. Lett. 107, 153502 (2015)
+ 06 April 2026 11:48:41
+transmission loss compared to the measured results. It is
+because the machining and assembling tolerance are inevitable in the experiment, such as the gaps between the components and the alignment of the MTM SWS.
+Furthermore, we study the effects of the parameters of
+the signaling system on the transmission performance of the
+MTM SWS. The simulated results fully reveal that changing
+lengths of the circular waveguide junction and the coaxial
+line has a significant effect on the transmission performance.
+As shown in Fig. 5, the measured results of S21 with changing L1 and L2 verify the point.
+As a practical metallic structure, this MTM SWS can
+easily hold a vacuum environment and bear the high temperatures, it has a great potential to be used in the vacuum electron devices. Therefore, the high-frequency characteristics of
+the MTM SWS are studied by Ansoft HFSS 13.0 with master
+and slave boundaries,29 as shown in Fig. 6.
+Fig. 6(a) exhibits the dispersion characteristics of the
+MTM SWS from the HFSS simulations, it is found that the
+n ¼ 0 spatial harmonic (corresponding to the region from 0
+to p) of the fundamental mode (the operating mode) is a
+“backward” wave, the frequency band of which is about
+from 2.45 to 2.53 GHz. The simulated results on the electric
+and magnetic fields also indicate that the fundamental mode
+is a TM-like mode wave. For the SWS, the interaction
+impedance of the n-th spatial harmonic is defined by:
+kcn ¼ jEznj
+2
+=2b2
+nPx, where Px represents the transmission
+power along the axial direction, Ezn denotes the amplitude of
+the axial component of the electric field, and bn refers to
+the phase constant of the nth spatial harmonic. Here, the
+MTM SWS operates on the zeroth spatial harmonic. The
+interaction impedance is the critical factor of judging a high
+power output for the vacuum electron devices. Generally
+speaking, the interaction impedance of the S-band helix
+SWS is from 100 to 200 X, and the S-band CCSWS has an
+interaction impedance between 300 and 400 X. Fig. 6(b)
+demonstrates the interaction impedance of the MTM SWS of
+the fundamental mode as a function of frequency. It is
+greater than 1150 X, which shows a largely improvement
+compared to the conventional SWSs. In addition, the interaction impedance of the first higher-order mode is lower than
+1 X in the frequency band (from 3.2 to 3.7 GHz). Therefore,
+it is an important advantage for the MTM SWS that the risk
+of self-oscillation caused by the higher modes for the proposed devices can be ignored compared to the traditional
+CCSWS. In Fig. 6(b), the MTM SWS also shows a great performance of lower attenuation, which is conductive to
+increasing the output power and maintain the stability of the
+devices during the operation. Here, the attenuation constant
+is defined as a ¼ Ploss=2P, where Ploss refers to the
+loss power, P represents the power flow along the axial
+direction.
+The analyses of the calculated results of high-frequency
+characteristics show that the MTM SWS is very suitable for
+the narrow band, coherent high-power vacuum electron devices. The all-metal and easily installed MTM SWS ensures
+that the devices have the advantages of better heat dissipation and easier fabrication. Subsequently, an S-band MTM
+BWO has been designed and then optimized by using the
+PIC solver in CST Particle Studio.27 Based on the previous
+calculated results, the MTM SWS of the proposed S-band
+MTM BWO is composed of 15 MTM unit cells, and the
+whole length of the tube is about 510 mm. A pencil electron
+beam with a radius of 3 mm and a current of 40 A is assumed
+in the simulation, and its accelerating voltage is 314 kV
+which is determined by the operating frequency. Because the
+electron beam moves along the center axis of the SWS,
+the coaxial line adopted in the previous experiments is
+replaced by a coaxial coupling loop to form a beam tunnel as
+shown in Fig. 7. Additionally, a uniform longitudinal
+magnetic field of 0.5 T is used to focus the pencil electron
+beam. An output signal is produced at 2.454 GHz, and its
+peak power is 4.0 MW with an electron efficiency of 31.5%,
+which is bigger than the efficiency of the conventional
+BWOs (1%–15%).30,31
+It should be noticed that the signal frequency of
+2.454 GHz from the PIC simulations is slightly lower than
+2.472 GHz which is determined by the cross point between
+the dispersion curve and the beam line.
+FIG. 5. Measured transmission coefficient (jS21j) results with different
+lengths of L1 and L2.
+FIG. 6. (a) Dispersion curve of the fundamental mode for the MTM SWS. (b)
+Interaction impedance curve defined
+on the central axis of the beam tunnel,
+and attenuation constant curve of the
+MTM SWS.
+153502-3 Wang et al. Appl. Phys. Lett. 107, 153502 (2015)
+ 06 April 2026 11:48:41
+In conclusion, we have proposed a MTM unit cell and
+structured the size parameters in the S-band. And then the
+miniaturized all-metal MTM SWS is developed. The good
+agreement between the experiment and the simulation results
+demonstrates that the MTM SWS is very helpful to miniaturize the devices. The calculated results of the high-frequency
+characteristics also predict that this MTM SWS is suitable
+for the high output power vacuum electron devices with
+higher electronic efficiency, accelerators, and particle detectors. In the end, for instance, an S-band MTM BWO based
+on the SWS has been proposed and then calculated with the
+CST Particle Studio 2012. The calculated results show that it
+is a promising miniaturized, high-power microwave source.
+It has potential applications such as in narrow band communications and scientific equipment such as accelerators as
+well as industrial heating. In the future, we will carry out the
+related experimental work.
+This work was supported by the National Natural
+Science Foundation of China (Grant Nos. 61471091 and
+61125103). The corresponding author Zhaoyun Duan
+sincerely appreciates Professor Temkin and Dr. Shapiro for
+discussing the MTM-inspired devices when he visited their
+group at MIT.
+1
+V. G. Veselago, Sov. Phys. Usp. 10, 509 (1968). 2
+D. R. Smith, W. J. Padilla, D. C. Vier, S. C. Nemat-Nasser, and S. Schultz,
+Phys. Rev. Lett. 84, 4184 (2000). 3
+Z. Y. Duan, B. I. Wu, J. Lu, J. A. Kong, and M. Chen, Opt. Express 16,
+18479 (2008).
+4
+Y. S. Tan and R. Seviour, Europhys. Lett. 87, 34005 (2009).
+5
+T. M. Abuelfandl, Appl. Phys. A 103, 759 (2011). 6
+I. Mcgregor and K. M. Hock, Phys. Rev. Spec. Top.-Accel. Beams 16,
+080102 (2013).
+7
+Y. P. Bliokh, S. Savel’ev, and F. Nori, Phys. Rev. Lett. 100, 244803
+(2008).
+8
+S. N. Galyamin, A. V. Tyukhtin, A. Kanareykin, and P. Schoessow, Phys.
+Rev. Lett. 103, 194802 (2009). 9
+Z. Y. Duan, B.-I. Wu, J. Lu, J. A. Kong, and M. Chen, J. Appl. Phys. 104,
+063303 (2008). 10Z. Y. Duan, C. Guo, and M. Chen, Opt. Express 19, 13825 (2011). 11S. G. Liu, C. Zhang, M. H. Chen, P. Zhang, S. Gong, T. Zhao, and R. B.
+Zhong, Appl. Phys. Lett. 104, 201104 (2014). 12X. J. Ge, J. Zhang, H. H. Zhong, and B. L. Qian, Appl. Phys. Lett. 105,
+123501 (2014). 13I. G. Kondratyev and A. I. Smirnov, Radiophys. Quantum Electron. 48,
+136 (2005). 14D. Shiffler, J. Luginsland, D. M. French, and J. Watrous, IEEE Trans.
+Plasma Sci. 38, 1462 (2010). 15J. K. So, J. H. Won, M. A. Sattorov, S. H. Bak, K. H. Jang, G. S. Park, D.
+S. Kim, and F. J. Garcia-Vidal, Appl. Phys. Lett. 97, 151107 (2010). 16M. A. Shapiro, S. Trendafilov, Y. Urzhumov, A. Alu, R. J. Temkin, and G.
+Shvets, Phys. Rev. B 86, 085132 (2012). 17R. Marques, J. Martel, F. Mesa, and F. Medina, Phys. Rev. Lett. 89,
+183901 (2002). 18J. Esteban, C. Camacho-Pe~nalosa, J. E. Page, T. M. Martın-Guerrero, and
+E. Marquez-Segura, IEEE Trans. Microwave Theory Tech. 53, 1506
+(2005). 19S. Hrabar, J. Bartolic, and Z. Sipus, IEEE Trans. Antennas Propag. 53, 110
+(2005). 20M. Chodorow and E. J. Nalos, Proc. IRE 44, 649–659 (1956). 21V. L. Christie, L. Kumar, and N. Balakrishnan, Microwave Opt. Technol.
+Lett. 35, 322 (2002). 22J. G. Pollock and A. K. Lyer, IEEE Trans. Microwave Theory Tech. 61,
+3169 (2013). 23Z. Y. Duan, Y. S. Wang, X. Huang, X. W. Ma, T. Tang, M. Z. Huang, Z.
+L. Wang, and Y. B. Gong, U. S. patent application 14/572,035 (16
+December 2014). 24Y. S. Wang, Z. Y. Duan, X. Huang, X. W. Ma, X. F. Tang, Z. L. Wang, J.
+J. Feng, and Y. B. Gong, in 16th International Vaccum Electronics
+Conference, 2015. 25S. O’Brien and J. B. Pendry, J. Phys.: Condens. Matter 14, 6383 (2002). 26D. R. Smith, D. C. Vier, Th. Koschny, and C. M. Soukoulis, Phys. Rev. E
+71, 036617 (2005). 27See supplementary material at http://dx.doi.org/10.1063/1.4933106 for the
+details of the experiment and simulations. 28Z. Y. Duan, J. S. Hummelt, M. A. Shapiro, and R. J. Temkin, Phys.
+Plasmas 21, 103301 (2014). 29J. H. Booske and M. C. Converse, IEEE Trans. Electron Devices 52, 685
+(2005). 30B. Levush, T. M. Antonsen, Jr., A. N. Vlasov, G. S. Nusinovich, S. M.
+Miller, Y. Cramel, V. L. Granatstein, W. W. Destler, A. Bromborsky, C.
+Schlesiger, D. K. Abe, and L. Ludeking, IEEE Trans. Plasma Sci. 24, 843
+(1996). 31D. M. Goebel, E. A. Adler, E. S. Ponti, J. R. Feicht, R. L. Eisenhart, and
+R. W. Lemke, IEEE Trans. Plasma Sci. 27, 800 (1999).
+FIG. 7. Sketch of the PIC simulation model.
+153502-4 Wang et al. Appl. Phys. Lett. 107, 153502 (2015)
+ 06 April 2026 11:48:41
+
+
+
+
+Citation: Katkeviˇcius, A.; Plonis, D.;
+Damaševiˇcius, R.; Maskeliunas, R. ¯
+Trends of Microwave Devices Design
+Based on Artificial Neural Networks:
+A Review. Electronics 2022, 11, 2360.
+https://doi.org/10.3390/
+electronics11152360
+Academic Editor: Dimitra I.
+Kaklamani
+Received: 20 June 2022
+Accepted: 25 July 2022
+Published: 28 July 2022
+Publisher’s Note: MDPI stays neutral
+with regard to jurisdictional claims in
+published maps and institutional affiliations.
+Copyright: © 2022 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+electronics
+Review
+Trends of Microwave Devices Design Based on Artificial Neural
+Networks: A Review
+Andrius Katkeviˇcius 1
+, Darius Plonis 1
+, Robertas Damaševiˇcius 2 and Rytis Maskeliunas ¯
+3,*
+1 Faculty of Electronics, Vilnius Gediminas Technical University, Naugarduko Str. 41, 03227 Vilnius, Lithuania;
+andrius.katkevicius@vilniustech.lt (A.K.); darius.plonis@vilniustech.lt (D.P.)
+2 Faculty of Applied Mathematics, Silesian University of Technology, ul. Kaszubska 23, pok. 307A,
+44-100 Gliwice, Poland; robertas.damasevicius@polsl.pl
+3 Department of Multimedia Engineering, Kaunas University of Technology, Baršausko 59,
+51423 Kaunas, Lithuania
+* Correspondence: rytis.maskeliunas@ktu.lt
+Abstract: The usage of techniques of the artificial neural networks (ANNs) in the field of microwave
+devices has recently increased. The advantages of ANNs in comparison with traditional full-wave
+methods are that the prediction speed when the traditional time-consuming iterative calculations are
+not required and also the complex mathematical model of the microwave device is no longer needed.
+Therefore, the design of microwave device could be repeated many times in real time. However,
+methods of artificial neural networks still lag behind traditional full-wave methods in terms of
+accuracy. The prediction accuracy depends on the structure of the selected neural network and also
+on the obtained dataset for the training of the network. Therefore, the paper presents a systematic
+review of the implementation of ANNs in the field of the design and analysis of microwave devices.
+The guidelines for the systematic literature review and the systematic mapping research procedure, as
+well as the Preferred Report Items for Systematic Reviews and Meta-Analysis statements (PRISMA)
+are used to conduct literature search and report the results. The goal of the paper is to summarize
+the application areas of usage of ANNs in the field of microwave devices, the type and structure
+of the used artificial neural networks, the type and size of the dataset, the interpolation and the
+augmentation of the training dataset, the training algorithm and training errors and also to discuss
+the future perspectives of the usage of ANNs in the field of microwave devices.
+Keywords: artificial neural networks; microwave devices; analysis; syntheses; computer-based
+modeling
+1. Introduction
+The microwave industry is evolving rapidly in order to meet the modern needs
+of today [1–3]. There are presented many new structures of antennas [4–6], antenna
+arrays [7,8], filters [9,10], phase shifters [11,12], different resonators [13], delay lines [14],
+sensor arrays [15] and others. The main research directions are usually considered to be
+reconfigurability or tenability and miniaturization by searching for new constructions [16]
+or materials [17]. The miniaturization is especially important for the growing network of
+internet of things (IoT) devices [18,19].
+The growing research in the field of microwave devices is also increasing the need to
+search for the new modeling techniques [20,21], which could be divided into the methods
+of synthesis [22,23] and analysis [24]. The conventional currently used methods are based
+on the usage of different forms of Maxwell’s equations. The most accurate results could be
+obtained by using analytical methods. The calculations are fast with analytical methods. On
+the other hand, it is usually quite difficult or impossible to create an accurate mathematical
+model of the desired microwave devices and the method solves only a partial case of a
+microwave device with certain exceptions [25]. Numerical methods are more universal.
+Electronics 2022, 11, 2360. https://doi.org/10.3390/electronics11152360 https://www.mdpi.com/journal/electronics
+Electronics 2022, 11, 2360 2 of 21
+Usually, the commercial software packages are used, which allows to create the 3D models
+of the microwave devices, but the calculations are time consuming. Calculations can take
+hours or even days when the structure of a microwave device is complex [26,27].
+The possible migration from conventional methods to the methods based on the
+ANNs in the field of microwave devices was started to be investigated based on the
+disadvantages, which are mentioned above [28,29]. The usage of ANNs seems promising
+because ANNs are already successfully used in other fields, such as image processing [30],
+sound processing [31], and the forecasting of financial markets [32]. The advantage of
+artificial neural networks (ANNs) in this case is the speed of prediction. ANNs do not
+perform any calculations, but predict the results. The prediction is usually very fast.
+Therefore, the procedure of analysis or synthesis of microwave devices is performed
+significantly faster [33,34]. The prediction could be performed thousands of times faster
+than calculations by the conventional methods [35]. Therefore, methods based on the the
+ANNs could be used in real-time systems for solving complex problems. Additionally,
+these complex problems can be solved in embedded systems in real time [36,37].
+On the other hand, it is also necessary to mention that before prediction, the ANN
+should firstly be trained [38]. The training could be with or without the supervisor and
+classified into supervised [39], semi-supervised [40] and unsupervised networks [41]. It
+depends on the type of the network and training dataset [42]. There are many different
+types of networks, starting from the simple one-layer perceptron network and continuing
+until convolutional networks [43]. All the ANNs address two challenges, which could
+be divided into the task of function approximation (regression) or pattern recognition
+(classification). The function approximation is used in the field of microwave devices [44].
+The review of different types and structures of ANNs, transition algorithm from fullwave methods to the ANN-based methods, training datasets and applications areas of
+ANNs in the field of microwave devices is presented in this paper. Overall, the review
+consists of 113 articles. Forty-four articles substantiate the introduction. The principles
+of ANNs are discussed using three articles. The transition algorithm is discussed in all
+articles. The discussion of different types of ANNs, which could be used in the modeling of
+microwave devices, is included in 32 articles. The training types are discussed in 12 articles.
+Fuzzy logic is mentioned in 10 articles. The future perspectives are outlined in the end of
+the presented articles.
+2. Research Methodology
+The guidelines for systematic literature review and the systematic mapping research
+procedure, as well as the Preferred Report Items for Systematic Reviews and Meta-Analysis
+statements (PRISMA) [45], were used to conduct and report the reviews. This systematic
+review is based on a well-planned research method that assures a thorough and unbiased
+selection of all peer-reviewed publications connected to published research material. This
+methodology is used to collect relevant articles from trustworthy scientific sources, which
+are then sorted and mapped into numerous categories to indicate the current level of
+research in the use of failure detection technologies. This research map will be extremely
+helpful to practitioners and researchers in identifying cutting-edge areas and subjects for
+future study.
+As a result, it is critical to stress that the goal of this review is to understand not
+only the use cases or applications of ANNs in the field of the microwave devices, but
+also the limitations and constraints of applying suitable methodologies. Furthermore, the
+most recent trends in technological techniques, processes, and concepts employed in the
+execution of these methods are discussed.
+2.1. Research Design
+The present research needs are provided in this subsection by identifying the preliminary research results based on the research question and keywords connected to the
+research topic.
+Electronics 2022, 11, 2360 3 of 21
+2.1.1. Literature Review Questions
+Machine-learning-based solutions for the efficient and dynamic design of microwave
+devices have taken a long time to develop. Over the years, several procedures, approaches,
+and strategies have been created to characterize the aspects involved in the growth of
+microwave devices. As a result, the following issues are addressed in this research:
+RQ1 What types of neural networks can be applied to the design of microwave devices?
+RQ2 What are the applicable transition algorithms from full-wave methods to the neural
+networks methods?
+RQ3 What are the applications and direction in microwave design using machine learning?
+2.1.2. Research Process
+Several bibliographic databases were used to look for and acquire publications for this
+investigation. These sources were chosen based on their track record of success. Table 1
+shows the origins of the publications used as references in this study. This database can
+give the most significant papers and conferences pertinent to acoustical failure detection,
+as well as their entire text.
+Table 1. Online databases.
+Database URL
+IEEE Xplore http://ieeexplore.ieee.org/ (accessed on 6 June 2022)
+Science Direct http://sciencedirect.com/ (accessed on 6 June 2022)
+Springer Link http://link.springer.com/ (accessed on 6 June 2022)
+Wiley http://onlinelibrary.wiley.com/ (accessed on 6 June 2022)
+ACM http://dl.acm.org/ (accessed on 6 June 2022)
+2.1.3. Search Terms
+After executing the initial search phase in the research databases by inputting keywords, an extra scanning step was performed to confirm the correctness of the research
+process and that the selection of studies related to the present research topic and task fit
+the requirements. Search engines were also used in this study to aid in the search for
+related research.
+1. “Artificial neural network microwave devices" OR "computer based modelling microwave devices”;
+2. “Design microwave devices”;
+3. “Modeling microwave devices”;
+4. “Application microwave devices”;
+5. “Synthesis microwave devices”;
+6. “Microwave devices”.
+2.2. Review Conduction
+This section explains the methods used to create the systematic literature review
+procedure. The SLR search process is influenced by the guidelines and frameworks used to
+create this article.
+2.2.1. Selection of Relevant Papers
+After acquiring exploratory research studies relevant to the study objectives, the obtained articles should be appraised for relevancy. As a consequence, a second evaluation
+was conducted in order to establish the relevance of the chosen first study. Furthermore,
+following the first screening, a random systematic review of the selected papers was performed to confirm the consistency of the inclusion and exclusion criteria. The research
+selection approach for the current systematic review is depicted in Figure 1, following the
+Electronics 2022, 11, 2360 4 of 21
+Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) methodology [45].
+References Identified
+Through Database
+Searching (N=1102)
+References Excluded
+based on Title (N=804)
+Record Screened (N=298) References Excluded
+based on Abstract (N=133)
+Full-text articles assessed
+for eligibility (N=161)
+Full-text exluded based
+on defined Exclusion Criteria (N=58)
+Full-text articles eligibile for Preliminary Studies (N=113)
+Figure 1. Procedure of research selection for the present schematic review based on PRISMA methodology [45].
+The following steps were taken to identify relevant research studies:
+1. Use the provided terms to search the database and locate prior works linked to
+the research.
+2. Ignore documents that do not meet the supplied search parameters.
+3. Exclude papers with no evident link between title and abstract.
+4. Read the articles in their entirety before evaluating them.
+5. Assess the bibliography.
+6. Perform the preliminary research.
+2.2.2. Inclusion and Exclusion Criteria
+Exclusion criteria include research publications that are unrelated to machine-learningbased microwave design or are based on traditional design methodologies, and so fall
+beyond the scope of this research study. This study focuses on SLR research publications
+pertinent to this topic. Furthermore, the study excluded similar studies on the same issue.
+As a consequence, the inclusion and exclusion criteria used in writing the SLR are shown
+in Table 2.
+Table 2. Inclusion and exclusion criteria.
+Inclusivity criteria
+1 Peer-reviewed original articles
+2 Articles proposing an neural network based microwave design
+3 Articles that utilize other machine learning based microwave design methods
+3 Articles that present application of machine learning based microwave designs
+5 Recency of articles in case of multiple repeated studies
+Exclusivity criteria
+1 Articles that are not written in English
+2 Studies with invalidated techniques and algorithms
+3 Articles that utilize neural network design on other purposes
+4 Articles that not utilize microwave design
+5 Articles that do not clearly mention microwave in the title
+6 Articles providing unclear results or findings
+7 Duplicated studies
+Electronics 2022, 11, 2360 5 of 21
+2.2.3. Data Extraction
+During the data extraction procedure, relevant information was collected from the
+articles and entered into a database. This database is made up of the elements in Table 3 [46].
+Table 3. Data item extraction (following [46]).
+Data Item Description
+Title Article title
+Year Year of publication
+Author(s) The article author(s)
+Publication type Journal, Proceeding, etc.
+Publication medium The medium via which the article is published
+Country Researchers’ affiliation country
+Contribution The major contribution of the article
+Summary Summary of the article from our perspective
+3. Transition from Full-Wave Methods to the Neural Networks Based Methods
+To start with, artificial neural networks are the computer models of biological neural
+networks in the human brain. An ANN is a collection of linked artificial neurons that may
+impact each other’s behavior. The detailed information about the structure of the single
+neuron, weights between the single neurons, possible activation functions is provided
+in [47]. There are several types of activation functions that may be used to adapt to diverse
+nonlinear real-world tasks. This is significant since the majority of real-world input is
+nonlinear and there is a need for neurons to learn nonlinear representations [48].
+Individual neurons are then linked to neural networks, which can have a variable
+number of layers and neurons in each layer, starting from the single-layer perceptron
+network without the back propagation until the complex networks, such as convolution
+or deep neural networks, which all could be used in the field of modeling of microwave
+devices [49].
+The transition procedure of the modeling of microwave devices from calculations
+using the full-wave methods to the prediction using ANNs methods consists overall of four
+stages. First of all, it is necessary to investigate the microwave devices using the full-wave
+methods in the first stage. The analytical methods or the numerical methods could by used
+in the first stage. The analytical methods require to make the mathematical model of the
+microwave device and to make the calculation by yourself. It requires a lot of experience
+and time in order to make the mathematical model every time the microwave device is
+modified. Numerical methods are usually used with commercial software packages such as
+Sonnet©, CST Microwave Studio©, HFSS© and others. Numerical methods usually require
+a lot of time and computer resources.
+The review of the newest articles showed that usually the 3D model with a specific set
+of geometrical and physical parameters is selected in the first stage (1.1 block). The model
+is drawn in the commercial software package (1.2 block). The S parameters are obtained for
+the analysis (1.3 block) (Figure 2) [50].
+The modeling is repeated many times in order to obtain a significant amount of data
+for training with the different sets of parameters.
+The obtained data are divided into the testing dataset (2.1 block) and training dataset
+(2.2 block) in the second stage. It is very important to separate the data correctly. Usually
+about 70% of data is used for training and only 30% of data is used for the testing. It is
+very important to use unique unused data for the testing in order to obtain correct and
+accurate information about the training of the neural network. It is also very important
+that the values of important parameters from the training and test datasets are distributed
+throughout the relevant range of values. Neural networks have the property of getting lost
+when receiving datasets from an unseen range of values. It is also very important to select
+the correct structure of the neural network in order to have accurate predictions (2.3 block).
+Electronics 2022, 11, 2360 6 of 21
+Figure 2. Stages of transition procedure of microwave devices modeling from calculations using the
+full-wave methods to the artificial neural networks based methods.
+The training should be performed in the third stage of the transition algorithm. The
+mean squared error (MSE) is calculated during the training procedure in order to know the
+quality of training (3.1 block). The trained surrogate model is obtained when the network
+is trained and the MSE is less than the desired threshold (3.2 block).
+The model of the trained neural network is tested with the testing dataset in the fourth
+stage of the transition algorithm (3.3 block). The model of ANN is considered final and
+can be used for the prediction of the parameters of the microwave device if accuracy with
+Electronics 2022, 11, 2360 7 of 21
+the testing dataset is appropriate. If the MSE is higher than the desired threshold, it is
+necessary to go back to the second or even first stage and modify the structure of the neural
+network or to collect additional data for training [51].
+4. Different Fields of Usage
+ANNs are used for the design and analysis of different microwave devices: antennas [52], antennas arrays [53], filters [54], phase shifters [55], resonators [56], microwave
+circuits [57], traveling wave tubes [58], delay lines and others [59]. The application areas
+of ANNs are discussed in this section. The discussion is presented by taking into account
+the following factors: the model of the microwave device, the application area, the type
+and structure of ANN, the type and size of the training dataset, the interpolation and
+augmentation of the dataset, the training algorithm and training errors, and the accuracy
+of training and prediction.
+4.1. Antennas
+Antennas are one of the largest and rapidly evolving groups of microwave devices. For
+example, the substrate-integrated waveguide patch antenna, which works in the 12–18 GHz
+frequency range, is presented in [60]. The resonant frequency of the antenna is equal to
+16.10 GHz. The return losses are less than −10 dB to −19 dB in the working frequency
+range. The overall dimensions of the antenna are equal to 24 × 15.4 mm2
+. The thickness of
+the substrate is equal to 0.95 mm. The dielectric with er = 3.2 is used for the substrate with
+a δ = 0.0018 tangent loss.
+Vilovich et al. [61] sought to investigate neural network capabilities in designing the
+rectangular patch (width and length) of a microstrip antenna. Their comparison analysis
+revealed that the neural-network-generated antennas performed better.
+The multilayer perceptron (MLP) network with the back-propagation algorithm was
+used for the optimization of the dimensions of the presented patch antenna. The structure
+of the MLP network consists of three layers. The input layer has two neurons for the input
+of parameters of return loss S11 and resonant frequency f 0. The network has predicted
+dimensions of the width W of microstrip line, diameter D of the patch, inner radius R1 and
+outer radius R2. The hidden layer consists of 15 neurons. The neural network allowed
+optimizing the initial set of dimensions of the patch antenna.
+Another example of the microstrip patch antenna is presented in [62]. This time, the
+antenna had an elliptical form. The dimensions of the three ellipses were constructed
+in order to resonate at 2.4 GHz. The overall dimensions of the substrate of the elliptical
+antenna were equal to 100 × 60 mm2
+. The similar feed-forward back-propagation ANN
+(FFBP-ANN) along with the Levenberg–Marquardt optimization algorithm was used to
+model the antenna design. The structure of the network was equal to 3-10-2. The network
+predicted the return loss S11 and gain of the antenna while changing the radius geometrical
+parameters in the input. The overall 160 combinations of the input parameter with the
+corresponding return loss and gain were collected using the CST©EM simulation. A total
+of 100 combinations were used for the training. Then, 60 combinations were left for the
+testing. Results showed good agreement between the results obtained with CST© and the
+results predicted with the MLP network.
+The rectangular microstrip patch antenna for the terahertz applications is presented
+in [63]. The gallium arsenide er = 12.9 material was used for the substrate. The overall
+dimensions of the substrate were equal to 0.06 × 0.035 mm2
+. The structure of the feedforward MLP network was equal to 3-20-2. The parameters of frequency f (0.3–3 THz),
+dielectric constant e (10.2–12.9) and height h (0.005–0.3 mm) were submitted to the input
+of the network. The return loss S11 and bandwidth W were predicted in the output of the
+network. The Levenberg–Marquardt training algorithm was used for the training. The
+136 samples were collected using the HFSS©EM simulation.
+All three earlier mentioned examples used the MLP network. The first example solved
+the synthesis optimization task when the desirable electrical parameters were known and
+Electronics 2022, 11, 2360 8 of 21
+it was necessary to optimize the geometrical dimensions of the antenna starting from the
+initial selected dimensions. The second and third examples solved the analysis task when
+it was necessary to find the S parameters for the description of the antenna.
+The optimization procedure of the aperture coupled single and multilayer microstrip
+planar antennas is described in [64]. The calculation of microstrip planar antenna parameters using traditional full-wave methods is time consuming. Therefore, the optimization
+technique using ANNs is presented. Several different structures of the feed-forward neural network were used for the investigation. The input-hidden-output (3-20-2) network
+topology was used for the single layer planar antenna. The inputs of the network were of a
+dielectric constant er
+, height of substrate h and resonant frequency fr
+. The parameters of
+the scattering matrix were predicted in the output layer. The input-hidden-hidden-output
+(7-20-20-2) network topology was used for the multilayer planar antenna. The parameters
+of frequency of operation, slot length, slot width, stub length, patch offset, patch width
+and feed width were given to the input of the network in order to predict the same parameter of the scattering matrix. The two hidden layers were selected because of the bigger
+non-linearity between the input and output parameters. The nonlinear sigmoid transfer
+function was used for the hidden neurons. The linear function was chosen for the input and
+output neurons. The error back-propagation algorithm was selected for the training. The
+number of neurons in the hidden layers was selected iteratively by increasing the number
+of neurons from a small number until the acceptable error was received.
+Datasets for training were generated using the full-wave simulators. The presented
+model of neural network was able to predict the resonant length of the aperture coupled
+antenna in approximately 33 ms, while the computations with full-wave methods took
+about 20 s.
+The main goal of the paper [65] was to improve the slip-ups in the radiation case
+of the antenna using ANN framework estimations. The T-shaped planar antenna for the
+5G faraway application at 38 GHz was used in the investigation. This presented antenna
+is suitable for the millimeter wave rehash. The feed-forward neural network with back
+propagation was used in the investigation.
+The main goal in [66] was to increase the efficiency of the modeling of two models of
+the multi-band PIFA planar antennas. Both models had a similar structure when the two
+folded inverted-L monopoles were printed on the plastic substrate er = 2.9. The initial data
+for the training of the neural network were obtained with the HFSS©software package. The
+feed-forward multi-layer perceptron neural network (2-32-32-1) was used for the prediction.
+The frequency and the scattering |S11| values of the standalone antenna were considered
+input parameters. The |S11| value of the antenna in real mobile was considered the
+desired output. The prediction with MLP neural network allowed to reduce the processing
+time from several hours to 1.5 s. The prediction errors were equal to 3.43% and to 4.7%,
+respectively. The presented comparison of the S11 was in the range of 0–2.5 GHz frequency.
+The radial basis function (RBF) neural network was chosen in order to accurately predict the resonant frequency of the adjustable circular microstrip antenna while varying the
+patch radius, relative permittivity of the upper dielectric substrate, the air gap separation
+and thickness of the upper dielectric substrate [67]. The radial basis activation functions
+with a Gaussian form was used in every single neuron of the hidden layer. The overall
+4 × 1200 samples dataset was collected for the neural network training and validation. The
+results, which were predicted with RBF and calculated with traditional full-wave methods,
+do not vary more than 100 MHz.
+Ali et al. [68] presented a closed-loop antenna with an interdigital capacitor to enhance
+the electric field fringing at the patch core as part of wearable devices with little back
+radiation toward the human body. To maximize the suggested antenna performance in the
+desired frequency band, a neural network was used. The error percentage attained was
+fewer than 4.4 percent.
+A completely different solution is presented in [69]. The parametric modeling of the
+ultra-wideband notched antenna was performed using the model of the convolutional
+Electronics 2022, 11, 2360 9 of 21
+neural network (CNN). The main difference in this case is that the inputs to the neural
+network were not the geometrical parameters of the antenna but images with different
+topologies of the antenna. The overall dimensions of the used antenna were equal to
+30 × 35 mm2
+. The working frequency range of the presented antenna was adjusted by
+changing the overall four parameters of the size and the position of the coupling strip.
+The performance of the antenna was investigated in the 2–12 GHz frequency range. The
+presented CNN consisted of four convolutional layers and two fully connected layers.
+Every convolutional layer consisted of convolutional and detector stages. The rectified
+linear unit (ReLU) was used in the detector stage, and batch normalization was employed at
+each layer. The inputs of the CNN were the cross-sectional binary images. Each value of the
+separated pixel represented different material. The substrate was represented by 0, while
+the coupling strip was represented by 1. The image with the coupling strip was partitioned
+into 415 × 214 grids. Overall, there were collected 64 training samples and 49 samples
+for testing purposes. The samples were collected using the commercial HFSS©software
+package. The initial smaller number of samples was increased using the data augmentation.
+4.2. Antennas Arrays
+Antenna arrays is another field of microwave devices in which the usage of intelligent
+methods grows rapidly. The ANNs are usually used in order to solve the tasks of beamforming, finding the angle of arrival (AoA), real-time analysis while saving the computational
+resource, defective elements determination, and fault finding in antenna arrays.
+The innovative approach of beamforming of the phased antenna array using a convolutional neural network is presented in [70]. The position of a beam is crucial for beam
+synthesis, and the neural network’s phase output must be sensitive to the spatial location
+of the desired beam in the input. Using the desired radiation pattern as input, the convolutional neural network is trained to compute phases of patch antennas in the 8 × 8 patch
+antenna array. The presented neural network consists of eight layers: four convolutional
+layers and four fully connected layers. The CNN beamformer receives a two-channel
+radiation pattern as input. The first and second channels show the actual gain in linear or
+dBi scales.
+The leaky rectified linear unit (ReLU) was employed for the activation of all layers.
+There was no activation at the output layer because this was a regression problem rather
+than a classification one. The Adam optimization technique was utilized in order to update the network weights. The loss function was used in order to calculate the mean
+squared error (MSE). The flattened output of the final convolution layer had 82,800 neurons.
+ANSYS HFSS©software was used in order to collect the data for training and verification. The network was trained using 165,000 samples. The validations were made with
+40,000 unique samples.
+The beamforming design based on the deep learning neural network is presented
+in [71]. The presented beamforming neural network (BFNN) allowed to significantly
+improve the performance of beamforming in comparison with traditional beamforming
+algorithms. The improvement of beamforming was understood as the maximization of
+the spectral efficiency (SE), while having hardware limitation and imperfect channel state
+information (CSI). The authors also proposed the two-stage design approach to make the
+BFNN robust to imperfect CSI. The BFNN learned how to approach the ideal SE during the
+first offline training stage. The BFNN adapted itself to imperfect CSI and achieved robust
+performance to the channel estimation errors in the second online deployment stage.
+For the 64 element linear antenna array, the authors used the deep neural network
+consisting of five layers: input layer, three dense layers and the final lambda layer. The
+self-defined Lambda layer was added at the end of the BFNN in order to ensure that
+the output of the BFNN was a complex-valued vector satisfying the constant modulus
+constraint. The reLu activation function was used in the first to dense layers. The sigmoid
+activation function was used in the third dense layer.
+Electronics 2022, 11, 2360 10 of 21
+The usage of the model of the multilayer direct distribution neural network for the
+beamforming and calibration applications in the linear omnidirectional antenna array is
+presented in [72]. The antennas were positioned at a half wavelength from each over
+without the interaction between the emitters. The main discussed arising issues were
+the problem of possible non-identical characteristics of the antenna channels and drift of
+characteristics over time.
+The authors provided slightly different models of direct distribution neural network
+in order to solve the beamforming and calibration problems. The number of inputs of the
+first layer was equal to the number of antenna elements of the aperture in the beamforming
+example. The models of the digital signal from the ADC output were formed as input
+data to the network. The main important parameters were presented as relative location,
+frequency, waveform of the signal’s source, the interference source and the noise level. The
+authors used the network topology with one hidden layer. The digital beam signals were
+created in the output. The beamforming output spectrum components and pilot signals
+must also be fed into the input of neural network additionally in the case of the antenna
+array calibration problem. The supervised training was carried out during both cases.
+The determination of the angle of arrival (AoA) is another use area for antenna arrays.
+The measuring of the direction from which a received signal is emitted is known as radio
+direction finding. The mapping of the connections between the properties of received
+signals and their incidence direction is the basis of radio direction finding. Radio direction
+finding is an inverse task of signal reception from a given direction. It is critical to be able to
+efficiently track the intended consumers. Traditional strategies are inefficient for achieving
+a super resolution AoA estimate in real time. As a result, machine learning approaches are
+typically used in order to increase the efficiency of direction finding, such as the processing
+speed, and the resolution of the angle [73].
+Usually the problem appears to be working with practical antenna arrays, which have
+nonuniform elements. The arising problem could be solved with ANNs which approximate
+the mapping from received signals to AoAs with high estimation accuracy. An example of
+a practical antenna array with 30 elements is considered in [74].
+The uniqueness of [75] is the nonlinear mapping of outputs of the receiving antennas
+with the associated direction of arrival (DoA) by using the combination of the detection
+network and the DoA estimation ANNs that allow to estimate the DoA. The detection
+network allowed to reduce the size of the training dataset and to individually train several
+deep neural networks that correspond to the different sectors of possible position.
+The detection network was used in order to divide the search area of the antenna array
+into different position sectors and to detect signals radiating from sources in each sector.
+The MLP-based network was used for both the detection and DoA estimation networks.
+The similar network optimization problem of antenna array is also presented in [76].
+Artificial neural network can be used also for the specific tasks in the antenna arrays.
+The reconstruction of the complex excitation of antenna elements is presented in [77].
+Complex excitation is one of most important parameter that describes radiation properties
+of a phased antenna. The properties of degradation of antenna array can be expressed
+by the deviation of practical element excitation’s from the ideal ones. The defects were
+simulated in antenna array in [77] with the hypotheses that 20% of total elements may
+contain defects. In comparison, the authors of [78] suggested an MTM antenna with a
+downsized profile MTM with circularly polarized increased gain performances, measuring
+the electromagnetic characteristics of the INP substrates and the printing method based on
+the KNN algorithm. The suggested antenna was determined to have adequate accuracy
+at the tested frequencies when bending effects were used to compare the results to the
+flat case.
+4.3. Phase Shifters
+According to Huang et al. [79], in order to optimize the throughput benefit of intelligent
+reflecting surface (IRS), the base station (BS) must acquire both the traditional direct channel
+Electronics 2022, 11, 2360 11 of 21
+between the BS and the user equipment (UE) and the IRS reflected channel. The channel
+state information (CSI) of direct and IRS reflected connections is widely assumed to be
+completely understood at the BS. In practice, obtaining accurate CSI is challenging since
+the size of the IRS reflected channel grows with the number of reflecting parts.
+IRS data rate deterioration is caused by both the large pilot overhead and the channel
+estimate mistakes. The authors of [80] presented a deep learning (DL)-based technique for
+determining the IRS phase shift while optimizing the data rate of IRS-aided communication
+systems. The advancement was made possible by using a deep neural network to establish
+a nonlinear link between the noisy estimated channel and the IRS phase changes.
+The next several articles solve the problem of the complex control of dual active bridge
+(DAB). Challenges arise due to many non-linearly changing parameters which affect the
+operation of the DAB. Authors from [81] proposed the triple-phase shift control (TPSC)
+method, which allowed to significantly decrease the current amount that flows through
+the high frequency (HF) transformer. This was achieved by replacing the generally used
+lookup table with a neural network model. The main idea was that the look-up table stores
+the optimized modulation parameters, which are discrete. Neural networks allowed to
+estimate the nonlinear predictor function for the TPS associate. As a result, the efficiency
+was increased to 99%. The investigation was made in Simulink Matlab©. The feed-forward
+neural network was used for the investigation. The investigated optimal size of the hidden
+layers was equal to 10. The same problem of optimal power efficiency was also investigated
+in [82]. This time, the authors used the deep neural network, which allowed to figure out
+the connections between modulation parameters and power loss.
+Another example is presented in [83]. This time, the convolution neural network is
+used in order to make the nonlinear phase shifter independent from the changing baud rate.
+Thus, it can be seen that the field of application of ANNs is wide, ranging from the
+synthesis task to model the phase shifter itself until the error detection and optimization.
+4.4. Other Applications
+The large application areas of the modeling of microwave devices using ANNs are
+discussed in detail. Of course, these are clearly not all application areas of microwave
+devices. A few more options are discussed. The transmission lines are another group of
+microwave devices. It could be also the traveling wave tubes, delay lines and waveguides.
+In this section, we try to discuss the more exotic examples, where more complicated types
+of networks or more complicated structures or materials of the microwave devices are used.
+The [84] presents the example of the waveguides construction optimization task, which
+should work in the X-band frequencies. The optimal geometrical parameters were obtained
+using the neural network-biased genetic algorithm.
+Hu et al. [85] described the use of physics informed neural networks (PINNs) to
+address rectangular waveguide difficulties. In order to discover solutions for electric and
+magnetic fields, partial differential equations (PDEs) were substituted by PINN. PDEs
+may be naturally encoded into the loss function using PINNs, whereas partial derivatives
+with respect to input variables can be generated using automated differentiation (AD)
+incorporated into recent deep learning packages.
+The more exotic variant of the usage of ANNs for the analysis and synthesis of
+waveguides is presented in [86]. Instead of using the conventional dielectric materials, the
+rectangular waveguide with metamaterials was used. The investigated waveguide was
+designed to work in the infrared wavelength λ telecommunication spectrum (1200 nm to
+1700 nm), where long propagation length and high confinement of the fields are desirable.
+The MLP network was used in order to calculate the main device propagation properties,
+such as the propagation length L and the penetration depth dp. The two hidden layers
+were used for the analysis task and one hidden layer for the task of synthesis. The best
+configurations were obtained using 28 and 14 neurons for L estimation, 42 and 28 neurons
+for dp estimation and 15 neurons for the task of synthesis. The activation functions in all
+Electronics 2022, 11, 2360 12 of 21
+cases were tangent hyperbolic for the hidden layers and the linear one in the output layer,
+respectively. The training process was carried out with the Levenberg–Maquardt algorithm.
+The usage of ANNs for the modeling of delay lines was presented in [87]. Delay lines
+are used in many different microwave circuits for signal synchronization. Authors wanted
+to increase the simulation speed while keeping the same accuracy. Therefore, the ANNs
+were used. The ANN allowed to speed up the analysis 2000 times while keeping high 99.5%
+accuracy. The MLP network was used for the prediction.
+The time delay neural network (TDNN) is presented in [88]. This type of network is
+the modified multilayer perceptron neural network. Therefore, the comparison of both
+networks is presented in this paper. Authors advise to use TDNN when the nonlinear and
+dynamic effects become significant and when it is necessary to have the possibility to build
+the more general models without building proper equivalent circuit models.
+GaAs metal-semiconductor-field-effect transistor (MESFET) and GaAs high-electron
+mobility transistor (HEMT) samples were used to validate the TDNN example. These two
+examples show that the suggested TDNN is a viable and efficient method for simulating
+many types of nonlinear microwave devices. For example the training and test errors of
+the MLP were equal to 31.13% and 33.68%. Respectively, TDNN results were 6.41% and
+6.58% with one delay buffers and 1.49% and 1.86% with seven delay buffers. The number
+of neurons was the same and equal to 40 in both MLP and TDNN networks.
+5. Neural Networks Classification According to the Learning Type
+All previously presented ANNs examples are usually trained using the supervised
+training method. Supervised training allows to obtain usually desirable accuracy but also
+has its disadvantages. As already was told, the success of neural network training depends
+directly on the size and quality of the training dataset. Sometimes it is not available to collect
+a huge dataset of training samples. In addition, the collection of training samples using the
+conventional full-wave methods takes a lot of time. There are already investigations that
+analyze the ways of extracting the desirable features from huge wireless data streams [89]
+and also how to automate the collection of the training datasets [90] that is especially
+important for the training and analysis of microwave devices. Mishra et al. [91] stated
+in their review study that neural networks are excellent for DOA estimation and beam
+shaping, due to their nonlinear nature, capacity to manage enormous parallel operations,
+capability of universal approximation, accuracy, and speed. For smart antenna design,
+neural network approaches outperform print numerical techniques. The study finds that in
+the construction of smart antennas, a hybrid neural network model with an appropriate
+combination of different types of neural networks may be beneficial. The arising issues of
+the collection of the training datasets could be also solved by using semi-supervised and
+unsupervised learning (Figure 3).
+Figure 3. Neural networks classification by the learning type.
+The authors from [92] proposed the semi-supervised training method, which consists
+of the initial training and the self-training. Using this proposed method, only the small
+Electronics 2022, 11, 2360 13 of 21
+initial training dataset is required, which is usually obtained using the full-wave simulation.
+After the first initial training, the presented model produces the unlabeled training dataset
+and the model trains itself until the testing accuracy is satisfied. In comparison with the
+usual training technique, which collects the training dataset from full-wave EM simulations,
+the suggested model only uses a limited number of labeled samples.
+Authors from [92] presented two application examples of the usage of the semisupervised training network. In the first example, the analysis of the microstrip-tomicrostrip vertical transition model is presented. The input vector consists of six geometrical parameters of lengths and widths of different sectors of the microstrip. The output
+vector consists of real and imaginary parts of the S11 parameter. The HHFS©software package was used for the collection of the initial training dataset. The investigated range was
+from 0 to 15 GHz. First of all, the initial training was performed with 15 randomly selected
+labeled samples when the self-training process started, which overall had 17 iterations.
+Despite the training period, the major advantage of this self-training model was that it
+required far less optimization time than the full-wave EM simulations.
+Musumeci et al. [93] provided another example of the use of semi-supervised neural
+networks. This time, machine learning (ML) was applied for autonomous failure diagnosis
+in microwave networks based on real-world data. Various problems contribute to connection outages. The authors had data on six types of failure in microwave networks. The
+authors employed autoencoder-like ANNs to blend knowledge from a small amount of
+manually labeled data with a big amount of unlabeled data.
+Yang et al. [94] provided an example of a deep semi-supervised learning approach
+from the perspectives of model creation and unsupervised loss functions. Zhang et al. [95]
+described a technique for spectrum sensing in a real radio environment based on a semisupervised deep neural network (SSDNN). SSDNN was used to extract characteristics of
+signal from a limited number of labeled samples. Unlabeled samples were utilized in the
+self-training procedure. The network was retrained using the expanded dataset. On a
+dataset of 124,800 samples, several tests were conducted. Only 18% of the data was initially
+labeled. The reached classification with SSDNN was higher than 90%.
+The sampling approach also has a significant influence on the learning accuracy of
+ANNs. In reference to Xiao et al. [96], for example, a semi-supervised radial basis function
+neural network with a new sampling method was presented to decrease the nonuniform
+error distribution and sluggish convergence caused by the uncertainty of sample selection
+in the training process. This new sample technique enabled us to maintain the same level
+of training and testing accuracy over the whole sampling zone.
+The main reasons for using the unsupervised learning are the model building and
+the dimensionality reduction [97]. As it is written in [98], the unsupervised learning is
+the key component in the 6G systems. The future wireless technologies heavily depend
+on the artificial intelligence that could be trained, unsupervised, because the amounts of
+important information increase rapidly. In particular, it will be popular in the optimization
+procedures [99].
+The example of unsupervised learning in the field of microwave devices and communication was provided in [100]. The hybrid beamforming architecture with antenna
+selection allows the system to be flexible and have hardware efficiency. It is regarded as a
+critical technology for fifth-generation wireless communication networks (5G). The selection network was the ASNet, and the hybrid beamforming network was the BFNet. ResNet
+was used in both networks to extract features from the channel matrix. The unlabeled
+samples were chosen, using the authors’ suggested deep probabilistic subsampling method
+for ASNet and a specifically constructed quantization function for BFNet. The authors
+also introduced a configurable loss function, which allows a phased unsupervised training
+technique to efficiently train the combined network.
+K-means, hidden Markov model (HMM), auto encoders (AEs), self-organizing maps
+(SOMs), fuzzy C-means and other unsupervised algorithms are examples of successful
+application in this area. According to Schmarje et al. [101], unsupervised machine learning
+Electronics 2022, 11, 2360 14 of 21
+may be used to improve the performance of deep learning (DL) algorithms, such as
+convolutional neural networks (CNNs) and long short-term memory (LSTM) algorithms.
+6. Fuzzy Logic
+Fuzzy logic techniques are also used in the design and analysis of microwave devices [102]. Starting from the design of microwave transistors [103], continuing in the field
+of microwave circuits [104] and ending with completed microwave devices, such as waveguides [105], antennas [106], power amplifiers [107], power converters [108] and others [109].
+The fuzzy logic techniques help not only in the design and analysis of microwave devices,
+but also in the procedure of the manufacture of microwave devices as it is presented in [110].
+The control of technological process of induction soldering is significantly complicated,
+and the presented mathematical model together with intelligent methods, one of which is
+fuzzy logic, allowed to improve the quality of the induction heating process, which is an
+important part of the soldering process.
+In general, fuzzy logic is a technique which allows to represent and manipulate with
+uncertain information. Fuzzy logic can be assigned to the group of low-level artificial
+intelligence. It is used in the lower-level machine control, so-called fuzzy controllers. Fuzzy
+logic is an extension of conventional logic in which a concept’s degree of truth can range
+from 0.0 to 1.0 [111].
+For example, fuzzy logic was used in [112] in order to achieve better operation parameters of two-way symmetrical Doherty power amplifiers. Authors claimed that where was
+no solution to achieve more than 60% fractional bandwidth using the continuous-mode
+technique for the design of Doherty power amplifiers. Authors achieved a 15% increment
+in fractional bandwidth and reached up to 66.7% by using the technique, which was based
+on fuzzy logic. The fuzzy logic allowed to speed up and simplify the continuous-mode
+based technique. Authors used the combination of the K-means unsupervised learning
+clustering algorithm and a modeled continuous-mode technique. This combination allowed
+not only to extend the fractional bandwidth, but also to improve other important parameters, such as efficiency, output power and gain. The proposed technique also allowed
+automating the calculation of optimum characteristic impendances and electrical lengths
+of the transmission lines of the two-way symmetrical Doherty power amplifier.
+Another example of the usage of fuzzy logic was presented in [113]. The authors
+presented the concept to evaluate the performance of the antenna, which is based on the
+fuzzy logic. The monopole, dipole, inverted f and helix antennas were designed in Matlab©
+using the antenna design toolbox. The directivity, VSWR, reflection coefficients parameters
+of each antenna were analyzed in order to evaluate the performance of each antenna. The
+conventional mathematical techniques could not describe the complex decision-making
+rules for the evaluation of the performance of the antennas with regards to these varying parameters. Fuzzy logic allowed to solve the task. The fuzzy decision system was
+developed using the fuzzy logic toolbox in Matlab©.
+According to these two examples above, it is possible to summarize that fuzzy logic
+allows to think not only about the two possible values, such as logical low and logical high,
+but also about the whole range of values between the logical low and logical high. All the
+steps are described in Figure 4.
+First of all, it is necessary to convert the main crisp values of the parameters of
+the microwave devices into the fuzzy logic values using the fuzzifier. These results are
+described in terms of the degree of membership of the fuzzy sets. Secondly, the “If and Then”
+sets of rules will be used for the decision making. Third, the defuzzification procedure
+will convert data back to specific real values. The same stages were performed in the
+above papers.
+Electronics 2022, 11, 2360 15 of 21
+Figure 4. Steps of the usage of fuzzy logic in the design and analysis of microwave devices.
+7. Discussion and Future Perspectives
+According to the discussed examples, it is clear that ANNs are widely used in the
+field of synthesis and analysis of microwave devices. The main application areas of ANNs
+are discussed, which are antennas, antennas arrays, phase shifters, filters, waveguides,
+traveling wave tubes and others. ANNs usually replace the traditional full-wave methods
+while performing the synthesis or analysis of microwave devices.
+There are many different types and structures of ANNs starting from simple MLP
+network in order to solve the regression task till the more complex deep ANNs or convolutional ANNs, which could solve more complicated classification tasks. The learning
+algorithm and training dataset has also a very important role in order to have accurate
+prediction results with ANNs. The training dataset can even influence the selection of the
+type and structure of the neural network.
+Due to their widespread use, the usage of ANNs is expected to grow significantly in
+the future. On the other hand, there are still many challenges to apply ANNs in practical
+engineering problems. One of the most important challenges is a very huge and still
+increasing amount of training samples, which cause difficulties in the practical training
+of ANNs. The field of microwave devices requires collecting big amount of samples for
+training in order to have high learning and test accuracy. The calculations with traditional
+full-wave methods take a lot of time. Additionally, the field of wireless communication
+in the microwave frequency range streams a large amount of data, which all should be
+analyzed and used for training. Therefore, the future perspective is to use the semisupervised or unsupervised training of ANNs, which could itself extract the main features
+from obtained signals and learn during the operation.
+When it is difficult and time consuming to collect the training dataset, a good future
+perspective could be the augmentation of the training samples. It is already widely used
+in other fields such as image processing and others. After collecting the small dataset of
+samples with traditional full-wave methods, the training data could be augmented by
+using intelligent and automated augmentation methods usually also based on ANNs.
+Finally, there is the issue of data dependency, which cannot be completely resolved
+because neural networks learn from examples and researchers label the training data so
+that the network knows “what is what”. As it was already mentioned, unsupervised and
+Electronics 2022, 11, 2360 16 of 21
+semi-supervised networks exist. However, these networks are more complex. In unlabeled
+data, an unsupervised network attempts to minimize ladder patterns, differences, and similarities. Semi-supervised networks act as a bridge between supervised and unsupervised
+training by training an initial model with labeled data and then applying iteratively to label
+unlabeled data with a set of tolerances. It appears that semi-supervised and unsupervised
+networks might enhance the process of collecting and training using datasets, although this
+is not a foolproof strategy. Because of its structure, unsupervised networks are employed
+when a vast amount of data is acquired. For example, there are fewer networks to search
+for abnormalities in the field of microwave devices. Semi-supervised neural networks are
+used to solve classification and regression issues. However, according to the researchers,
+this can assist to enhance the learning rate, but can also make it worse. Again, a tailored
+strategy is necessary. Adapting for the field of microwave devices is not always possible.
+Issues with summarizing training data cannot be resolved automatically. Every application
+requires its own network topology and training dataset. The difficulties arise from the time
+required to acquire data using full-wave approaches. When the researcher already has the
+training dataset, labeling it is required and it is a time consuming process. There is no way
+to bypass these phases.
+8. Conclusions
+The usage of artificial neural networks in the field of the synthesis and analysis of
+microwave devices is reviewed and discussed in this article. The study was conducted
+by discussing and summarizing individual examples from separated articles. Overall, the
+review consisted of 113 scientific articles.
+The main focus while discussing every article was on the application areas of artificial
+neural networks in the field of microwave devices, the type and structure of the used
+artificial neural networks, the type and size of the dataset, the interpolation and automated
+augmentation of the training dataset and the training algorithm. The summary of the
+reviewed methods is presented. The future trends are also discussed. It is likely that more
+research will be conducted in order to automate the collection of training datasets by using
+different techniques of interpolation and data augmentation.
+The situation in the field of microwave devices and artificial neural networks is
+changing significantly; therefore, we will aim to track research and publish an update to
+this review paper as the situation changes.
+Author Contributions: Conceptualization, A.K. and D.P.; methodology, A.K.; formal analysis, D.P.
+and R.M.; investigation, A.K., R.M. and D.P.; resources, A.K. and D.P.; data curation, A.K. and R.M.;
+writing—original draft preparation, A.K. and D.P.; writing—review and editing, R.M. and R.D.;
+visualization, D.P. and R.M.; supervision, R.M. and R.D.; funding acquisition, R.M. All authors have
+read and agreed to the published version of the manuscript.
+Funding: This research received no external funding.
+Institutional Review Board Statement: Not applicable.
+Informed Consent Statement: Not applicable.
+Data Availability Statement: Data sharing not applicable.
+Acknowledgments: The authors would like to thank the editors and reviewers for many constructive
+suggestions and comments that helped improve the quality of the paper.
+Conflicts of Interest: The authors declare no conflict of interest.
+References
+1. Gong, S.; Lu, R.; Yang, Y.; Gao, L.; Hassanien, A.E. Microwave Acoustic Devices: Recent Advances and Outlook. IEEE J. Microw.
+2021, 1, 601–609.
+2. Aslan, Y.; Roederer, A.; Fonseca, N.J.G.; Angeletti, P.; Yarovoy, A. Orthogonal Versus Zero-Forced Beamforming in Multibeam
+Antenna Systems: Review and Challenges for Future Wireless Networks. IEEE J. Microw. 2021, 1, 879–901. [CrossRef]
+Electronics 2022, 11, 2360 17 of 21
+3. Alahnomi, R.A.; Zakaria, Z.; Yussof, Z.M.; Althuwayb, A.A.; Alhegazi, A.; Alsariera, H.; Rahman, N.A. Review of Recent
+Microwave Planar Resonator-Based Sensors: Techniques of Complex Permittivity Extraction, Applications, Open Challenges and
+Future Research Directions. Sensors 2021, 21, 2267. [CrossRef] [PubMed]
+4. Smyth, B.P.; Iyer, A.K. Embedded MTM-EBGs in Patch Antenna for Simultaneously Dual-Band and Dual-Polarized Operation. In
+Proceedings of the 2020 14th European Conference on Antennas and Propagation (EuCAP), Copenhagen, Denmark, 15–20 March
+2020; pp. 1–4. [CrossRef]
+5. Ibrahim, M.Y.; Ashyap, A.Y.I.; Abidin, Z.Z.; Dahlan, S.H. Implementation of Electromagnetic Band-Gap Structure in Antenna
+Applications: An Overview. In Proceedings of the 2020 IEEE Student Conference on Research and Development (SCOReD), Batu
+Pahat, Malaysia, 27–29 September 2020; pp. 33–38. [CrossRef]
+6. Kiani, S.H.; Altaf, A.; Abdullah, M.; Muhammad, F.; Shoaib, N.; Anjum, M.R.; Damaševiˇcius, R.; Blažauskas, T. Eight element
+side edged framed MIMO antenna array for future 5G smart phones. Micromachines 2020, 11, 956. [CrossRef] [PubMed]
+7. Ahmad, K.S.; Aziz, M.Z.A.A.; Abdullah, N.B. Microstrip Antenna Array with Defected Ground Structure and Copper Tracks for
+Bandwidth Enhancement. In Proceedings of the 2020 IEEE International RF and Microwave Conference (RFM), Kuala Lumpur,
+Malaysia, 14–16 December 2020; pp. 1–5. [CrossRef]
+8. Abohmra, A.; Abbas, H.; Al-Hasan, M.; Mabrouk, I.B.; Alomainy, A.; Imran, M.A.; Abbasi, Q.H. Terahertz Antenna Array Based
+on a Hybrid Perovskite Structure. IEEE Open J. Antennas Propag. 2020, 1, 464–471. [CrossRef]
+9. Yildiz, Ö.F.; Thomsen, O.; Bochard, M.; Yang, C.; Schuster, C. Vertically Integrated Microwave-Filters Using Functional Via
+Structures in LTCC. In Proceedings of the 2020 50th European Microwave Conference (EuMC), Utrecht, The Netherlands,
+12–14 January 2021; pp. 966–969. [CrossRef]
+10. Fu, W.; Li, Z.M.; Chcng, J.W.; Qiu, X. A Review of Microwave Filter Designs based on CMRC. In Proceedings of the 2020 IEEE
+MTT-S International Wireless Symposium (IWS), Shanghai, China, 20–23 September 2020; pp. 1–3. [CrossRef]
+11. Geyikoglu, M.D.; Koc Polat, H.; Cavusoglu, B. Novel Design for Differential Phaseshifter Structure by Using Multi-Section
+coupled Lines. Electron. Lett. 2020, 56, 553–556. [CrossRef]
+12. Shao, C.; Chu, H.; Zhu, X.H. Continuously Tunable Phase Shifter Based on Defected Ground Structures. In Proceedings of the
+2020 IEEE MTT-S International Microwave Workshop Series on Advanced Materials and Processes for RF and THz Applications
+(IMWS-AMP), Suzhou, China, 29–31 July 2020; pp. 1–3. [CrossRef]
+13. Abbasi, Z.; Baghelani, M.; Daneshmand, M. High-Resolution Chipless Tag RF Sensor. IEEE Trans. Microw. Theory Tech. 2020,
+68, 4855–4864. [CrossRef]
+14. Atkishkin, S. Flexible 3D Slabline and Stripline Microwave Delay Lines on Polymer Substrate. In Proceedings of the 2020
+International Conference on Actual Problems of Electron Devices Engineering (APEDE), Saratov, Russia, 24–25 September 2020;
+pp. 129–133. [CrossRef]
+15. Tao, T.; Yang, J.; Wei, W.; Wo´zniak, M.; Scherer, R.; Damaševiˇcius, R. Design of a MEMS sensor array for dam subsidence
+monitoring based on dual-sensor cooperative measurements. KSII Trans. Internet Inf. Syst. 2021, 15, 3554–3570.
+16. He, X.; Kong, L.; Zhang, Y. Modelling of Tunable CPW Structure Dielectric Phase Shifters. In Proceedings of the 2020 IEEE 3rd
+International Conference on Electronic Information and Communication Technology (ICEICT), Shenzhen, China, 13–15 November
+2020; pp. 368–371. [CrossRef]
+17. Wang, Y.; Wang, X.; Wang, Y.; Yu, C.; Zhang, W.; Liang, F.; Zhang, Z.; Gao, S.; Chen, J. Reconfigurable Microwave Phase Shifter
+Based on Nematic Liquid Crystal: Design and Experimental Validation. In Proceedings of the 2020 IEEE 3rd International
+Conference on Electronic Information and Communication Technology (ICEICT), Shenzhen, China, 13–15 November 2020;
+pp. 455–459. [CrossRef]
+18. Zhao, S.; Dong, Y. Circularly Polarized Patch Antenna with Miniaturized Quarter-Mode Slotted SIW Cavity. In Proceedings of
+the 2019 International Conference on Microwave and Millimeter Wave Technology (ICMMT), Guangzhou, China, 19–22 May
+2019; pp. 1–3. [CrossRef]
+19. Piltyay, S.; Bulashenko, A.; Herhil, Y.; Bulashenko, O. FDTD and FEM Simulation of Microwave Waveguide Polarizers. In
+Proceedings of the 2020 IEEE 2nd International Conference on Advanced Trends in Information Theory (ATIT), Kyiv, Ukraine,
+25–27 November 2020; pp. 357–363. [CrossRef]
+20. Liu, S.; Zhang, G.; Wan, T.; Hu, Y. Numerical Simulation of Electromagnetic-Thermal Effect of Microwave Devices. In
+Proceedings of the 2019 International Applied Computational Electromagnetics Society Symposium—China (ACES), Nanjing,
+China, 8–11 August 2019; Volume 1, pp. 1–2. [CrossRef]
+21. Flynn, D.; Marpe, D.; Naccari, M.; Nguyen, T.; Rosewarne, C.; Sharman, K.; Sole, J.; Xu, J. Overview of the Range Extensions for
+the HEVC Standard: Tools, Profiles, and Performance. IEEE Trans. Circuits Syst. Video Technol. 2016, 26, 4–19. [CrossRef]
+22. Mejillones, S.C.; Oldoni, M.; Moscato, S.; Macchiarella, G. Analytical Synthesis of Fully Canonical Cascaded-Doublet Prototype
+Filters. IEEE Microw. Wirel. Compon. Lett. 2020, 30, 1017–1020. [CrossRef]
+23. Macchiarella, G.; Gentili, G.G.; Tomassoni, C.; Bastioli, S.; Snyder, R.V. Design of Waveguide Filters with Cascaded Singlets
+Through a Synthesis-Based Approach. IEEE Trans. Microw. Theory Tech. 2020, 68, 2308–2319. [CrossRef]
+24. Mokarram, A.; Abdipour, A.; Askarpour, A.N.; Mohammadzade, A.R. Time-Domain Signal and Noise Analysis of MillimetreWave/THz Diodes by Numerical Solution of Stochastic Telegrapher’s Equations. IET Microwaves Antennas Propag. 2020,
+14, 1012–1020. [CrossRef]
+Electronics 2022, 11, 2360 18 of 21
+25. Staras, S.; Martavicius, R.; Skudutis, J.; Urbanavicius, V.; Daskevicius, V. Wide-Band Slow-Wave Systems: Simulation and Applications;
+CRC Press: Boca Raton, FL, USA, 2012; p. 460.
+26. Plonis, D.; Katkeviˇcius, A.; Krukonis, A.; Šlegeryte, V.; Maskeli ˙ unas, R.; Damaševiˇcius, R. Predicting the Frequency Characteristics ¯
+of Hybrid Meander Systems Using a Feed-Forward Backpropagation Network. Electronics 2019, 8, 85. [CrossRef]
+27. Marinkovic, Z.; Kim, T.; Markovi´c, V.; Milijic, M.; Proni´c-Ranˇci´c, O.; Ciric, T.; Vietzorreck, L. Artificial Neural Network based
+Design of RF MEMS Capacitive Shunt Switches. Appl. Comput. Electromagn. Soc. J. 2016, 31, 756–764.
+28. Travassos, X.L.; Avila, S.L.; Ida, N. Artificial Neural Networks and Machine Learning techniques applied to Ground Penetrating
+Radar: A review. Appl. Comput. Inform. 2021, 17, 296–308. [CrossRef]
+29. Kabir, H.; Zhang, L.; Yu, M.; Aaen, P.H.; Wood, J.; Zhang, Q.J. Smart Modeling of Microwave Devices. IEEE Microw. Mag. 2010,
+11, 105–118. [CrossRef]
+30. Chen, Y.; Wang, S.; Ge, Y. A Survey on the Applications of Image Classification Based on Convolution Neural Network. In
+Proceedings of the 2022 IEEE Asia-Pacific Conference on Image Processing, Electronics and Computers (IPEC), Dalian, China,
+14–16 April 2022; pp. 381–384. [CrossRef]
+31. Li, H.; Chen, K.; Wang, L.; Liu, J.; Wan, B.; Zhou, B. Sound Source Separation Mechanisms of Different Deep Networks Explained
+from the Perspective of Auditory Perception. Appl. Sci. 2022, 12, 832. [CrossRef]
+32. Khandelwal, R.; Marfatia, P.; Shah, S.; Joshi, V.; Kamath, P.; Chavan, K. Financial Data Time Series Forecasting Using Neural
+Networks and a Comparative Study. In Proceedings of the 2022 International Conference for Advancement in Technology
+(ICONAT), Goa, India, 21–22 January 2022; pp. 1–6. [CrossRef]
+33. Rusen, V.; Krukonis, A.; Plonis, D. Prediction of Parameters of Semiconductor Band-pass Filters using Artificial Neural Network.
+In Proceedings of the 2020 IEEE 8th Workshop on Advances in Information, Electronic and Electrical Engineering (AIEEE),
+Vilnius, Lithuania, 22–24 April 2021; pp. 1–4. [CrossRef]
+34. Zhao, Z.; Feng, F.; Zhang, W.; Zhang, J.; Jin, J.; Zhang, Q.J. Parametric Modeling of EM Behavior of Microwave Components
+Using Combined Neural Networks and Hybrid-Based Transfer Functions. IEEE Access 2020, 8, 93922–93938. [CrossRef]
+35. Plonis, D.; Katkeviˇcius, A.; Gurskas, A.; Urbanaviˇcius, V.; Maskeliunas, R.; Damaševiˇcius, R. Prediction of Meander Delay System ¯
+Parameters for Internet-of-Things Devices Using Pareto-Optimal Artificial Neural Network and Multiple Linear Regression.
+IEEE Access 2020, 8, 39525–39535. [CrossRef]
+36. Tan, J.; Shao, Y.; Zhang, J.; Zhang, J. Artificial Neural Network Application in Prediction of Concrete Embedded Antenna
+Performance. In Proceedings of the 2021 15th European Conference on Antennas and Propagation (EuCAP), Dusseldorf,
+Germany, 22–26 March 2021; pp. 1–5. [CrossRef]
+37. Cheng, Q.; Ihalage, A.A.; Liu, Y.; Hao, Y. Compressive Sensing Radar Imaging with Convolutional Neural Networks. IEEE Access
+2020, 8, 212917–212926. [CrossRef]
+38. Ninomiya, H. A novel quasi-Newton-based optimization for neural network training incorporating Nesterov’s accelerated
+gradient. Nonlinear Theory Its Appl. IEICE 2017, 8, 289–301. [CrossRef]
+39. Sedaghat, M.; Trinchero, R.; Firouzeh, Z.H.; Canavero, F.G. Compressed Machine Learning-Based Inverse Model for Design
+Optimization of Microwave Components. IEEE Trans. Microw. Theory Tech. 2022, 70, 3415–3427. [CrossRef]
+40. Wen, H.; Chen, X.; Papagiannis, G.; Hu, C.; Li, Y. End-to-End Semi-supervised Learning for Differentiable Particle Filters. In
+Proceedings of the 2021 IEEE International Conference on Robotics and Automation (ICRA), Xi’an, China, 30 May–5 June 2021;
+pp. 5825–5831. [CrossRef]
+41. Gama, F.; Zilberstein, N.; Baraniuk, R.G.; Segarra, S. Unrolling Particles: Unsupervised Learning of Sampling Distributions. In
+Proceedings of the ICASSP 2022—2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP),
+Singapore, 23–27 May 2022; pp. 5498–5502. [CrossRef]
+42. Qi, G.J.; Luo, J. Small Data Challenges in Big Data Era: A Survey of Recent Progress on Unsupervised and Semi-Supervised
+Methods. IEEE Trans. Pattern Anal. Mach. Intell. 2022, 44, 2168–2187. [CrossRef] [PubMed]
+43. Famoriji, O.J.; Ogundepo, O.Y.; Qi, X. An Intelligent Deep Learning-Based Direction-of-Arrival Estimation Scheme Using
+Spherical Antenna Array with Unknown Mutual Coupling. IEEE Access 2020, 8, 179259–179271. [CrossRef]
+44. Jin, J.; Feng, F.; Zhang, J.; Yan, S.; Na, W.; Zhang, Q. A Novel Deep Neural Network Topology for Parametric Modeling of Passive
+Microwave Components. IEEE Access 2020, 8, 82273–82285. [CrossRef]
+45. Rethlefsen, M.L.; Kirtley, S.; Waffenschmidt, S.; Ayala, A.P.; Moher, D.; Page, M.J.; Koffel, J.B. PRISMA-S: An extension to the
+PRISMA Statement for Reporting Literature Searches in Systematic Reviews. Syst. Rev. 2021, 10, 39 [CrossRef]
+46. Khorsan, R.; Crawford, C. External Validity and Model Validity: A Conceptual Approach for Systematic Review Methodology.
+Evid.-Based Complement. Altern. Med. 2014, 2014, 694804. [CrossRef] [PubMed]
+47. Introduction to artificial neural networks. In Proceedings of the Proceedings Electronic Technology Directions to the Year 2000,
+Adelaide, Australia, 23–25 May 1995; pp. 36–62. [CrossRef]
+48. Zheng, N.; Mazumder, P. Fundamentals and Learning of Artificial Neural Networks. In Learning in Energy-Efficient Neuromorphic
+Computing: Algorithm and Architecture Co-Design; John Wiley & Sons: Hoboken, NJ, USA, 2020; pp. 11–60. [CrossRef]
+49. Alzubaidi, L.; Zhang, J.; Humaidi, A.J.; Dujaili, A.; Duan, Y.; Shamma, O.; Santamaría, J.; Fadhel, M.A.; Al-Amidie, M. Review of
+deep learning: Concepts, CNN architectures, challenges, applications, future directions. J. Big Data 2021, 8, 1–10. [CrossRef]
+50. Katkeviˇcius, A.; Mališauskas, V.; Plonis, D.; Serackis, A. Calculations of characteristics of microwave devices using artificial
+neural networks. Prz. Elektrotechniczny 2012, 88, 281–285.
+Electronics 2022, 11, 2360 19 of 21
+51. Fobar, D.; Phillips, L.; Wilhelm, A.; Chapman, P. Considerations for Training an Artificial Neural Network for Particle Type
+Identification. IEEE Trans. Nucl. Sci. 2021, 68, 2350–2357. [CrossRef]
+52. Kadlec, P. Design of Artificial Neural Network for Antenna Synthesis using the Optimization with Variable Number of
+Dimensions. In Proceedings of the 2022 32nd International Conference Radioelektronika (RADIOELEKTRONIKA), Kosice,
+Slovakia, 21–22 April 2022; pp. 1–6. [CrossRef]
+53. Mallioras, I.; Zaharis, Z.D.; Lazaridis, P.I.; Pantelopoulos, S. A Novel Realistic Approach of Adaptive Beamforming based on
+Deep Neural Networks. IEEE Trans. Antennas Propag. 2022, 1. [CrossRef]
+54. Oluyemi, O.; Laforge, P.; Bais, A. Artificial Neural Network for Microwave Filter Design using a Circuit Model. In Proceedings of
+the 2021 IEEE 19th International Symposium on Antenna Technology and Applied Electromagnetics (ANTEM), Winnipeg, MB,
+Canada, 8–11 August 2021; pp. 1–2. [CrossRef]
+55. Tang, Y.; Hu, W.; Xiao, J.; Lu, Z.; Li, Z.; Huang, Q.; Chen, Z.; Blaabjerg, F. RL-ANN-Based Minimum-Current-Stress Scheme for
+the Dual-Active-Bridge Converter with Triple-Phase-Shift Control. IEEE J. Emerg. Sel. Top. Power Electron. 2022, 10, 673–689.
+[CrossRef]
+56. Baghelani, M. Wide-Band Label-Free Selective Microwave Resonator-Based Sensors for Multi-Component Liquid Analysis. IEEE
+Sens. J. 2022, 22, 2128–2134. [CrossRef]
+57. Zingg, R.; Gupta, K. An approach for knowledge-aided-design (KAD) of microwave circuits using artificial neural networks.
+In Proceedings of the 2001 IEEE MTT-S International Microwave Sympsoium Digest (Cat. No.01CH37157), Phoenix, AZ, USA,
+20–24 May 2001; Volume 2, pp. 1011–1014. [CrossRef]
+58. Zhao, X.; Shi, C. Slow Wave Structure’ Internal Temperature Prediction Based on Experimental Data. In Proceedings of the 2021
+22nd International Vacuum Electronics Conference (IVEC), Rotterdam, The Netherlands, 27–30 April 2021; pp. 1–2. [CrossRef]
+59. Vasu Babua, K.; Das, S.; Naga Jyothi Sree, G.; Patel, S.K.; Pardha Saradhia, M.; Tagore, M.R.N. Design and development of
+miniaturized MIMO antenna using parasitic elements and Machine learning (ML) technique for lower sub 6 GHz 5G applications.
+AEU—Int. J. Electron. Commun. 2022, 153, 154281. [CrossRef]
+60. Chetioui, M.; Boudkhil, A.; Benabdallah, N.; Benahmed, N. Design and optimization of SIW patch antenna for Ku band
+applications using ANN algorithms. In Proceedings of the 2018 4th International Conference on Optimization and Applications
+(ICOA), Mohammedia, Morocco, 26–27 April 2018; pp. 1–4. [CrossRef]
+61. Vilovi´c, I.; Burum, N.; Brailo, M. Microstrip antenna design using neural networks optimized by PSO. In Proceedings of the
+ICECom 2013, Dubrovnik, Croatia, 14–16 October 2013; pp. 1–4. [CrossRef]
+62. Abbassi, P.k.; Badra, N.M.; Allam, A.M.M.; El-Rafei, A. WiFi Antenna Design and Modeling using Artificial Neural Networks.
+In Proceedings of the 2019 International Conference on Innovative Trends in Computer Engineering (ITCE), Aswan, Egypt,
+2–4 February 2019; pp. 270–274. [CrossRef]
+63. Saxena, P.; Pani, S. Design of Microstrip Patch Antenna amp; Its Analysis Through ANN for Terahertz Application. In Proceedings
+of the 2019 6th International Conference on Signal Processing and Integrated Networks (SPIN), Noida, India, 7–8 March 2019;
+pp. 391–394. [CrossRef]
+64. Kulshrestha, S.; Chakrabarty, S.B.; Mahajan, M.B. Application of Artificial Neural Network for Planar Printed Antenna
+Optimization. In Proceedings of the 2019 IEEE Indian Conference on Antennas and Propogation (InCAP), Ahmedabad, India,
+19–22 December 2019; pp. 1–5. [CrossRef]
+65. Prajapati, G.K.; Sadanandam, K.; Nalla, S. Artificial Intelligence based Antenna Design for Future Millimeter Wave Wireless
+Communication in Fifth Generation. In Proceedings of the 2020 International Conference on Computer Science, Engineering and
+Applications (ICCSEA), Gunupur, India, 13–14 March 2020; pp. 1–6. [CrossRef]
+66. Xuan Trung, N.V.; Bach Thuan, B.; Cuong, B.M.; Son Xuat, T.; Kiem, N.K.; Ngoc Chien, D. Modeling of Mobile Antenna
+optimization based on Artificial Neural Network. In Proceedings of the 2019 6th NAFOSTED Conference on Information and
+Computer Science (NICS), Hanoi, Vietnam, 12–13 December 2019; pp. 444–447. [CrossRef]
+67. Mahamdi, A.; Benkouda, S.; Bedra, S. Artificial Neural Network Model Analysis of Tunable Circular Microstrip Patch Antenna.
+In Proceedings of the 2019 International Conference on Advanced Systems and Emergent Technologies (IC_ASET), Hammamet,
+Tunisia, 19–22 March 2019; pp. 229–233. [CrossRef]
+68. AL˙I, D.; ELW˙I, T.; ÖZBAY, S. Metamaterial-based Printed Circuit Antenna for Biomedical Applications. Avrupa Bilim Teknol. Derg.
+2021, 2021, 12–15. [CrossRef]
+69. Luo, H.Y.; Hong, Y.; Lv, Y.H.; Shao, W. Parametric Modeling of UWB Antennas Using Convolutional Neural Networks. In
+Proceedings of the 2020 IEEE International Symposium on Antennas and Propagation and North American Radio Science
+Meeting, Montreal, QC, Canada, 5–10 July 2020; pp. 2055–2056. [CrossRef]
+70. Lovato, R.; Gong, X. Phased Antenna Array Beamforming using Convolutional Neural Networks. In Proceedings of the 2019 IEEE
+International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting, Atlanta, GA, USA, 7–12 July
+2019; pp. 1247–1248. [CrossRef]
+71. Lin, T.; Zhu, Y. Beamforming Design for Large-Scale Antenna Arrays Using Deep Learning. IEEE Wirel. Commun. Lett. 2020,
+9, 103–107. [CrossRef]
+72. Kondratieva, S.; Ovchinnikova, E.; Shmachilin, P.; Anosova, N. Artificial Neural Networks in Digital Antenna Arrays. In
+Proceedings of the 2019 International Conference on Engineering and Telecommunication (EnT), Dolgoprudny, Russia, 20–
+21 November 2019; pp. 1–4. [CrossRef]
+Electronics 2022, 11, 2360 20 of 21
+73. You, M.Y.; Lu, A.N.; Ye, Y.X.; Huang, K.; Jiang, B. A Review on Machine Learning-Based Radio Direction Finding. Math. Probl.
+Eng. 2020, 2020, 8345413. [CrossRef]
+74. Xiao, Y.; Yun, Z.; Iskander, M. AoA Estimation with Practical Antenna Arrays Using Neural Networks. In Proceedings of the
+2019 IEEE International Symposium on Antennas and Propagation and USNC-URSI Radio Science Meeting, Atlanta, GA, USA,
+7–12 July 2019; pp. 43–44. [CrossRef]
+75. Chen, M.; Gong, Y.; Mao, X. Deep Neural Network for Estimation of Direction of Arrival with Antenna Array. IEEE Access 2020,
+8, 140688–140698. [CrossRef]
+76. Lecci, M.; Testolina, P.; Rebato, M.; Testolin, A.; Zorzi, M. Machine Learning-Aided Design Of Thinned Antenna Arrays For
+Optimized Network Level Performance. In Proceedings of the 2020 14th European Conference on Antennas and Propagation
+(EuCAP), Copenhagen, Denmark, 15–20 March 2020; pp. 1–5. [CrossRef]
+77. Xiong, C.; Xiao, G. A Diagnosing Method for Phased Antenna Array Element Excitation Amplitude and Phase Failures Using
+Random Binary Matrices. IEEE Access 2020, 8, 33060–33071. [CrossRef]
+78. Alaukally, M.N.N.; Elwi, T.A.; Atilla, D.C. Miniaturized flexible metamaterial antenna of circularly polarized high gain-bandwidth
+product for radio frequency energy harvesting. Int. J. Commun. Syst. 2021, 35, e5024. [CrossRef]
+79. Huang, R.; Wong, V.W. Joint User Scheduling, Phase Shift Control, and Beamforming Optimization in Intelligent Reflecting
+Surface-Aided Systems. IEEE Trans. Wirel. Commun. 2022. [CrossRef]
+80. Kim, H.; Wu, J.; Park, Y.; Kim, S.; Shim, B. Deep Learning-Based Intelligent Reflecting Surface Phase Shift Control. In Proceedings
+of the 2021 IEEE 94th Vehicular Technology Conference (VTC2021-Fall), Norman, OK, USA, 27–30 September 2021; pp. 1–5.
+[CrossRef]
+81. Bohara, B.; Karbozov, A.; Krishnamoorthy, H.S. Triple Phase Shift Control of Dual Active Bridge Converter using Machine
+Learning Methods. In Proceedings of the 2022 IEEE Texas Power and Energy Conference (TPEC), College Station, TX, USA, 28
+February–1 March 2022; pp. 1–6. [CrossRef]
+82. Lin, F.; Zhang, X.; Li, X.; Sun, C.; Cai, W.; Zhang, Z. Automatic Triple Phase-Shift Modulation for DAB Converter with Minimized
+Power Loss. IEEE Trans. Ind. Appl. 2022, 58, 3840–3851. [CrossRef]
+83. Wang, Y.; Zhang, W.; Zhu, D.; Zhang, N.; Li, X.; Zhang, X. Nonlinear Phase Shift Estimation in Coherent Optical Communication
+Systems with Neural Networks. In Proceedings of the 2020 Opto-Electronics and Communications Conference (OECC), Taipei,
+Taiwan, 4–8 October 2020; pp. 1–3. [CrossRef]
+84. Meenakshisundaram, V.; Osterloh, D.; Lietuvninkas, A.; Massman, J.; Tumpak, J.; Deaton, J.; Buskohl, P. Design of Graded
+Dielectric Waveguides with Preferential Band-Pass Frequencies. In Proceedings of the 2019 International Applied Computational
+Electromagnetics Society Symposium (ACES), Nanjing, China, 8–11 August 2019; pp. 1–2.
+85. Hu, X.; Buris, N.E. A Deep Learning Framework for Solving Rectangular Waveguide Problems. In Proceedings of the 2020 IEEE
+Asia-Pacific Microwave Conference (APMC), Hong Kong, China, 8–11 December 2020; pp. 409–411. [CrossRef]
+86. Anderson, D.S.; Juarez, C.D.S.; Rodriguez-Esquerre, V.F.; Zhaowei, L. Artificial Neural Networks Approach for the Analysis and
+Synthesis of Metamaterial Waveguides. Metamaterials Metadevices Metasyst. 2020, 11460, 1–5. [CrossRef]
+87. Sam, K.S.; Goay, C.H.; Ahmad, N.S.; Goh, P. Artificial Neural Network Modeling of Meander Lines for Delay based Applications.
+Int. J. Recent Technol. Eng. (IJRTE) 2019, 8, 1372–1377.
+88. Liu, W.; Zhu, L.; Feng, F.; Zhang, W.; Zhang, Q.J.; Lin, Q.; Liu, G. A Time Delay Neural Network Based Technique for Nonlinear
+Microwave Device Modeling. Micromachines 2020, 11, 831. [CrossRef] [PubMed]
+89. Medeiros, D.S.V.; Cunha Neto, H.N.; Lopez, M.A.; Magalhães, L.C.S.; Fernandes, N.C.; Vieira, A.B.; Silva, E.F.; Mattos, D.M.F. A
+survey on data analysis on large-Scale wireless networks: Online stream processing, trends, and challenges. J. Internet Serv. Appl.
+2020, 11, 1–48. [CrossRef]
+90. Lu, J.; Fan, Q.; Zhou, G.; Lu, L.; Yu, C.; Lau, A.P.T.; Lu, C. Automated training dataset collection system design for machine
+learning application in optical networks: An example of quality of transmission estimation. J. Opt. Commun. Netw. 2021,
+13, 289–300. [CrossRef]
+91. Mishra, S.; Yadav, R.N.; Singh, R.P. Neural Networks in Smart Antenna Design for Co-channel Interference (CCI) Reduction:
+A Review. In Proceedings of the 2009 Fifth International Conference on Wireless and Mobile Communications, Cannes/La Bocca,
+France, 23–29 August 2009; pp. 228–233. [CrossRef]
+92. Xiao, L.Y.; Shao, W.; Ding, X.; Wang, B.Z.; Joines, W.T.; Liu, Q.H. Parametric Modeling of Microwave Components Based on
+Semi-Supervised Learning. IEEE Access 2019, 7, 35890–35897. [CrossRef]
+93. Musumeci, F.; Magni, L.; Ayoub, O.; Rubino, R.; Capacchione, M.; Rigamonti, G.; Milano, M.; Passera, C.; Tornatore, M.
+Supervised and Semi-Supervised Learning for Failure Identification in Microwave Networks. IEEE Trans. Netw. Serv. Manag.
+2021, 18, 1934–1945. [CrossRef]
+94. Yang, X.; Song, Z.; King, I.; Xu, Z. A Survey on Deep Semi-supervised Learning. arXiv 2021, arXiv:abs/2103.00550.
+95. Zhang, Y.; Zhao, Z. Limited Data Spectrum Sensing Based on Semi-Supervised Deep Neural Network. IEEE Access 2021,
+9, 166423–166435. [CrossRef]
+96. Xiao, L.Y.; Shao, W.; Jin, F.L.; Wang, B.Z.; Joines, W.T.; Liu, Q.H. Semisupervised Radial Basis Function Neural Network with an
+Effective Sampling Strategy. IEEE Trans. Microw. Theory Tech. 2020, 68, 1260–1269. [CrossRef]
+Electronics 2022, 11, 2360 21 of 21
+97. Javali, A.; Sahoo, A.; Gupta, J. Machine Learning Algorithms in Smart Antenna and Arrays for Internet of Things Applications.
+In Proceedings of the 2021 International Conference on Artificial Intelligence and Smart Systems (ICAIS), Coimbatore, India,
+25–27 March 2021; pp. 297–301. [CrossRef]
+98. Huang, H.; Xia, W.; Xiong, J.; Yang, J.; Zheng, G.; Zhu, X. Unsupervised Learning Based Fast Beamforming Design for Downlink
+MIMO. IEEE Access 2018, 7, 7599–7605. [CrossRef]
+99. Khan, M.M.; Hossain, S.; Mozumdar, P.; Akter, S.; Ashique, R.H. A review on machine learning and deep learning for various
+antenna design applications. Heliyon 2022, 8, e09317. [CrossRef] [PubMed]
+100. Liu, Z.; Yang, Y.; Gao, F.; Zhou, T.; Ma, H. Deep Unsupervised Learning for Joint Antenna Selection and Hybrid Beamforming.
+IEEE Trans. Commun. 2022, 70, 1697–1710. [CrossRef]
+101. Schmarje, L.; Santarossa, M.; Schröder, S.M.; Koch, R. A Survey on Semi-, Self- and Unsupervised Learning for Image Classification.
+IEEE Access 2021, 9, 82146–82168. [CrossRef]
+102. Peng, S.; Cao, W.; Bi, L.; Yuan, Y.; Wu, M. A tuning strategy for microwave filter using variable universe adaptive fuzzy logic
+system. In Proceedings of the 2021 China Automation Congress (CAC), Beijing, China, 22–24 October 2021; pp. 6061–6066.
+[CrossRef]
+103. Valdivia, G.R. Fuzzy Logic based Method for the Extraction of Extrinsic and Intrinsic Elements of Microwave Transistors. Int. J.
+Innov. Technol. Explor. Eng. (IJITEE) 2019, 9, 3911–3914. [CrossRef]
+104. Hinojosa, J.; Quesada Pereira, F.D.; Martínez-Mendoza, M.; Alvarez-Melcón, A. Optimization-Oriented Design of RF/Microwave
+Circuits Using Inverse-Linear-Input Neuro-Fuzzy-Output Space Mapping with Two Different Dimensionality Simulators. IEEE
+Trans. Circuits Syst. I Regul. Pap. 2011, 58, 176–185. [CrossRef]
+105. Karpuz, C.; ˙Inan, O.; Görür, A. Calculation of quasistatic parameters for asymmetric coplanar waveguides using fuzzy logic. In
+Proceedings of the 2014 Asia-Pacific Microwave Conference, Sendai, Japan, 4–7 November 2014; pp. 298–300.
+106. Yakubu, H.S.; Thomas, S.; Hussein, S.U.; Anye, V.; Koyunlu, G.; Oshiga, O. Azimuth Position Control for Deep Space
+Antenna using Fuzzy Logic Controller. In Proceedings of the 2019 15th International Conference on Electronics, Computer and
+Computation (ICECCO), Abuja, Nigeria, 10–12 December 2019; pp. 1–6. [CrossRef]
+107. Vaskovic, M.; Kodogiannis, V.; Budimir, D. An Adaptive Fuzzy Logic System for the Compensation of Nonlinear Distortion in
+Wireless Power Amplifiers. Neural Comput. Appl. 2018, 30, 2539–2554. [CrossRef]
+108. Shah, F.M.; Maqsood, S.; Damaševiˇcius, R.; Blažauskas, T. Disturbance rejection and control design of mvdc converter with
+evaluation of power loss and efficiency comparison of sic and si based power devices. Electronics 2020, 9, 1878. [CrossRef]
+109. de Souza, G.A.F.; dos Santos, R.B.; de Abreu Faria, L. Low-Power Current-Mode Interval Type-2 Fuzzy Inference Engine Circuit.
+IEEE Trans. Circuits Syst. I Regul. Pap. 2019, 66, 2639–2650. [CrossRef]
+110. Tynchenko, V.S.; Milov, A.V.; Bukhtoyarov, V.V.; Kukartsev, V.V.; Tynchenko, V.V.; Bashmur, K.A. Control of the technological
+process of the waveguide paths induction soldering in the framework of Industry 4.0. J. Phys. Conf. Ser. 2019, 1399, 044087.
+[CrossRef]
+111. Ching, H. Fuzzy Logic: The Genius of Lofti Zadeh [My View]. IEEE Ind. Electron. Mag. 2017, 11, 6–37. [CrossRef]
+112. Naah, G.; Giofrè, R. Empowering the Bandwidth of Continuous-Mode Symmetrical Doherty Amplifiers by Leveraging on Fuzzy
+Logic Techniques. IEEE Trans. Microw. Theory Tech. 2020, 68, 3134–3147. [CrossRef]
+113. Vardhana, M. Fuzzy Logic Based Performance Analysis of Various Antenna Structures. Int. J. Grid Distrib. Comput. 2019, 12, 1–10.
+[CrossRef]
