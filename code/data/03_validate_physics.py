@@ -1,5 +1,5 @@
 """
-03_validate_physics.py — Audit the clean dataset for CeSRR structural constraints.
+03_validate_physics.py -- Audit the clean dataset for CeSRR structural constraints.
 
 Checks:
   1. Ordering constraint: r1 > r2 > r3 > r4
@@ -36,9 +36,9 @@ from utils.config import (
 )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Per-record physics checks
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def check_ordering_series(row: pd.Series) -> bool:
     """r1 > r2 > r3 > r4"""
@@ -62,10 +62,10 @@ def validate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     Append validation flag columns to df.
 
     New columns:
-        valid_ordering  : bool — r1>r2>r3>r4
-        valid_bounds    : bool — all params within PARAM_BOUNDS
-        valid_freq      : bool — freq within FREQ_BOUNDS
-        valid_all       : bool — all three checks pass
+        valid_ordering  : bool -- r1>r2>r3>r4
+        valid_bounds    : bool -- all params within PARAM_BOUNDS
+        valid_freq      : bool -- freq within FREQ_BOUNDS
+        valid_all       : bool -- all three checks pass
     """
     df = df.copy()
 
@@ -92,7 +92,7 @@ def print_validation_report(df_val: pd.DataFrame):
         for rot in sorted(df_val[ROTATION_COL].unique()):
             sub = df_val[df_val[ROTATION_COL] == rot]
             rate = sub["valid_all"].mean() * 100
-            log.info(f"  Rotation {rot}°: {rate:.1f}% fully valid")
+            log.info(f"  Rotation {rot}deg: {rate:.1f}% fully valid")
 
 
 def plot_violation_rates(df_val: pd.DataFrame, out_path: Path):
@@ -114,7 +114,7 @@ def plot_violation_rates(df_val: pd.DataFrame, out_path: Path):
                   color=["#e07b54", "#5b8db8", "#6dbf67", "#9966cc"],
                   edgecolor="white", linewidth=0.8)
     ax.set_ylabel("Violation rate (%)", fontsize=11)
-    ax.set_title("CeSRR Dataset — Physics Constraint Violation Rates", fontsize=12)
+    ax.set_title("CeSRR Dataset -- Physics Constraint Violation Rates", fontsize=12)
     ax.set_ylim(0, max(violation_rates) * 1.3 + 1)
     for bar, rate in zip(bars, violation_rates):
         ax.text(bar.get_x() + bar.get_width() / 2,
@@ -127,9 +127,9 @@ def plot_violation_rates(df_val: pd.DataFrame, out_path: Path):
     log.info(f"Figure 3 saved: {out_path}")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Main
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def main():
     src = DATA_PROC_DIR / "D0_clean.csv"
@@ -146,7 +146,7 @@ def main():
     df_val.to_csv(report_path, index=False)
     log.info(f"Validation report saved: {report_path}")
 
-    print("\n── Validation Summary ──")
+    print("\n-- Validation Summary --")
     print_validation_report(df_val)
 
     # Save D1: only fully valid records
@@ -156,12 +156,12 @@ def main():
 
     out = DATA_PROC_DIR / "D1_validated.csv"
     df_d1.to_csv(out, index=False)
-    log.info(f"D1 (valid only): {len(df_d1)} records → {out}")
+    log.info(f"D1 (valid only): {len(df_d1)} records -> {out}")
 
     # Plot Figure 3
     plot_violation_rates(df_val, FIGURES_DIR / "fig03_violation_rates.png")
 
-    print(f"\n✅ Step 03 complete. {len(df_d1)} valid records → {out}")
+    print(f"\n[OK] Step 03 complete. {len(df_d1)} valid records -> {out}")
 
 
 if __name__ == "__main__":

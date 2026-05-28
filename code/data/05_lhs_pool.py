@@ -1,5 +1,5 @@
 """
-05_lhs_pool.py — Generate a Latin Hypercube Sampling unlabelled pool for
+05_lhs_pool.py -- Generate a Latin Hypercube Sampling unlabelled pool for
                  active learning and low-fidelity oracle evaluation.
 
 Produces:
@@ -67,11 +67,11 @@ def generate_lhs_pool(
         n_before = len(df)
         df = df[ordering_mask].reset_index(drop=True)
         log.info(
-            f"Ordering filter: {n_before} → {len(df)} candidates "
+            f"Ordering filter: {n_before} -> {len(df)} candidates "
             f"({100*len(df)/n_before:.1f}% valid)"
         )
 
-    # Tag as unlabelled (no freq_ghz assigned — will be filled by oracle or CST)
+    # Tag as unlabelled (no freq_ghz assigned -- will be filled by oracle or CST)
     df["freq_ghz"] = np.nan
     df["rotation"] = 0      # default; AL can query both rotations
     df["source"] = "lhs_pool"
@@ -87,11 +87,11 @@ def main():
     DATA_PROC_DIR.mkdir(parents=True, exist_ok=True)
     df_pool.to_csv(out, index=False)
 
-    print(f"\n── LHS Pool ──")
+    print(f"\n-- LHS Pool --")
     print(f"  Requested : {LHS_N_CANDIDATES} samples")
     print(f"  Valid     : {len(df_pool)} candidates (after ordering filter)")
     print(f"  Columns   : {list(df_pool.columns)}")
-    print(f"\n✅ Step 05 complete → {out}")
+    print(f"\n[OK] Step 05 complete -> {out}")
 
 
 if __name__ == "__main__":

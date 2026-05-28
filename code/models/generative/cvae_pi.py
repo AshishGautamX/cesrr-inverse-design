@@ -1,16 +1,16 @@
 """
-cvae_pi.py — Physics-Informed cVAE (M2/M3/FULL model).
+cvae_pi.py -- Physics-Informed cVAE (M2/M3/FULL model).
 
 Extends CVAEBase with:
-  - Soft physics loss (ordering + bounds penalties in ELBO) → M2
-  - Hard isotonic projection on decoder output                → M3
-  - Both → FULL (used with MF data and AL)
+  - Soft physics loss (ordering + bounds penalties in ELBO) -> M2
+  - Hard isotonic projection on decoder output                -> M3
+  - Both -> FULL (used with MF data and AL)
 
 Loss:
   L_total = L_recon + β·L_KL + λ_order·L_order + λ_bounds·L_bounds
 
 The hard projection (IsotonicProjectionLayer) is applied AFTER the soft
-penalty training: the projection ensures r1≥r2≥r3≥r4 at inference regardless
+penalty training: the projection ensures r1>=r2>=r3>=r4 at inference regardless
 of the penalty weight, while the soft penalty guides gradient descent toward
 the feasible region during training.
 """
@@ -177,7 +177,7 @@ class PICVAEModel:
             else "PI-cVAE (soft only)" if self.use_soft_physics
             else "cVAE-base"
         )
-        log.info("Training %s (%d samples)…", model_name, len(X_tr))
+        log.info("Training %s (%d samples)...", model_name, len(X_tr))
 
         for epoch in range(1, CVAE_MAX_EPOCHS + 1):
             self._model.train()
@@ -190,17 +190,11 @@ class PICVAEModel:
                 # ELBO loss (on projected output for reconstruction)
                 elbo, _, _ = elbo_loss(x_recon, xb, mu_z, logvar_z, self.beta_kl)
 
-                # Physics penalty on raw pre-projection output (gradients flow better)
+                # Physics penalty on raw pre-projection output.
+                # x_recon_raw is in [0,1] MinMax-scaled space -- correct input
+                # for loss_physics functions (see loss_physics.py docstring).
                 phys_total = torch.tensor(0.0, device=DEVICE)
                 if self.use_soft_physics and self._phys_loss is not None:
-                    # Inverse-scale x_recon_raw to mm for physics loss
-                    x_mm = torch.tensor(
-                        self.scaler.inverse_transform_features(
-                            x_recon_raw.detach().cpu().numpy()
-                        ),
-                        dtype=torch.float32, device=DEVICE, requires_grad=False,
-                    )
-                    # Re-run decoder in a differentiable way
                     phys_total, _ = self._phys_loss(x_recon_raw)
 
                 total_loss = elbo + phys_total
@@ -249,14 +243,23 @@ class PICVAEModel:
         MC-Dropout uncertainty: run encoder n_mc times with dropout active,
         compute variance across z samples.
 
+        Handles unlabelled pool candidates (NaN freq_ghz) by filling with
+        the training data median frequency before building the condition.
+
         Returns
         -------
         (N,) array of uncertainty scores (sum of variance across z dims)
         """
+        df_c = df.copy()
+        if df_c["freq_ghz"].isna().any():
+            # Unlabelled pool: fill NaN freq with midpoint of training freq range
+            median_freq = float(self.scaler.tgt_scaler.inverse_transform([[0.5]])[0, 0])
+            df_c["freq_ghz"] = df_c["freq_ghz"].fillna(median_freq)
+
         C = torch.tensor(
-            build_condition(df, self.scaler), dtype=torch.float32, device=DEVICE)
+            build_condition(df_c, self.scaler), dtype=torch.float32, device=DEVICE)
         X = torch.tensor(
-            self.scaler.transform_features(df), dtype=torch.float32, device=DEVICE)
+            self.scaler.transform_features(df_c), dtype=torch.float32, device=DEVICE)
 
         # Activate dropout for MC sampling
         self._model.train()

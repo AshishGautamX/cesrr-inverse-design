@@ -1,5 +1,5 @@
 """
-lf_oracle.py — Low-fidelity oracle wrapping the analytical CeSRR LC model.
+lf_oracle.py -- Low-fidelity oracle wrapping the analytical CeSRR LC model.
 
 The oracle interface is used by:
   - 06_build_datasets.py  (label LHS pool with LF frequencies)
@@ -121,9 +121,9 @@ class LFOracle:
         return df
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Quick self-test
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 if __name__ == "__main__":
     oracle = LFOracle()
     f = oracle.predict_freq(r1=42.8, r2=40.8, r3=34.8, r4=20.0, t=1.0)

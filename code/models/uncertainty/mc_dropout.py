@@ -1,5 +1,5 @@
 """
-mc_dropout.py — MC-Dropout uncertainty estimation for PI-cVAE.
+mc_dropout.py -- MC-Dropout uncertainty estimation for PI-cVAE.
 
 At training time, dropout is standard regularisation.
 At inference time, keep dropout *active* and run N forward passes.
@@ -70,10 +70,18 @@ def mc_dropout_uncertainty(
     if device is None:
         device = next(model.parameters()).device
 
+    # Handle unlabelled pool candidates (freq_ghz = NaN)
+    # Fill NaN with midpoint of the scaler's target range
+    import pandas as pd
+    df_safe = df.copy()
+    if df_safe["freq_ghz"].isna().any():
+        midpoint = float(scaler.tgt_scaler.inverse_transform([[0.5]])[0, 0])
+        df_safe["freq_ghz"] = df_safe["freq_ghz"].fillna(midpoint)
+
     X = torch.tensor(
-        scaler.transform_features(df), dtype=torch.float32, device=device)
+        scaler.transform_features(df_safe), dtype=torch.float32, device=device)
     C = torch.tensor(
-        build_condition(df, scaler), dtype=torch.float32, device=device)
+        build_condition(df_safe, scaler), dtype=torch.float32, device=device)
 
     # Activate dropout
     enable_mc_dropout(model)
@@ -104,7 +112,7 @@ def mc_dropout_geometry_samples(
 
     Returns
     -------
-    (N × n_mc, 9) array of geometry proposals in mm.
+    (N x n_mc, 9) array of geometry proposals in mm.
     """
     if device is None:
         device = next(model.parameters()).device

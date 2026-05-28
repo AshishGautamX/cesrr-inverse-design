@@ -1,9 +1,9 @@
 """
-projection_layer.py — Isotonic projection layer enforcing r1 > r2 > r3 > r4.
+projection_layer.py -- Isotonic projection layer enforcing r1 > r2 > r3 > r4.
 
 This implements a *hard* constraint (vs the soft penalty in loss_physics.py).
 At inference time, the decoder output for (r1, r2, r3, r4) is projected onto
-the isotonic cone so that the ordering is always satisfied — even if the
+the isotonic cone so that the ordering is always satisfied -- even if the
 decoder initially violates it.
 
 Method: Isotonic regression (Pool Adjacent Violators algorithm) applied in
@@ -23,13 +23,13 @@ def isotonic_descending(x: torch.Tensor) -> torch.Tensor:
     """
     Project a batch of 1-D vectors onto the descending isotonic cone.
 
-    That is, find ŷ = argmin_{y: y₁≥y₂≥…≥yₙ} ||y - x||²
+    That is, find ŷ = argmin_{y: y₁>=y₂>=...>=yₙ} ||y - x||2
 
     Uses the Pool Adjacent Violators (PAV) algorithm.
 
     Parameters
     ----------
-    x : (B, K) tensor  — we want each row to be non-increasing.
+    x : (B, K) tensor  -- we want each row to be non-increasing.
 
     Returns
     -------
@@ -89,7 +89,7 @@ def _pav_ascending(y: np.ndarray) -> np.ndarray:
 class IsotonicProjectionLayer(nn.Module):
     """
     Hard projection of decoder output for (r1, r2, r3, r4) onto the
-    descending isotonic cone (r1 ≥ r2 ≥ r3 ≥ r4).
+    descending isotonic cone (r1 >= r2 >= r3 >= r4).
 
     Wraps a base decoder and post-processes only the first 4 output dimensions.
     The remaining 5 dimensions (t, d1, d2, h, p) pass through unchanged.
@@ -118,7 +118,7 @@ class IsotonicProjectionLayer(nn.Module):
 
         Returns
         -------
-        (B, 9) tensor with r1 ≥ r2 ≥ r3 ≥ r4 guaranteed.
+        (B, 9) tensor with r1 >= r2 >= r3 >= r4 guaranteed.
         """
         radii   = x[:, :4]         # (B, 4)
         rest    = x[:, 4:]         # (B, 5)
@@ -140,7 +140,7 @@ class IsotonicProjectionLayer(nn.Module):
         """
         r = radii.clone()
         # Enforce from r4 upward
-        for i in range(2, -1, -1):   # i = 2,1,0 → gaps r3<r2, r2<r1
+        for i in range(2, -1, -1):   # i = 2,1,0 -> gaps r3<r2, r2<r1
             gap = r[:, i] - r[:, i + 1]
             deficit = torch.relu(self.min_gap - gap)
             r[:, i] = r[:, i] + deficit

@@ -1,13 +1,13 @@
 """
-dispersion_relation.py — Bloch-Floquet dispersion for CeSRR-loaded waveguide.
+dispersion_relation.py -- Bloch-Floquet dispersion for CeSRR-loaded waveguide.
 
 Computes the normalised phase advance β·p vs frequency curve for a periodic
 CeSRR-loaded circular waveguide, based on the transmission-matrix (ABCD) method.
 
 This gives:
-  1. The dispersion diagram (β·p vs ω) — useful for bandwidth estimation
-  2. The slow-wave factor (SWF) = c/vp = c·β/ω — design metric
-  3. The group velocity vg = dω/dβ — identifies backward-wave regime
+  1. The dispersion diagram (β·p vs ω) -- useful for bandwidth estimation
+  2. The slow-wave factor (SWF) = c/vp = c·β/ω -- design metric
+  3. The group velocity vg = dω/dβ -- identifies backward-wave regime
 
 These quantities supplement the LC resonant frequency as additional
 physics-informed features that can be fed into the MF-GP.
@@ -41,7 +41,7 @@ def waveguide_cutoff_freq(R_wg_mm: float, mode: str = "TE11") -> float:
     fc in GHz
     """
     R = R_wg_mm * 1e-3
-    # First zeros of Bessel functions: TE11 → 1.841, TM01 → 2.405
+    # First zeros of Bessel functions: TE11 -> 1.841, TM01 -> 2.405
     chi = {"TE11": 1.8412, "TM01": 2.4048}.get(mode, 1.8412)
     fc = (C_LIGHT * chi) / (2 * np.pi * R)
     return fc / 1e9
@@ -57,7 +57,7 @@ def transfer_matrix_unit_cell(
 
     Models the unit cell as a shunt LC resonator in a transmission line:
       [A B]   [1    0  ]   [1  Z0·Δl/λ]
-      [C D] = [Y_sh 1  ] × [0      1   ]
+      [C D] = [Y_sh 1  ] x [0      1   ]
 
     where Y_sh = 1/(jωL_eff - 1/(jωC_eff)) is the shunt admittance of the
     CeSRR resonator.
@@ -69,7 +69,7 @@ def transfer_matrix_unit_cell(
 
     Returns
     -------
-    2×2 complex ABCD matrix, or None if unphysical.
+    2x2 complex ABCD matrix, or None if unphysical.
     """
     from analytical.cesrr_lc_model import (
         inductance_circular_loop,
@@ -117,7 +117,7 @@ def transfer_matrix_unit_cell(
         [1.0 / Z_res, 1.0]
     ], dtype=complex)
 
-    # Combined unit-cell ABCD = T_line × T_shunt
+    # Combined unit-cell ABCD = T_line x T_shunt
     T = T_line @ T_shunt
     return T
 
@@ -158,7 +158,7 @@ def compute_dispersion(
         A, D = T[0, 0], T[1, 1]
         cos_bp = 0.5 * (A + D).real  # take real part only
 
-        # Passband condition: |cos(β·p)| ≤ 1
+        # Passband condition: |cos(β·p)| <= 1
         if abs(cos_bp) <= 1.0:
             bp = np.arccos(np.clip(cos_bp, -1.0, 1.0))
             beta_p_arr[i] = bp
@@ -177,9 +177,9 @@ def compute_dispersion(
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Standalone demo
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 if __name__ == "__main__":
     import sys
     from pathlib import Path
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     if n_pass > 0:
         f_pass = disp["f_ghz"][disp["is_passband"]]
         swf    = disp["slow_wave_factor"][disp["is_passband"]]
-        print(f"Passband: {f_pass[0]:.2f} – {f_pass[-1]:.2f} GHz")
+        print(f"Passband: {f_pass[0]:.2f} - {f_pass[-1]:.2f} GHz")
         print(f"Mean SWF in passband: {np.nanmean(swf):.2f}")
     else:
         print("No passband found for these parameters.")

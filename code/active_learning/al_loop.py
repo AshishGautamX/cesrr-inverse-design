@@ -1,11 +1,11 @@
 """
-al_loop.py — Active Learning orchestration loop.
+al_loop.py -- Active Learning orchestration loop.
 
 Algorithm:
   1. Start with D_init (small labelled subset from D1)
   2. Fit PI-cVAE on D_init
   3. Score unlabelled pool via MC-Dropout BALD acquisition
-  4. Query top-k points → label via analytical LF oracle (cheap)
+  4. Query top-k points -> label via analytical LF oracle (cheap)
   5. Add to labelled set; repeat for N_ROUNDS
   6. Log MAE vs. #oracle_queries curve (paper Figure 5)
 
@@ -121,11 +121,11 @@ class ActiveLearningLoop:
         )
 
         for round_i in range(self.n_rounds + 1):  # +1 for round 0 (baseline)
-            # ── Train model on current labelled set ───────────────────────
+            # -- Train model on current labelled set -----------------------
             model = self.model_cls(**self.model_kwargs)
             model.fit(df_labelled)
 
-            # ── Evaluate on test set ──────────────────────────────────────
+            # -- Evaluate on test set --------------------------------------
             eval_result = model.evaluate(df_test, n_samples=10)
             feas = eval_result.get("feasibility_rate", np.nan)
 
@@ -149,7 +149,7 @@ class ActiveLearningLoop:
             if round_i == self.n_rounds:
                 break  # final eval done, stop
 
-            # ── Score unlabelled pool ────────────────────────────────────
+            # -- Score unlabelled pool ------------------------------------
             uncertainties = mc_dropout_uncertainty(
                 model._model, df_lhs_pool, model.scaler
             )
@@ -161,7 +161,7 @@ class ActiveLearningLoop:
                 uncertainties=uncertainties,
             )
 
-            # ── Label selected points via oracle ─────────────────────────
+            # -- Label selected points via oracle -------------------------
             new_records = []
             for idx in selected:
                 if idx in labelled_idx:

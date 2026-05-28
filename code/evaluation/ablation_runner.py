@@ -1,16 +1,16 @@
 """
-ablation_runner.py — Run all 9 ablation configurations and collect results.
+ablation_runner.py -- Run all 9 ablation configurations and collect results.
 
 Ablation matrix (from plan):
-  B1  GP_Matern       — primary surrogate baseline
-  B2  RIGID           — RF+MCMC, 2024 small-data SOTA
-  B3  Tandem_MLP      — standard inverse design method
-  B4  cVAE_noPhysics  — ablation: no physics constraints
-  M1  MF_GP           — novel: multi-fidelity GP
-  M2  PIcVAE_soft     — novel: soft ordering+bounds penalty only
-  M3  PIcVAE_hard     — novel: soft + hard isotonic projection
-  M4  M3_MF           — M3 trained on MF-augmented data
-  FULL M4+AL          — full system with active learning
+  B1  GP_Matern       -- primary surrogate baseline
+  B2  RIGID           -- RF+MCMC, 2024 small-data SOTA
+  B3  Tandem_MLP      -- standard inverse design method
+  B4  cVAE_noPhysics  -- ablation: no physics constraints
+  M1  MF_GP           -- novel: multi-fidelity GP
+  M2  PIcVAE_soft     -- novel: soft ordering+bounds penalty only
+  M3  PIcVAE_hard     -- novel: soft + hard isotonic projection
+  M4  M3_MF           -- M3 trained on MF-augmented data
+  FULL M4+AL          -- full system with active learning
 
 Produces results/ablation_results.json and calls plot_all.py for Figure 8.
 """
@@ -35,9 +35,9 @@ from evaluation.metrics import build_ablation_table, design_diversity
 log = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Per-configuration runner functions
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def run_b1_gp(df_tr, df_te) -> dict:
     from models.baselines.gp_surrogate import GPSurrogate
@@ -112,9 +112,9 @@ def run_full(df_hf_tr, df_te, df_lf, df_lhs_pool) -> dict:
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Main ablation runner
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def run_all_ablations(
     run_full_system: bool = False,
@@ -157,7 +157,7 @@ def run_all_ablations(
         )
 
     for name, runner in configs:
-        log.info("Running config: %s…", name)
+        log.info("Running config: %s...", name)
         t0 = time.time()
         try:
             result = runner()
@@ -185,7 +185,7 @@ def run_all_ablations(
         df_summary.to_csv(out_csv)
         log.info("Ablation summary saved: %s", out_csv)
 
-    print("\n── Ablation Summary Table ──")
+    print("\n-- Ablation Summary Table --")
     print(df_summary.to_string())
     return df_summary
 

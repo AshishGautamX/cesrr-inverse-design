@@ -1,5 +1,5 @@
 """
-al_metrics.py — Tracker and plotter for AL efficiency curves (paper Figure 5).
+al_metrics.py -- Tracker and plotter for AL efficiency curves (paper Figure 5).
 
 Tracks per-round metrics and produces:
   - MAE / feasibility rate vs. #oracle_queries
@@ -57,7 +57,7 @@ class ALMetricsTracker:
         self.records.append(rec)
 
     def summary(self) -> str:
-        lines = [f"\n── {self.name} AL Efficiency ──"]
+        lines = [f"\n-- {self.name} AL Efficiency --"]
         lines.append(f"{'Round':>6} {'Queries':>8} {'Labelled':>9} {'Feasibility':>12}")
         for r in self.records:
             lines.append(

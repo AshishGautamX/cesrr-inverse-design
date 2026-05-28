@@ -1,5 +1,5 @@
 """
-data_utils.py — Shared data loading, scaling, and splitting utilities.
+data_utils.py -- Shared data loading, scaling, and splitting utilities.
 
 Used by every training script to ensure consistent preprocessing.
 """
@@ -21,9 +21,9 @@ from utils.config import (
 log = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Dataset loaders
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def load_processed(split: str = "all") -> pd.DataFrame:
     """
@@ -32,10 +32,10 @@ def load_processed(split: str = "all") -> pd.DataFrame:
     Parameters
     ----------
     split : str
-        "all"   → full dataset (D2 augmented)
-        "hf"    → high-fidelity only (original 111 CST records)
-        "lf"    → low-fidelity analytical predictions
-        "raw"   → raw validated records before augmentation (D1)
+        "all"   -> full dataset (D2 augmented)
+        "hf"    -> high-fidelity only (original 111 CST records)
+        "lf"    -> low-fidelity analytical predictions
+        "raw"   -> raw validated records before augmentation (D1)
 
     Returns
     -------
@@ -67,7 +67,7 @@ def load_combined_hf_lf() -> tuple[pd.DataFrame, pd.DataFrame]:
 
     Returns
     -------
-    (df_hf, df_lf) — both DataFrames share the same column schema,
+    (df_hf, df_lf) -- both DataFrames share the same column schema,
     with an additional 'fidelity' column ('hf' or 'lf').
     """
     df_hf = load_processed("hf").copy()
@@ -77,9 +77,9 @@ def load_combined_hf_lf() -> tuple[pd.DataFrame, pd.DataFrame]:
     return df_hf, df_lf
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Physics constraint checkers
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def check_ordering(row: pd.Series) -> bool:
     """Return True if r1 > r2 > r3 > r4 (CeSRR structural constraint)."""
@@ -121,9 +121,9 @@ def feasibility_rate(df: pd.DataFrame) -> float:
     return df.apply(check_ordering, axis=1).mean()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Scaling (fit only on training data, never on test/val)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class CeSRRScaler:
     """
@@ -178,9 +178,9 @@ class CeSRRScaler:
             raise RuntimeError("Scaler must be fitted before transform.")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Train / validation / test splitting
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def train_test_split_stratified(
     df: pd.DataFrame,
@@ -188,7 +188,7 @@ def train_test_split_stratified(
     seed: int = GLOBAL_SEED,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Split preserving rotation balance (0° and 180° proportions maintained).
+    Split preserving rotation balance (0deg and 180deg proportions maintained).
     """
     rng = np.random.default_rng(seed)
     train_parts, test_parts = [], []
@@ -221,21 +221,21 @@ def get_kfold_splits(
     return list(kf.split(df))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # One-hot encoding for rotation condition
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def encode_rotation(df: pd.DataFrame) -> np.ndarray:
     """
-    Return rotation as a single binary column: 0 → 0.0, 180 → 1.0.
+    Return rotation as a single binary column: 0 -> 0.0, 180 -> 1.0.
     Used as the conditioning variable in cVAE.
     """
     return (df[ROTATION_COL] == 180).astype(float).values.reshape(-1, 1)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Utility: build condition vector for cVAE (freq + rotation)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def build_condition(df: pd.DataFrame, scaler: CeSRRScaler) -> np.ndarray:
     """

@@ -1,18 +1,18 @@
 """
-colab_setup.py — Colab/Drive environment setup and experiment dispatcher.
+colab_setup.py -- Colab/Drive environment setup and experiment dispatcher.
 
 Run via colab_loader.ipynb Cell 3:
     !python code/utils/colab_setup.py --run=<experiment>
 
 Experiments:
-    data_prep       — Steps 01–06: parse, clean, validate, augment, build
-    baselines       — B1, B2, B3, B4 baselines
-    mf_gp           — M1 multi-fidelity GP
-    pi_cvae         — M2, M3 PI-cVAE variants
-    active_learning — Full AL loop
-    shap            — Global SHAP + rotation comparison
-    ablation        — All 9 configs ablation study
-    full_pipeline   — Everything end-to-end
+    data_prep       -- Steps 01-06: parse, clean, validate, augment, build
+    baselines       -- B1, B2, B3, B4 baselines
+    mf_gp           -- M1 multi-fidelity GP
+    pi_cvae         -- M2, M3 PI-cVAE variants
+    active_learning -- Full AL loop
+    shap            -- Global SHAP + rotation comparison
+    ablation        -- All 9 configs ablation study
+    full_pipeline   -- Everything end-to-end
 """
 
 import sys
@@ -65,7 +65,7 @@ def setup_drive_paths():
             else:
                 log.warning("Not found on Drive: %s", fname)
     except ImportError:
-        log.info("Not running in Colab — skipping Drive setup.")
+        log.info("Not running in Colab -- skipping Drive setup.")
 
 
 DATA_SCRIPTS = [
@@ -147,9 +147,9 @@ def main():
             n_failed += 1
 
     if n_failed == 0:
-        log.info("✅ All scripts completed successfully.")
+        log.info("[OK] All scripts completed successfully.")
     else:
-        log.error("❌ %d script(s) failed.", n_failed)
+        log.error("[FAIL] %d script(s) failed.", n_failed)
         sys.exit(1)
 
 

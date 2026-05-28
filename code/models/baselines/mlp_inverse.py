@@ -1,10 +1,10 @@
 """
-mlp_inverse.py — Simplest baseline (B0): direct MLP inverse mapping.
+mlp_inverse.py -- Simplest baseline (B0): direct MLP inverse mapping.
 
-Maps target frequency (+ rotation flag) → geometry.
-Trained directly on (freq, rot) → (r1..p) pairs.
+Maps target frequency (+ rotation flag) -> geometry.
+Trained directly on (freq, rot) -> (r1..p) pairs.
 
-Known limitation: fails on one-to-many mapping — this is intentionally the
+Known limitation: fails on one-to-many mapping -- this is intentionally the
 weakest baseline, included to demonstrate why more sophisticated models
 (tandem, cVAE) are necessary.
 """
@@ -35,7 +35,7 @@ log = logging.getLogger(__name__)
 
 
 class MLPInverse(nn.Module):
-    """Direct inverse MLP: (freq_scaled, rotation_binary) → geometry_scaled."""
+    """Direct inverse MLP: (freq_scaled, rotation_binary) -> geometry_scaled."""
 
     def __init__(
         self,
@@ -68,7 +68,7 @@ class MLPInverseModel:
 
         # Build condition (freq+rot) and targets (geometry)
         C_train = build_condition(df_train, self.scaler)   # (N, 2)
-        X_train = self.scaler.transform_features(df_train)  # (N, 9) — target
+        X_train = self.scaler.transform_features(df_train)  # (N, 9) -- target
 
         if df_val is None:
             n_val = max(1, int(0.15 * len(df_train)))

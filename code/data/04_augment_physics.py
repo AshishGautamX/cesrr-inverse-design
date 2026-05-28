@@ -1,14 +1,14 @@
 """
-04_augment_physics.py — Physics-guided Gaussian perturbation augmentation.
+04_augment_physics.py -- Physics-guided Gaussian perturbation augmentation.
 
 Strategy (from plan, grounded in MDPI 2024 / IEEE 2024 precedent):
-  For each validated record, generate AUG_N_PER_SAMPLE × 3 candidates by
+  For each validated record, generate AUG_N_PER_SAMPLE x 3 candidates by
   applying ±2% Gaussian noise to all geometric parameters, then filter:
     - Keep only those satisfying r1>r2>r3>r4
     - Keep only those within PARAM_BOUNDS
     - Keep only those with freq estimated by analytical oracle within FREQ_BOUNDS
 
-  Result: ~111 × 4 ≈ 444 new synthetic records + 111 originals = ~555 total.
+  Result: ~111 x 4 ≈ 444 new synthetic records + 111 originals = ~555 total.
 
 Usage:
     python code/data/04_augment_physics.py
@@ -34,9 +34,9 @@ from utils.config import (
 )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Constraint checks (local, without importing data_utils to avoid circular dep)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def _ordering_ok(r: dict) -> bool:
     return r["r1"] > r["r2"] > r["r3"] > r["r4"]
@@ -53,9 +53,9 @@ def _is_valid(r: dict) -> bool:
     return _ordering_ok(r) and _bounds_ok(r)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Core augmentation
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def augment_record(
     row: pd.Series,
@@ -129,16 +129,16 @@ def physics_guided_augment(
         df_aug = df_aug.drop(columns=["_idx"])
 
     log.info(
-        f"Augmentation: {len(df)} originals × {n_per_sample} target → "
+        f"Augmentation: {len(df)} originals x {n_per_sample} target -> "
         f"{len(df_aug)} synthetic records generated "
-        f"({len(df_aug)/len(df):.1f}× expansion)"
+        f"({len(df_aug)/len(df):.1f}x expansion)"
     )
     return df_aug
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Main
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def main():
     src = DATA_PROC_DIR / "D1_validated.csv"
@@ -170,12 +170,12 @@ def main():
     out = DATA_PROC_DIR / "D1_plus_augmented.csv"
     df_all.to_csv(out, index=False)
 
-    print(f"\n── Augmentation Summary ──")
+    print(f"\n-- Augmentation Summary --")
     print(f"  Original D1 records    : {len(df_d1)}")
     print(f"  Synthetic records      : {len(df_aug)}")
     print(f"  Combined (after filter): {len(df_all)}")
-    print(f"  Expansion ratio        : {len(df_all)/len(df_d1):.2f}×")
-    print(f"\n✅ Step 04 complete → {out}")
+    print(f"  Expansion ratio        : {len(df_all)/len(df_d1):.2f}x")
+    print(f"\n[OK] Step 04 complete -> {out}")
 
 
 if __name__ == "__main__":

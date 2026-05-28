@@ -1,9 +1,9 @@
 """
-tandem_network.py — Tandem neural network inverse design baseline (B3).
+tandem_network.py -- Tandem neural network inverse design baseline (B3).
 
 Architecture (Liu et al. 2018, ACS Photonics 5:1365, DOI: 10.1021/acsphotonics.7b01377):
-  Stage 1: Train a forward network  F: geometry → freq    (freeze after)
-  Stage 2: Train an inverse network I: freq    → geometry
+  Stage 1: Train a forward network  F: geometry -> freq    (freeze after)
+  Stage 2: Train an inverse network I: freq    -> geometry
            Loss = MSE(F(I(freq_target)), freq_target)
            Backprop flows through I only (F is frozen)
 
@@ -39,12 +39,12 @@ from evaluation.metrics import compute_regression_metrics, geometry_feasibility_
 log = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Network definitions
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class ForwardNet(nn.Module):
-    """Geometry + rotation → scaled frequency."""
+    """Geometry + rotation -> scaled frequency."""
 
     def __init__(self, in_dim: int = 10, hidden: list = None):
         super().__init__()
@@ -55,7 +55,7 @@ class ForwardNet(nn.Module):
 
 
 class InverseNet(nn.Module):
-    """Frequency + rotation → scaled geometry (9 dims)."""
+    """Frequency + rotation -> scaled geometry (9 dims)."""
 
     def __init__(self, in_dim: int = 2, out_dim: int = 9, hidden: list = None):
         super().__init__()
@@ -65,17 +65,17 @@ class InverseNet(nn.Module):
         return self.net(c)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Tandem wrapper
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class TandemNetwork:
     """
     Tandem architecture.
 
     fit() runs two training stages sequentially:
-      1. Train ForwardNet (geometry+rot → freq)
-      2. Train InverseNet with ForwardNet frozen (freq+rot → geometry)
+      1. Train ForwardNet (geometry+rot -> freq)
+      2. Train InverseNet with ForwardNet frozen (freq+rot -> geometry)
     """
 
     def __init__(self, hidden: list = None):
@@ -84,7 +84,7 @@ class TandemNetwork:
         self.fwd_net: ForwardNet | None = None
         self.inv_net: InverseNet | None = None
 
-    # ── Stage 1: train forward network ───────────────────────────────────────
+    # -- Stage 1: train forward network ---------------------------------------
 
     def _train_forward(
         self, X_train, y_train, X_val, y_val
@@ -95,7 +95,7 @@ class TandemNetwork:
         sched = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, patience=10)
         loss_fn = nn.MSELoss()
 
-        log.info("Stage 1: training ForwardNet (%d samples)…", len(X_train))
+        log.info("Stage 1: training ForwardNet (%d samples)...", len(X_train))
         train_model(
             model, opt, loss_fn,
             X_train, y_train, X_val, y_val,
@@ -107,14 +107,14 @@ class TandemNetwork:
             p.requires_grad_(False)
         return model
 
-    # ── Stage 2: train inverse network ───────────────────────────────────────
+    # -- Stage 2: train inverse network ---------------------------------------
 
     def _train_inverse(
         self, C_train, X_geom_train, C_val, X_geom_val
     ) -> InverseNet:
         """
         C = condition [freq_scaled, rot_binary].
-        Loss = ||ForwardNet([InverseNet(C) | rot]) - freq_target||²
+        Loss = ||ForwardNet([InverseNet(C) | rot]) - freq_target||2
         """
         fwd = self.fwd_net.to(DEVICE)
         model = InverseNet(in_dim=2, out_dim=9, hidden=self.hidden).to(DEVICE)
@@ -139,7 +139,7 @@ class TandemNetwork:
         loader = DataLoader(TensorDataset(Ct), batch_size=TANDEM_BATCH_SIZE, shuffle=True)
         es = EarlyStopping(patience=TANDEM_PATIENCE)
 
-        log.info("Stage 2: training InverseNet (tandem loss)…")
+        log.info("Stage 2: training InverseNet (tandem loss)...")
         for epoch in range(1, TANDEM_MAX_EPOCHS + 1):
             model.train()
             for (Cb,) in loader:
@@ -161,7 +161,7 @@ class TandemNetwork:
         es.restore_best(model)
         return model
 
-    # ── Public API ────────────────────────────────────────────────────────────
+    # -- Public API ------------------------------------------------------------
 
     def fit(self, df_train: pd.DataFrame, df_val: pd.DataFrame = None) -> "TandemNetwork":
         set_seed(GLOBAL_SEED)

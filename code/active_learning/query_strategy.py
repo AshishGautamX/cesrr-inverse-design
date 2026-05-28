@@ -1,5 +1,5 @@
 """
-query_strategy.py — Acquisition functions for active learning.
+query_strategy.py -- Acquisition functions for active learning.
 
 Strategies implemented:
   1. uncertainty_sampling : select points with highest MC-Dropout variance
@@ -30,9 +30,9 @@ from utils.config import AL_N_QUERY_PER_ROUND, CVAE_MC_SAMPLES
 log = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # 1. Uncertainty sampling
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def uncertainty_sampling(
     uncertainties: np.ndarray,
@@ -68,9 +68,9 @@ def uncertainty_sampling(
     return selected
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # 2. BALD (Bayesian Active Learning by Disagreement)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def bald_score(
     mc_predictions: np.ndarray,
@@ -128,9 +128,9 @@ def bald_acquisition(
     return uncertainty_sampling(scores, n_query=n_query, exclude_idx=exclude_idx)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # 3. GP Expected Improvement (for GP-based AL)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def expected_improvement(
     mu: np.ndarray,
@@ -179,9 +179,9 @@ def ei_acquisition(
     return uncertainty_sampling(scores, n_query=n_query, exclude_idx=exclude_idx)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Dispatcher
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def select_query_points(
     strategy: Literal["uncertainty", "bald", "ei"],

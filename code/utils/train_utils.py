@@ -1,5 +1,5 @@
 """
-train_utils.py — Reusable PyTorch training utilities.
+train_utils.py -- Reusable PyTorch training utilities.
 """
 
 import time

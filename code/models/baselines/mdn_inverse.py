@@ -1,18 +1,18 @@
 """
-mdn_inverse.py — Mixture Density Network baseline (B-MDN).
+mdn_inverse.py -- Mixture Density Network baseline (B-MDN).
 
-Maps (freq, rotation) → parameters of a Gaussian Mixture Model over geometry.
+Maps (freq, rotation) -> parameters of a Gaussian Mixture Model over geometry.
 Solves the one-to-many problem by explicitly modelling the multi-modal
 distribution P(geometry | frequency, rotation).
 
 Architecture:
-  - Shared encoder: MLP([freq, rot]) → hidden features
+  - Shared encoder: MLP([freq, rot]) -> hidden features
   - Three output heads per mixture component k:
       π_k  : mixing weights   (softmax)
       μ_k  : means            (linear)
       σ_k  : std deviations   (softplus for positivity)
 
-Sampling: draw component k ~ Categorical(π), then sample x ~ N(μ_k, σ_k²)
+Sampling: draw component k ~ Categorical(π), then sample x ~ N(μ_k, σ_k2)
 """
 
 import sys
@@ -104,7 +104,7 @@ def mdn_nll_loss(
     """
     Negative log-likelihood loss for MDN.
 
-    L = -log Σ_k π_k N(target | μ_k, σ_k²)
+    L = -log Σ_k π_k N(target | μ_k, σ_k2)
 
     Parameters
     ----------
@@ -169,7 +169,7 @@ class MDNInverseModel:
         Xv  = torch.tensor(X_val,   dtype=torch.float32, device=DEVICE)
         loader = DataLoader(TensorDataset(Ct, Xt), batch_size=TANDEM_BATCH_SIZE, shuffle=True)
 
-        log.info("Training MDN (%d gaussians, %d samples)…", self.n_gaussians, len(C_train))
+        log.info("Training MDN (%d gaussians, %d samples)...", self.n_gaussians, len(C_train))
         for epoch in range(1, TANDEM_MAX_EPOCHS + 1):
             self._model.train()
             for cb, xb in loader:
@@ -198,7 +198,7 @@ class MDNInverseModel:
 
         Returns
         -------
-        (N × n_samples, 9) array in mm scale.
+        (N x n_samples, 9) array in mm scale.
         """
         C = build_condition(df, self.scaler)
         Ct = torch.tensor(C, dtype=torch.float32, device=DEVICE)

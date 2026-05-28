@@ -1,19 +1,19 @@
 """
-shap_rotation_compare.py — Novel contribution: 0° vs 180° SHAP comparison.
+shap_rotation_compare.py -- Novel contribution: 0deg vs 180deg SHAP comparison.
 
-Computes SHAP values separately for 0° and 180° CeSRR configurations and
+Computes SHAP values separately for 0deg and 180deg CeSRR configurations and
 compares feature importance rankings.
 
-Paper claim: "r1 is the dominant frequency-control parameter at 0° rotation
-(SHAP rank #1), while groove height h gains significance at 180° rotation
-(rank shifts from #4 to #2) — consistent with orientation-dependent electric
+Paper claim: "r1 is the dominant frequency-control parameter at 0deg rotation
+(SHAP rank #1), while groove height h gains significance at 180deg rotation
+(rank shifts from #4 to #2) -- consistent with orientation-dependent electric
 field concentration in the CeSRR topology."
 
 This analysis is the first SHAP-based design rule extraction for CeSRR SWS.
 
 Reference:
   Amini et al. (2025) Sci. Rep. 15:24029 (DOI: 10.1038/s41598-025-10156-1)
-  — first SHAP application to metasurface antenna design (different device class)
+  -- first SHAP application to metasurface antenna design (different device class)
 """
 
 import sys
@@ -42,7 +42,7 @@ def compute_rotation_shap(
     rf_model,
 ) -> tuple:
     """
-    Compute SHAP values separately for 0° and 180° subsets.
+    Compute SHAP values separately for 0deg and 180deg subsets.
 
     Parameters
     ----------
@@ -51,7 +51,7 @@ def compute_rotation_shap(
 
     Returns
     -------
-    (shap_0, shap_180, X_0, X_180) — SHAP arrays and feature matrices
+    (shap_0, shap_180, X_0, X_180) -- SHAP arrays and feature matrices
     """
     df_0   = df[df[ROTATION_COL] == 0].reset_index(drop=True)
     df_180 = df[df[ROTATION_COL] == 180].reset_index(drop=True)
@@ -59,10 +59,10 @@ def compute_rotation_shap(
     X_0   = df_0[UNIT_CELL_FEATURES].values
     X_180 = df_180[UNIT_CELL_FEATURES].values
 
-    log.info("Computing SHAP for 0° subset (%d samples)…", len(df_0))
+    log.info("Computing SHAP for 0deg subset (%d samples)...", len(df_0))
     shap_0   = compute_shap_rf(rf_model, X_0)
 
-    log.info("Computing SHAP for 180° subset (%d samples)…", len(df_180))
+    log.info("Computing SHAP for 180deg subset (%d samples)...", len(df_180))
     shap_180 = compute_shap_rf(rf_model, X_180)
 
     return shap_0, shap_180, X_0, X_180
@@ -71,7 +71,7 @@ def compute_rotation_shap(
 def compare_importance(imp_0: dict, imp_180: dict) -> pd.DataFrame:
     """
     Build a comparison DataFrame of feature importance rankings
-    for 0° and 180° configurations.
+    for 0deg and 180deg configurations.
 
     Returns
     -------
@@ -87,7 +87,7 @@ def compare_importance(imp_0: dict, imp_180: dict) -> pd.DataFrame:
             "SHAP_0deg":   round(imp_0[feat]["mean_abs_shap"], 4),
             "Rank_180deg": r180,
             "SHAP_180deg": round(imp_180[feat]["mean_abs_shap"], 4),
-            "Rank_Shift":  r0 - r180,   # positive = moved up in 180° ranking
+            "Rank_Shift":  r0 - r180,   # positive = moved up in 180deg ranking
         })
     df = pd.DataFrame(rows).sort_values("Rank_0deg").reset_index(drop=True)
     return df
@@ -101,7 +101,7 @@ def plot_rotation_comparison(
     out_path: Path = None,
 ):
     """
-    Side-by-side beeswarm plot: 0° (left) vs 180° (right).
+    Side-by-side beeswarm plot: 0deg (left) vs 180deg (right).
     This is Figure 6 of the paper.
     """
     import shap
@@ -115,8 +115,8 @@ def plot_rotation_comparison(
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
     for ax, sv, X, label in [
-        (axes[0], shap_0,   X_0,   "0° CeSRR"),
-        (axes[1], shap_180, X_180, "180° CeSRR"),
+        (axes[0], shap_0,   X_0,   "0deg CeSRR"),
+        (axes[1], shap_180, X_180, "180deg CeSRR"),
     ]:
         plt.sca(ax)
         shap.summary_plot(
@@ -124,11 +124,11 @@ def plot_rotation_comparison(
             feature_names=UNIT_CELL_FEATURES,
             show=False, plot_type="dot",
         )
-        ax.set_title(f"SHAP — {label}", fontsize=11)
+        ax.set_title(f"SHAP -- {label}", fontsize=11)
         ax.tick_params(labelsize=8)
 
     fig.suptitle(
-        "SHAP Feature Importance: 0° vs 180° CeSRR Configuration",
+        "SHAP Feature Importance: 0deg vs 180deg CeSRR Configuration",
         fontsize=12, y=1.02,
     )
     plt.tight_layout()
@@ -139,8 +139,8 @@ def plot_rotation_comparison(
 
 def plot_rank_shift_bar(comparison_df: pd.DataFrame, out_path: Path = None):
     """
-    Bar chart showing rank shift (0° rank − 180° rank) per feature.
-    Features that increase in importance at 180° have negative shift.
+    Bar chart showing rank shift (0deg rank − 180deg rank) per feature.
+    Features that increase in importance at 180deg have negative shift.
     """
     import matplotlib
     matplotlib.use("Agg")
@@ -155,8 +155,8 @@ def plot_rank_shift_bar(comparison_df: pd.DataFrame, out_path: Path = None):
     fig, ax = plt.subplots(figsize=(7, 4))
     ax.barh(df["Feature"], df["Rank_Shift"], color=colors, edgecolor="white")
     ax.axvline(0, color="gray", linewidth=0.8, linestyle="--")
-    ax.set_xlabel("Rank shift (0° rank − 180° rank)\nNegative = more important at 180°", fontsize=10)
-    ax.set_title("CeSRR SHAP Importance Rank Shift (0° → 180°)", fontsize=11)
+    ax.set_xlabel("Rank shift (0deg rank − 180deg rank)\nNegative = more important at 180deg", fontsize=10)
+    ax.set_title("CeSRR SHAP Importance Rank Shift (0deg -> 180deg)", fontsize=11)
     plt.tight_layout()
     plt.savefig(out_path, dpi=150)
     plt.close()
@@ -187,7 +187,7 @@ def run_rotation_shap(save: bool = True) -> pd.DataFrame:
         plot_rotation_comparison(shap_0, shap_180, X_0, X_180)
         plot_rank_shift_bar(comp_df)
 
-    print("\n── SHAP Rotation Comparison ──")
+    print("\n-- SHAP Rotation Comparison --")
     print(comp_df.to_string(index=False))
     return comp_df
 

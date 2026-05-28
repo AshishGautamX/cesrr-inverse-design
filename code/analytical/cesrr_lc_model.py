@@ -1,5 +1,5 @@
 """
-cesrr_lc_model.py — Analytical LC equivalent-circuit model for circular CeSRR.
+cesrr_lc_model.py -- Analytical LC equivalent-circuit model for circular CeSRR.
 
 Based on:
   - Baena et al. (2005) IEEE TMTT 53(4):1451-1461 (DOI: 10.1109/TMTT.2005.845211)
@@ -76,7 +76,7 @@ def capacitance_circular_groove(R_mean_mm: float, gap_mm: float, t_mm: float) ->
     Effective gap capacitance of the CeSRR groove.
 
     Approximated as a parallel-plate capacitor rolled into a circle:
-      C = ε0 · (circumference × t) / gap
+      C = ε0 · (circumference x t) / gap
 
     Parameters
     ----------
@@ -182,9 +182,9 @@ def batch_predict(df) -> "np.ndarray":
     return np.array(results)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Standalone test / demo
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 if __name__ == "__main__":
     # Reference point from Wang et al. (2015): ~2.454 GHz at r1=20mm scale
     # (The paper uses a waveguide-scale structure; dimensions below are scaled

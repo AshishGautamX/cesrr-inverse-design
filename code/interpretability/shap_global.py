@@ -1,5 +1,5 @@
 """
-shap_global.py — Global SHAP analysis on the PI-cVAE forward surrogate.
+shap_global.py -- Global SHAP analysis on the PI-cVAE forward surrogate.
 
 Computes SHAP values using TreeExplainer (for Random Forest) or
 KernelExplainer (for neural models) to identify which geometric parameters
@@ -8,7 +8,7 @@ most influence the predicted resonant frequency.
 Paper contribution: first SHAP analysis of CeSRR geometry-frequency relations.
 
 Reference:
-  Lundberg & Lee (2017) NeurIPS 30:4768–4777. arXiv:1705.07874
+  Lundberg & Lee (2017) NeurIPS 30:4768-4777. arXiv:1705.07874
 """
 
 import sys
@@ -70,7 +70,7 @@ def compute_shap_kernel(
 
     Parameters
     ----------
-    predict_fn    : callable (N, D) → (N,) — forward prediction function
+    predict_fn    : callable (N, D) -> (N,) -- forward prediction function
     X_background  : background dataset for SHAP (summarised by k-means)
     X_query       : samples to explain
     n_background  : number of background points (k-means summary)
@@ -140,7 +140,7 @@ def plot_shap_beeswarm(
 
 def run_global_shap(save: bool = True) -> dict:
     """
-    Full SHAP pipeline using the RIGID RF model (TreeExplainer — fast).
+    Full SHAP pipeline using the RIGID RF model (TreeExplainer -- fast).
 
     Runs on the full validated HF dataset.
     """
@@ -169,7 +169,7 @@ def run_global_shap(save: bool = True) -> dict:
         # Beeswarm plot
         plot_shap_beeswarm(
             shap_vals, X_test,
-            title="Global SHAP — CeSRR Geometry Features",
+            title="Global SHAP -- CeSRR Geometry Features",
             out_path=FIGURES_DIR / "fig06a_shap_global.png",
         )
 

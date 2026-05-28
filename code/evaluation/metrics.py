@@ -1,11 +1,11 @@
 """
-metrics.py — All evaluation metrics for the ablation study.
+metrics.py -- All evaluation metrics for the ablation study.
 
 Four primary metrics (paper Table):
-  1. Frequency prediction MAE (GHz) — forward model accuracy
-  2. Geometry feasibility rate (%) — fraction satisfying r1>r2>r3>r4
-  3. Design diversity (std mm) — variety of generated geometries at fixed freq
-  4. AL efficiency — computed separately in al_metrics.py
+  1. Frequency prediction MAE (GHz) -- forward model accuracy
+  2. Geometry feasibility rate (%) -- fraction satisfying r1>r2>r3>r4
+  3. Design diversity (std mm) -- variety of generated geometries at fixed freq
+  4. AL efficiency -- computed separately in al_metrics.py
 
 Consistency: all metrics use the same functions regardless of which model
 is being evaluated. This ensures fair comparison across the 9 ablation configs.
@@ -23,9 +23,9 @@ sys.path.insert(0, str(_code_dir))
 from utils.config import UNIT_CELL_FEATURES, TARGET_COL, ORDERING_COLS
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # 1. Forward prediction metrics (regression)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def compute_regression_metrics(
     y_true: np.ndarray,
@@ -33,7 +33,7 @@ def compute_regression_metrics(
     model_name: str = "model",
 ) -> dict:
     """
-    Compute MAE, RMSE, R², and MaxError for frequency predictions.
+    Compute MAE, RMSE, R2, and MaxError for frequency predictions.
 
     Parameters
     ----------
@@ -66,9 +66,9 @@ def compute_regression_metrics(
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # 2. Geometry feasibility rate
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def geometry_feasibility_rate(X: np.ndarray) -> float:
     """
@@ -95,9 +95,9 @@ def geometry_feasibility_rate(X: np.ndarray) -> float:
     return float(valid.mean())
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # 3. Design diversity
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 def design_diversity(X: np.ndarray) -> dict:
     """
@@ -128,7 +128,7 @@ def design_diversity(X: np.ndarray) -> dict:
 
 
 def diversity_at_fixed_freq(
-    sample_fn,          # callable(df_query) → (N*n_samples, 9) geometry array
+    sample_fn,          # callable(df_query) -> (N*n_samples, 9) geometry array
     df_query: pd.DataFrame,
     n_samples: int = 50,
 ) -> dict:
@@ -143,9 +143,9 @@ def diversity_at_fixed_freq(
     return {"feasibility_rate": feas, **div}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# 4. Ablation summary table (9 configs × 4 metrics)
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
+# 4. Ablation summary table (9 configs x 4 metrics)
+# -----------------------------------------------------------------------------
 
 ABLATION_CONFIG_NAMES = [
     "B1_GP_Matern",

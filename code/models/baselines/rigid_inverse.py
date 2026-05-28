@@ -1,8 +1,8 @@
 """
-rigid_inverse.py — RIGID baseline (B2): Random Forest surrogate + MCMC inverse.
+rigid_inverse.py -- RIGID baseline (B2): Random Forest surrogate + MCMC inverse.
 
 RIGID strategy (adapted from 2024 small-data EM design literature):
-  1. Train a Random Forest (RF) as a fast forward surrogate: geometry → freq
+  1. Train a Random Forest (RF) as a fast forward surrogate: geometry -> freq
   2. At inference time, use MCMC (Metropolis-Hastings) to sample geometries
      that produce the target frequency according to the RF surrogate.
 
@@ -42,7 +42,7 @@ class RIGIDInverse:
 
     Methods
     -------
-    fit(df_train)       : fit RF on (geometry, rotation) → freq
+    fit(df_train)       : fit RF on (geometry, rotation) -> freq
     predict_forward(df) : RF forward prediction (for metrics)
     sample_inverse(df, n_chains, n_steps) : MCMC sampling for inverse design
     evaluate(df_test)   : compute feasibility rate and forward error
@@ -92,11 +92,11 @@ class RIGIDInverse:
         self._param_ranges = np.stack([lo, hi], axis=1)
 
         oob = self._rf.oob_score_ if hasattr(self._rf, "oob_score_") else None
-        log.info("RF fitted. OOB R²: %s", f"{oob:.4f}" if oob else "N/A")
+        log.info("RF fitted. OOB R2: %s", f"{oob:.4f}" if oob else "N/A")
         return self
 
     def predict_forward(self, df: pd.DataFrame) -> np.ndarray:
-        """RF forward prediction: geometry → freq (GHz)."""
+        """RF forward prediction: geometry -> freq (GHz)."""
         X = self._build_X(df)
         return self._rf.predict(X)
 
@@ -124,12 +124,12 @@ class RIGIDInverse:
         """
         Run Metropolis-Hastings to sample geometries giving target_freq.
 
-        Energy: E(geom) = (RF(geom) - target_freq)²
+        Energy: E(geom) = (RF(geom) - target_freq)2
         We seek samples from P(geom) ∝ exp(-β·E(geom)).
 
         Returns list of accepted geometry arrays (9,).
         """
-        beta = 100.0   # inverse temperature — higher → tighter acceptance
+        beta = 100.0   # inverse temperature -- higher -> tighter acceptance
 
         # Initialise from random valid point
         lo = self._param_ranges[:, 0]
@@ -183,7 +183,7 @@ class RIGIDInverse:
 
         Returns
         -------
-        (N × n_chains, 9) array with best geometry proposal per (sample, chain).
+        (N x n_chains, 9) array with best geometry proposal per (sample, chain).
         """
         n_chains = n_chains or self.n_chains
         rng = np.random.default_rng(GLOBAL_SEED)

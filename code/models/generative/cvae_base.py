@@ -1,14 +1,14 @@
 """
-cvae_base.py — Standard cVAE (ablation B4): no physics constraints.
+cvae_base.py -- Standard cVAE (ablation B4): no physics constraints.
 
 Conditional Variational Autoencoder mapping:
-  Encoder : (geometry, freq, rotation) → (μ_z, log σ²_z)
-  Decoder : (z, freq, rotation) → geometry
+  Encoder : (geometry, freq, rotation) -> (μ_z, log σ2_z)
+  Decoder : (z, freq, rotation) -> geometry
 
 Loss = MSE reconstruction + β · KL divergence
      = ELBO (evidence lower bound)
 
-This is the "ablation control" — it shows what physics constraints add.
+This is the "ablation control" -- it shows what physics constraints add.
 Physics constraints are added in cvae_pi.py (M2/M3).
 """
 
@@ -41,13 +41,13 @@ from evaluation.metrics import geometry_feasibility_rate
 log = logging.getLogger(__name__)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Network modules
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class Encoder(nn.Module):
     """
-    q(z | x, c) — encodes geometry x conditioned on c = [freq_scaled, rot].
+    q(z | x, c) -- encodes geometry x conditioned on c = [freq_scaled, rot].
 
     Input  : (B, 9 + 2) = geometry + condition
     Output : (μ_z, log_var_z), each shape (B, latent_dim)
@@ -74,7 +74,7 @@ class Encoder(nn.Module):
 
 class Decoder(nn.Module):
     """
-    p(x | z, c) — decodes geometry from latent z conditioned on c.
+    p(x | z, c) -- decodes geometry from latent z conditioned on c.
 
     Input  : (B, latent_dim + 2)
     Output : (B, 9) scaled geometry
@@ -96,9 +96,9 @@ class Decoder(nn.Module):
         return self.net(torch.cat([z, c], dim=-1))
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Base cVAE model
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class CVAEBase(nn.Module):
     """Standard cVAE (no physics penalties)."""
@@ -158,9 +158,9 @@ def elbo_loss(
     return total, recon_loss.item(), kl_loss.item()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # Wrapper with sklearn-style interface
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 
 class CVAEBaseModel:
     """Wrapper providing fit / sample / evaluate interface."""
@@ -215,7 +215,7 @@ class CVAEBaseModel:
         sched = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, patience=15)
         es    = EarlyStopping(patience=CVAE_PATIENCE)
 
-        log.info("Training cVAE-Base (%d samples)…", len(X_train))
+        log.info("Training cVAE-Base (%d samples)...", len(X_train))
         for epoch in range(1, CVAE_MAX_EPOCHS + 1):
             self._model.train()
             for xb, cb in loader:

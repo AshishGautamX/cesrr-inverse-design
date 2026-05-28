@@ -1,13 +1,13 @@
 """
-gp_surrogate.py — Gaussian Process surrogate model (PRIMARY baseline B1).
+gp_surrogate.py -- Gaussian Process surrogate model (PRIMARY baseline B1).
 
 Uses scikit-learn GaussianProcessRegressor with a Matérn-5/2 kernel.
-The Matérn-5/2 kernel assumes twice-differentiable responses — physically
+The Matérn-5/2 kernel assumes twice-differentiable responses -- physically
 appropriate for smooth EM resonance curves.
 
 Provides both:
-  - Forward surrogate: geometry → predicted frequency (for evaluation)
-  - Uncertainty estimation: σ² at each prediction point (for AL)
+  - Forward surrogate: geometry -> predicted frequency (for evaluation)
+  - Uncertainty estimation: σ2 at each prediction point (for AL)
 
 Reference:
   Rasmussen & Williams (2006) Gaussian Processes for Machine Learning.
@@ -41,7 +41,7 @@ class GPSurrogate:
     """
     Gaussian Process surrogate for CeSRR frequency prediction.
 
-    Input  : scaled geometry features + rotation binary flag → (N, 10)
+    Input  : scaled geometry features + rotation binary flag -> (N, 10)
     Output : predicted frequency (GHz) + standard deviation
     """
 
@@ -56,7 +56,7 @@ class GPSurrogate:
         self.scaler: CeSRRScaler | None = None
         self._gp: GaussianProcessRegressor | None = None
 
-        # Kernel: Constant amplitude × Matern + WhiteKernel for noise
+        # Kernel: Constant amplitude x Matern + WhiteKernel for noise
         kernel = (
             ConstantKernel(1.0, constant_value_bounds=(1e-3, 1e3)) *
             Matern(nu=nu, length_scale=1.0,
@@ -82,7 +82,7 @@ class GPSurrogate:
         self.scaler = CeSRRScaler().fit(df_train)
         X = self._prepare_X(df_train)
         y = self.scaler.transform_target(df_train)
-        log.info("Fitting GP on %d samples (dim=%d)…", len(df_train), X.shape[1])
+        log.info("Fitting GP on %d samples (dim=%d)...", len(df_train), X.shape[1])
         self._gp.fit(X, y)
         log.info("GP fitted. Log-marginal-likelihood: %.3f",
                  self._gp.log_marginal_likelihood_value_)
@@ -130,9 +130,9 @@ class GPSurrogate:
         return obj
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # CLI entry-point
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 if __name__ == "__main__":
     import json
     logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     gp.fit(df_train)
 
     metrics = gp.evaluate(df_test)
-    print("\n── GP Surrogate Metrics (HF data) ──")
+    print("\n-- GP Surrogate Metrics (HF data) --")
     print(json.dumps(metrics, indent=2))
 
     gp.save()

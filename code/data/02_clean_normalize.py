@@ -1,5 +1,5 @@
 """
-02_clean_normalize.py — Clean raw CSVs and produce a validated, normalised dataset.
+02_clean_normalize.py -- Clean raw CSVs and produce a validated, normalised dataset.
 
 Steps:
   1. Load raw_unit_combined.csv
@@ -53,24 +53,24 @@ def clean_unit_cell_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=[c for c in required if c in df.columns])
 
     # 4. Handle frequency: if stored as e.g. 1.0 (GHz) keep; if > 100 it may
-    #    have been entered in MHz accidentally — convert.
+    #    have been entered in MHz accidentally -- convert.
     if TARGET_COL in df.columns:
         high_mhz_mask = df[TARGET_COL] > 100
         if high_mhz_mask.any():
             log.warning(
-                f"Found {high_mhz_mask.sum()} rows with freq > 100 — "
+                f"Found {high_mhz_mask.sum()} rows with freq > 100 -- "
                 "assuming MHz input, converting to GHz."
             )
             df.loc[high_mhz_mask, TARGET_COL] /= 1000.0
 
-    # 5. Clip to physical bounds (don't drop — flag instead)
+    # 5. Clip to physical bounds (don't drop -- flag instead)
     for col, (lo, hi) in PARAM_BOUNDS.items():
         if col in df.columns:
             out_of_range = ~df[col].between(lo, hi)
             if out_of_range.any():
                 log.warning(
                     f"{col}: {out_of_range.sum()} values outside "
-                    f"[{lo}, {hi}] — keeping but flagging."
+                    f"[{lo}, {hi}] -- keeping but flagging."
                 )
 
     # 6. Remove exact duplicates
@@ -108,12 +108,12 @@ def main():
     df_clean.to_csv(out, index=False)
     log.info(f"Saved: {out}")
 
-    print("\n── Summary statistics ──")
+    print("\n-- Summary statistics --")
     print(compute_summary_stats(df_clean).to_string())
 
     rot_counts = df_clean[ROTATION_COL].value_counts() if ROTATION_COL in df_clean.columns else {}
-    print(f"\n── Rotation counts ──\n{rot_counts}")
-    print(f"\n✅ Step 02 complete. Clean dataset: {len(df_clean)} records → {out}")
+    print(f"\n-- Rotation counts --\n{rot_counts}")
+    print(f"\n[OK] Step 02 complete. Clean dataset: {len(df_clean)} records -> {out}")
 
 
 if __name__ == "__main__":
