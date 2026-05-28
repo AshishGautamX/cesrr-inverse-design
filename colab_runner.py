@@ -196,54 +196,89 @@ def section2_clone_repo() -> Path:
 # ══════════════════════════════════════════════════════════════════════════════
 
 def section3_install_deps(repo_path: Path):
-    """Install Python dependencies from requirements.txt."""
-    print("\n" + "═" * 60)
-    print("SECTION 3: Installing Dependencies")
-    print("═" * 60)
+    """
+    Install Python dependencies -- Colab-safe strategy.
 
-    req_file = repo_path / "requirements.txt"
-    if not req_file.exists():
-        print(f"⚠️  requirements.txt not found at {req_file}")
-        print("   Installing core packages manually…")
-        packages = [
-            "torch>=2.1.0",
-            "scikit-learn>=1.3",
-            "shap>=0.44",
-            "scipy>=1.11",
-            "openpyxl>=3.1",
-            "seaborn>=0.12",
-            "pyDOE2>=1.3",
-            "botorch>=0.9",
-        ]
-        for pkg in packages:
-            subprocess.run(
-                [sys.executable, "-m", "pip", "install", pkg, "-q"],
-                check=False,
+    ROOT CAUSE of ValueError: numpy.dtype size changed:
+      requirements.txt had numpy<2.0. Colab ships numpy 2.x. pip downgrades
+      it, breaking pre-compiled pandas/scipy C extensions.
+
+    FIX: In Colab, only install packages NOT bundled with the runtime.
+    numpy / pandas / scipy / torch / sklearn are already there -- leave them.
+    Use --upgrade-strategy only-if-needed to prevent any downgrade.
+    """
+    print("\n" + "=" * 60)
+    print("SECTION 3: Installing Dependencies")
+    print("=" * 60)
+
+    # Packages Colab does NOT include -- safe to install fresh
+    COLAB_MISSING = [
+        "shap>=0.44",
+        "pyDOE2>=1.3",
+        "gpytorch>=1.11",
+        "botorch>=0.9",
+    ]
+
+    # Detect Colab
+    in_colab = False
+    try:
+        import google.colab  # type: ignore  # noqa: F401
+        in_colab = True
+    except ImportError:
+        pass
+
+    if in_colab:
+        print("Colab detected -- installing only packages absent from Colab:")
+        print("  (numpy/pandas/scipy/torch/sklearn already present -- skipping)")
+        for pkg in COLAB_MISSING:
+            print(f"  Installing {pkg} ...", end=" ", flush=True)
+            res = subprocess.run(
+                [sys.executable, "-m", "pip", "install", pkg,
+                 "--quiet", "--upgrade-strategy", "only-if-needed"],
+                capture_output=True, text=True,
             )
+            print("OK" if res.returncode == 0 else "WARN: " + res.stderr[-100:])
     else:
-        print(f"Installing from {req_file}…")
-        result = subprocess.run(
-            [sys.executable, "-m", "pip", "install", "-r", str(req_file), "-q"],
+        req_file = repo_path / "requirements.txt"
+        if req_file.exists():
+            print(f"Local run -- installing from {req_file}")
+            res = subprocess.run(
+                [sys.executable, "-m", "pip", "install", "-r", str(req_file),
+                 "--quiet", "--upgrade-strategy", "only-if-needed"],
+                capture_output=True, text=True,
+            )
+            print("OK" if res.returncode == 0 else "Issues: " + res.stderr[-300:])
+
+    # Verify via SUBPROCESS (avoids contaminating this process with a
+    # partially-loaded broken module -- that's how the original error escaped
+    # the try/except ImportError: it raised ValueError, not ImportError).
+    print("\nVerifying imports (subprocess check):")
+    checks = [
+        ("numpy",    "import numpy; print(numpy.__version__)"),
+        ("pandas",   "import pandas; print(pandas.__version__)"),
+        ("torch",    "import torch; print(torch.__version__)"),
+        ("scipy",    "import scipy; print(scipy.__version__)"),
+        ("sklearn",  "import sklearn; print(sklearn.__version__)"),
+        ("shap",     "import shap; print(shap.__version__)"),
+        ("openpyxl", "import openpyxl; print(openpyxl.__version__)"),
+    ]
+    all_ok = True
+    for name, snippet in checks:
+        res = subprocess.run(
+            [sys.executable, "-c", snippet],
             capture_output=True, text=True,
         )
-        if result.returncode == 0:
-            print("✅ All dependencies installed.")
+        if res.returncode == 0:
+            print(f"  [OK]   {name} {res.stdout.strip()}")
         else:
-            print("⚠️  Some packages had issues:")
-            print(result.stderr[-500:])  # last 500 chars to avoid wall of text
+            print(f"  [FAIL] {name}: {res.stderr.strip()[:100]}")
+            all_ok = False
 
-    # Quick import check
-    failed_imports = []
-    for pkg in ["torch", "sklearn", "shap", "scipy", "openpyxl", "seaborn"]:
-        try:
-            __import__(pkg if pkg != "sklearn" else "sklearn")
-        except ImportError:
-            failed_imports.append(pkg)
+    if not all_ok:
+        print("\nWARNING: Some packages failed -- experiment may error.")
+        print("If numpy error appears, restart the Colab runtime and re-run.")
 
-    if failed_imports:
-        print(f"❌ Failed to import: {failed_imports}")
-    else:
-        print("✅ All core packages importable.")
+
 
 
 # ══════════════════════════════════════════════════════════════════════════════
