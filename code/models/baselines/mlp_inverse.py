@@ -122,6 +122,8 @@ class MLPInverseModel:
         save_checkpoint(self._model, path, extra={"hidden": self.hidden})
 
 if __name__ == "__main__":
+    from utils.fast_mode import apply_fast_mode
+    apply_fast_mode()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
     df = load_processed("all")
     df_tr, df_te = train_test_split_stratified(df, test_frac=0.2)

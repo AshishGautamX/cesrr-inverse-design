@@ -134,6 +134,8 @@ class GPSurrogate:
 # CLI entry-point
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
+    from utils.fast_mode import apply_fast_mode
+    apply_fast_mode()
     import json
     logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 

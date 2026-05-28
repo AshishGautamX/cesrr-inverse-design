@@ -213,5 +213,7 @@ def run_al_experiment(save: bool = True) -> ALMetricsTracker:
 
 
 if __name__ == "__main__":
+    from utils.fast_mode import apply_fast_mode
+    apply_fast_mode()
     tracker = run_al_experiment()
     print(tracker.summary())

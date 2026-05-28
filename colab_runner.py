@@ -53,7 +53,7 @@ GITHUB — Set your repo URL below before running.
 # CONFIGURATION  —  edit these two lines before running
 # ══════════════════════════════════════════════════════════════════════════════
 
-GITHUB_REPO_URL = "https://github.com/YOUR_USERNAME/cesrr-inverse-design.git"
+GITHUB_REPO_URL = "https://github.com/AshishGautamX/cesrr-inverse-design.git"
 # ↑ Replace with your actual GitHub repo URL, e.g.:
 #   "https://github.com/ashishgx/cesrr-inverse-design.git"
 
@@ -74,7 +74,16 @@ EXPERIMENT = "full_pipeline"
 #   "full_pipeline"   → everything end-to-end
 
 SAVE_RESULTS_TO_DRIVE = True
-# ↑ If True, copies results/ and figures/ back to Drive after experiment.
+# If True, copies results/ and figures/ back to Drive after EACH script.
+
+FAST_MODE = False
+# If True, caps training epochs to ~50 so the full pipeline completes in
+# ~30 min on Colab T4 GPU.  Set to False for full research-quality training.
+# Effect: patches config.py values via environment variable before each script.
+
+FAST_EPOCHS    = 60     # CVAE / Tandem / MDN epochs in FAST_MODE
+FAST_GP_STARTS = 3      # GP random restarts in FAST_MODE (default: 10)
+FAST_AL_ROUNDS = 3      # AL rounds in FAST_MODE (default: 10)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # SECTION 1 : Mount Google Drive
@@ -326,100 +335,228 @@ def section4_copy_data(drive_data_path: Path, repo_path: Path):
     print("✅ Output directories created: data/processed/, results/, figures/")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ──────────────────────────────────────────────────────────────────────────────
+# Script lists (mirrors colab_setup.py EXPERIMENT_MAP -- kept here so
+# section5 can run them directly without nested subprocess)
+# ──────────────────────────────────────────────────────────────────────────────
+
+_DATA_SCRIPTS = [
+    "code/data/01_load_raw.py",
+    "code/data/02_clean_normalize.py",
+    "code/data/03_validate_physics.py",
+    "code/data/04_augment_physics.py",
+    "code/data/05_lhs_pool.py",
+    "code/data/06_build_datasets.py",
+]
+
+_EXPERIMENT_MAP = {
+    "data_prep":       _DATA_SCRIPTS,
+    "baselines": [
+        "code/models/baselines/gp_surrogate.py",
+        "code/models/baselines/rigid_inverse.py",
+        "code/models/baselines/tandem_network.py",
+        "code/models/baselines/mlp_inverse.py",
+        "code/models/baselines/mdn_inverse.py",
+    ],
+    "mf_gp":           ["code/models/multifidelity/mf_gp.py"],
+    "pi_cvae": [
+        "code/models/generative/cvae_base.py",
+        "code/models/generative/cvae_pi.py",
+    ],
+    "active_learning": ["code/active_learning/al_loop.py"],
+    "shap": [
+        "code/interpretability/shap_global.py",
+        "code/interpretability/shap_rotation_compare.py",
+    ],
+    "ablation":        ["code/evaluation/ablation_runner.py"],
+}
+_EXPERIMENT_MAP["full_pipeline"] = (
+    _DATA_SCRIPTS + [
+        "code/models/baselines/gp_surrogate.py",
+        "code/models/baselines/rigid_inverse.py",
+        "code/models/baselines/tandem_network.py",
+        "code/models/generative/cvae_base.py",
+        "code/models/multifidelity/mf_gp.py",
+        "code/models/generative/cvae_pi.py",
+        "code/active_learning/al_loop.py",
+        "code/interpretability/shap_global.py",
+        "code/interpretability/shap_rotation_compare.py",
+        "code/evaluation/ablation_runner.py",
+        "code/evaluation/plot_all.py",
+    ]
+)
+
+
+def _drive_checkpoint(repo_path: Path, drive_data_path: Path, label: str = ""):
+    """
+    Incrementally copy results/ and figures/ to Drive.
+    Called after EACH script so no work is lost on Colab disconnect.
+    """
+    if not SAVE_RESULTS_TO_DRIVE or drive_data_path is None:
+        return
+    drive_out = drive_data_path.parent  # My Drive/cesrr_data/
+    n_copied = 0
+    for folder in ["results", "figures", "data/processed"]:
+        src = repo_path / folder
+        dst = drive_out / Path(folder).name
+        if not src.exists():
+            continue
+        dst.mkdir(parents=True, exist_ok=True)
+        for f in src.rglob("*"):
+            if f.is_file():
+                rel = f.relative_to(src)
+                d = dst / rel
+                d.parent.mkdir(parents=True, exist_ok=True)
+                if not d.exists() or f.stat().st_mtime > d.stat().st_mtime:
+                    shutil.copy2(f, d)
+                    n_copied += 1
+    if n_copied:
+        print(f"  [Drive] Saved {n_copied} file(s) after '{label}'")
+
+
+def _fast_mode_env():
+    """
+    Return an os.environ dict with FAST_MODE overrides.
+    Scripts read these env vars to cap epochs without changing config.py.
+    """
+    env = {**os.environ, "PYTHONUNBUFFERED": "1"}
+    if FAST_MODE:
+        env["CESRR_FAST_MODE"]    = "1"
+        env["CESRR_MAX_EPOCHS"]   = str(FAST_EPOCHS)
+        env["CESRR_GP_RESTARTS"]  = str(FAST_GP_STARTS)
+        env["CESRR_AL_ROUNDS"]    = str(FAST_AL_ROUNDS)
+    return env
+
+
+# ──────────────────────────────────────────────────────────────────────────────
 # SECTION 5 : Run the Experiment Pipeline
-# ══════════════════════════════════════════════════════════════════════════════
+# ──────────────────────────────────────────────────────────────────────────────
 
-def section5_run_experiment(repo_path: Path):
-    """Run the selected experiment using the colab_setup dispatcher."""
-    print("\n" + "═" * 60)
-    print(f"SECTION 5: Running Experiment — '{EXPERIMENT}'")
-    print("═" * 60)
+def section5_run_experiment(repo_path: Path, drive_data_path: Path = None):
+    """
+    Run each pipeline script in sequence with REAL-TIME output streaming.
 
-    runner = repo_path / "code" / "utils" / "colab_setup.py"
-    if not runner.exists():
-        print(f"❌ colab_setup.py not found at {runner}")
-        sys.exit(1)
+    KEY FIX: The original implementation called colab_setup.py as a subprocess,
+    which then spawned MORE subprocesses. Jupyter never sees output from
+    grandchild processes -- that is why the cell was silent for 44 minutes.
 
-    result = subprocess.run(
-        [sys.executable, str(runner), f"--run={EXPERIMENT}", "--skip-drive"],
-        cwd=str(repo_path),
-    )
+    NEW APPROACH:
+      - Run each script directly as a Popen child (one level, not two)
+      - Stream stdout+stderr line-by-line with flush=True
+      - Save Drive checkpoint after every script
+      - FAST_MODE caps epochs so pipeline completes in ~30 min on Colab T4
+    """
+    print("\n" + "=" * 60)
+    print(f"SECTION 5: Running Experiment -- '{EXPERIMENT}'")
+    if FAST_MODE:
+        print(f"  FAST_MODE ON: epochs={FAST_EPOCHS}, GP_restarts={FAST_GP_STARTS}, AL_rounds={FAST_AL_ROUNDS}")
+    print("=" * 60, flush=True)
 
-    if result.returncode == 0:
-        print(f"\n✅ Experiment '{EXPERIMENT}' completed successfully.")
-    else:
-        print(f"\n❌ Experiment '{EXPERIMENT}' failed (exit code {result.returncode}).")
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 6 : Save Results Back to Drive
-# ══════════════════════════════════════════════════════════════════════════════
-
-def section6_save_results(repo_path: Path, drive_data_path: Path):
-    """Copy results/ and figures/ back to Google Drive for persistence."""
-    if not SAVE_RESULTS_TO_DRIVE:
-        print("\nSave to Drive: DISABLED (set SAVE_RESULTS_TO_DRIVE=True to enable)")
+    if EXPERIMENT not in _EXPERIMENT_MAP:
+        print(f"Unknown experiment '{EXPERIMENT}'. Choose from: {list(_EXPERIMENT_MAP)}")
         return
 
-    print("\n" + "═" * 60)
-    print("SECTION 6: Saving Results to Google Drive")
-    print("═" * 60)
+    scripts = _EXPERIMENT_MAP[EXPERIMENT]
+    env = _fast_mode_env()
+    n_ok = n_fail = 0
 
-    drive_out_root = drive_data_path.parent  # My Drive/cesrr_data/
+    for i, script in enumerate(scripts, 1):
+        full_path = repo_path / script
+        script_name = Path(script).name
+        print(f"\n[{i:02d}/{len(scripts):02d}] {script_name}", flush=True)
+        print("-" * 55, flush=True)
 
-    for folder in ["results", "figures"]:
-        src = repo_path / folder
-        dst = drive_out_root / folder
-        if src.exists() and any(src.iterdir()):
-            if dst.exists():
-                shutil.rmtree(dst)
-            shutil.copytree(src, dst)
-            n_files = sum(1 for _ in dst.rglob("*") if _.is_file())
-            print(f"✅ Saved {folder}/ → Drive ({n_files} files)")
+        if not full_path.exists():
+            print(f"  SKIP: {full_path} not found")
+            continue
+
+        # -u = unbuffered Python; env has PYTHONUNBUFFERED=1
+        proc = subprocess.Popen(
+            [sys.executable, "-u", str(full_path)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,   # merge stderr into stdout
+            text=True,
+            env=env,
+            bufsize=1,                  # line-buffered
+            cwd=str(repo_path),
+        )
+
+        # Stream every line as it arrives
+        for line in proc.stdout:
+            print(line, end="", flush=True)
+        proc.wait()
+
+        if proc.returncode == 0:
+            print(f"  [OK] {script_name} done", flush=True)
+            n_ok += 1
+            _drive_checkpoint(repo_path, drive_data_path, script_name)
         else:
-            print(f"   Skipping {folder}/ (empty or not found)")
+            print(f"  [FAIL] {script_name} exited {proc.returncode}", flush=True)
+            n_fail += 1
+            # Still checkpoint what we have
+            _drive_checkpoint(repo_path, drive_data_path, f"{script_name} [partial]")
 
-    print(f"\n📁 Results saved to: My Drive/cesrr_data/")
-    print("   You can download them from the Drive UI.")
+    print(f"\n{'=' * 55}")
+    print(f"Done: {n_ok} succeeded, {n_fail} failed out of {len(scripts)} scripts.")
+    if n_fail:
+        print("Check the [FAIL] lines above for errors.")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ──────────────────────────────────────────────────────────────────────────────
+# SECTION 6 : Save Results Back to Drive (final full sync)
+# ──────────────────────────────────────────────────────────────────────────────
+
+def section6_save_results(repo_path: Path, drive_data_path: Path):
+    """Final sync of ALL results/ figures/ data/processed/ to Drive."""
+    if not SAVE_RESULTS_TO_DRIVE:
+        print("\nSave to Drive: DISABLED")
+        return
+
+    print("\n" + "=" * 60)
+    print("SECTION 6: Final Save to Google Drive")
+    print("=" * 60)
+    _drive_checkpoint(repo_path, drive_data_path, "final sync")
+    drive_out = drive_data_path.parent
+    print(f"All results saved to: My Drive/{drive_out.name}/")
+    print("Download from the Drive UI or Files panel.")
+
+
+# ──────────────────────────────────────────────────────────────────────────────
 # SECTION 7 : Quick Results Preview
-# ══════════════════════════════════════════════════════════════════════════════
+# ──────────────────────────────────────────────────────────────────────────────
 
 def section7_preview_results(repo_path: Path):
     """Print key output files and show ablation summary if available."""
-    print("\n" + "═" * 60)
+    print("\n" + "=" * 60)
     print("SECTION 7: Results Preview")
-    print("═" * 60)
+    print("=" * 60)
 
-    # List generated figures
+    # Generated figures
     fig_dir = repo_path / "figures"
     if fig_dir.exists():
         figs = list(fig_dir.glob("*.png"))
         if figs:
             print(f"\nGenerated figures ({len(figs)}):")
             for f in sorted(figs):
-                print(f"   📊 {f.name}")
+                print(f"   [fig] {f.name}")
         else:
             print("No figures generated yet.")
 
-    # Show ablation summary table
+    # Ablation summary
     ablation_csv = repo_path / "results" / "ablation_summary.csv"
     if ablation_csv.exists():
         try:
             import pandas as pd
             df = pd.read_csv(ablation_csv, index_col=0)
-            print("\n── Ablation Summary ──")
+            print("\n-- Ablation Summary --")
             print(df.to_string())
         except Exception as e:
             print(f"Could not display ablation summary: {e}")
 
-    # Show processed dataset sizes
+    # Processed dataset sizes
     proc_dir = repo_path / "data" / "processed"
     if proc_dir.exists():
-        print("\n── Processed datasets ──")
+        print("\n-- Processed datasets --")
         for csv in sorted(proc_dir.glob("*.csv")):
             try:
                 import pandas as pd
@@ -428,32 +565,34 @@ def section7_preview_results(repo_path: Path):
             except Exception:
                 print(f"   {csv.name}")
 
-    print("\n✅ Run complete.")
+    print("\n[OK] Run complete.")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# MAIN  —  runs all sections in order
-# ══════════════════════════════════════════════════════════════════════════════
+# ──────────────────────────────────────────────────────────────────────────────
+# MAIN
+# ──────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
 
-    print("╔══════════════════════════════════════════════════════════════╗")
-    print("║     CeSRR Inverse Design — Colab Runner                     ║")
-    print("║     Physics-Informed, Multi-Fidelity, Data-Efficient         ║")
-    print("╚══════════════════════════════════════════════════════════════╝")
-    print(f"\nExperiment : {EXPERIMENT}")
-    print(f"GitHub URL : {GITHUB_REPO_URL}")
-    print(f"Drive path : My Drive/{DRIVE_DATA_FOLDER}/")
+    print("CeSRR Inverse Design -- Colab Runner")
+    print("Physics-Informed, Multi-Fidelity, Data-Efficient")
+    print("=" * 60)
+    print(f"Experiment  : {EXPERIMENT}")
+    print(f"GitHub URL  : {GITHUB_REPO_URL}")
+    print(f"Drive path  : My Drive/{DRIVE_DATA_FOLDER}/")
+    print(f"FAST_MODE   : {FAST_MODE}  (epochs={FAST_EPOCHS}, GP_restarts={FAST_GP_STARTS})")
+    print(f"Drive save  : {SAVE_RESULTS_TO_DRIVE}  (checkpoint after each script)")
+    print(flush=True)
 
     drive_data = section1_mount_drive()
     repo       = section2_clone_repo()
 
     section3_install_deps(repo)
     section4_copy_data(drive_data, repo)
-    section5_run_experiment(repo)
-    section6_save_results(repo, drive_data)
+    section5_run_experiment(repo, drive_data_path=drive_data)  # streams + checkpoints
+    section6_save_results(repo, drive_data)                    # final full sync
     section7_preview_results(repo)
 
-    print("\n" + "═" * 60)
+    print("\n" + "=" * 60)
     print("All done! Check My Drive/cesrr_data/ for results and figures.")
-    print("═" * 60)
+    print("=" * 60)

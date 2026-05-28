@@ -193,6 +193,8 @@ class MultiFidelityGP:
 
 
 if __name__ == "__main__":
+    from utils.fast_mode import apply_fast_mode
+    apply_fast_mode()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 
     df_hf, df_lf = load_combined_hf_lf()
