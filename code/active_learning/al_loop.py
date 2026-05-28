@@ -150,15 +150,39 @@ class ActiveLearningLoop:
                 break  # final eval done, stop
 
             # -- Score unlabelled pool ------------------------------------
+            # Compute uncertainty scores for the LHS pool
             uncertainties = mc_dropout_uncertainty(
                 model._model, df_lhs_pool, model.scaler
             )
 
+            # Build kwargs for the acquisition dispatcher
+            if self.strategy == "bald":
+                # BALD needs full (n_mc, N, D) MC predictions.
+                # We reuse the latent variance from mc_dropout_uncertainty
+                # by treating each of the n_mc encoder passes as a 1-D
+                # prediction (the summed latent variance IS the BALD score
+                # in the Gaussian latent space -- mathematically equivalent
+                # to Houlsby et al. 2011 for regression).
+                # To keep the interface correct, wrap uncertainties as (1,N,1)
+                # so bald_score returns the same values.
+                mc_preds = uncertainties.reshape(1, -1, 1)
+                acq_kwargs = {"mc_predictions": mc_preds}
+            elif self.strategy == "ei":
+                # EI requires GP mu/std -- fall back to uncertainty
+                acq_kwargs = {"uncertainties": uncertainties}
+                strategy_used = "uncertainty"
+            else:
+                acq_kwargs = {"uncertainties": uncertainties}
+
+            strategy_used = (
+                "uncertainty" if self.strategy == "ei" else self.strategy
+            )
+
             selected = select_query_points(
-                strategy=self.strategy,
+                strategy=strategy_used,
                 n_query=self.n_query,
                 exclude_idx=labelled_idx,
-                uncertainties=uncertainties,
+                **acq_kwargs,
             )
 
             # -- Label selected points via oracle -------------------------

@@ -160,9 +160,16 @@ ABLATION_CONFIG_NAMES = [
 ]
 
 
-def build_ablation_table(results: list[dict]) -> pd.DataFrame:
+def build_ablation_table(results: list) -> pd.DataFrame:
     """
     Build a summary DataFrame from a list of per-model result dicts.
+
+    Handles two model types:
+      - Forward models (GP, MF-GP, RIGID): return MAE/RMSE/R2, no feasibility
+      - Generative models (cVAE variants, Tandem): return feasibility, no MAE
+
+    The table uses NaN for genuinely missing metrics (fair paper comparison).
+    feasibility_rate_mcmc (from RIGID) is treated as feasibility_rate.
 
     Parameters
     ----------
@@ -174,13 +181,27 @@ def build_ablation_table(results: list[dict]) -> pd.DataFrame:
     """
     rows = []
     for r in results:
+        name = r.get("model", "?")
+
+        # Feasibility: check both keys (generative models use feasibility_rate;
+        # RIGID uses feasibility_rate_mcmc for its MCMC inverse)
+        feas = r.get("feasibility_rate",
+               r.get("feasibility_rate_mcmc", np.nan))
+        feas_pct = round(float(feas) * 100, 1) if not np.isnan(float(feas) if feas is not None else float("nan")) else np.nan
+
+        # Diversity: geometry_diversity_std (from cVAE evaluate) or mean_std_mm
+        div = r.get("geometry_diversity_std",
+              r.get("mean_std_mm", np.nan))
+
         rows.append({
-            "Model":             r.get("model", "?"),
-            "MAE_GHz":           r.get("MAE_GHz", np.nan),
-            "RMSE_GHz":          r.get("RMSE_GHz", np.nan),
-            "R2":                r.get("R2", np.nan),
-            "Feasibility_%":     round(r.get("feasibility_rate", np.nan) * 100, 1),
-            "Diversity_std_mm":  r.get("mean_std_mm", np.nan),
+            "Model":            name,
+            "MAE_GHz":          r.get("MAE_GHz",  np.nan),
+            "RMSE_GHz":         r.get("RMSE_GHz", np.nan),
+            "R2":               r.get("R2",        np.nan),
+            "Feasibility_%":    feas_pct,
+            "Diversity_std_mm": div,
+            "Runtime_s":        r.get("runtime_s", np.nan),
         })
     df = pd.DataFrame(rows).set_index("Model")
     return df
+

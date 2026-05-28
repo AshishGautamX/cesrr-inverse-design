@@ -87,22 +87,42 @@ def compute_shap_kernel(
     return shap_values
 
 
-def shap_feature_importance(shap_values: np.ndarray) -> dict:
+def shap_feature_importance(
+    shap_values: np.ndarray,
+    feature_names: list = None,
+) -> dict:
     """
     Compute mean |SHAP| per feature and rank them.
 
+    Parameters
+    ----------
+    shap_values  : (N, D) SHAP values -- may have D > len(feature_names)
+                   if rotation column was included in the RF input.
+                   Only the first len(feature_names) columns are used.
+    feature_names: list of feature names (default: UNIT_CELL_FEATURES)
+
     Returns
     -------
-    dict {feature: importance, rank: rank_1indexed}
+    dict {feature: {mean_abs_shap, rank}}, rank 1 = most important
     """
-    mean_abs = np.abs(shap_values).mean(axis=0)
-    ranks    = len(mean_abs) + 1 - mean_abs.argsort().argsort()  # 1 = most important
+    feature_names = feature_names or UNIT_CELL_FEATURES
+    n_feats   = len(feature_names)
+
+    # Slice to geometry features only (exclude rotation column if present)
+    sv = shap_values[:, :n_feats]
+    mean_abs = np.abs(sv).mean(axis=0)   # (n_feats,)
+
+    # Dense rank: sort descending -> assign 1, 2, 3...
+    order = np.argsort(mean_abs)[::-1]   # indices sorted by importance
+    ranks = np.empty(n_feats, dtype=int)
+    ranks[order] = np.arange(1, n_feats + 1)
+
     return {
-        UNIT_CELL_FEATURES[i]: {
+        feature_names[i]: {
             "mean_abs_shap": float(mean_abs[i]),
             "rank": int(ranks[i]),
         }
-        for i in range(len(UNIT_CELL_FEATURES))
+        for i in range(n_feats)
     }
 
 
@@ -156,7 +176,9 @@ def run_global_shap(save: bool = True) -> dict:
     X_test = df_te[UNIT_CELL_FEATURES].values
 
     shap_vals = compute_shap_rf(model._rf, X_test)
-    importance = shap_feature_importance(shap_vals)
+    # shap_vals is (N, 10) -- 9 geometry + 1 rotation.
+    # Feature importance is computed on geometry features only.
+    importance = shap_feature_importance(shap_vals)  # slices [:, :9] internally
 
     if save:
         # Save importance as JSON
@@ -166,16 +188,18 @@ def run_global_shap(save: bool = True) -> dict:
             json.dump(importance, f, indent=2)
         log.info("SHAP importance saved: %s", out)
 
-        # Beeswarm plot
+        # Beeswarm plot -- use only geometry columns
         plot_shap_beeswarm(
-            shap_vals, X_test,
+            shap_vals[:, :len(UNIT_CELL_FEATURES)],
+            X_test[:, :len(UNIT_CELL_FEATURES)],
+            feature_names=UNIT_CELL_FEATURES,
             title="Global SHAP -- CeSRR Geometry Features",
             out_path=FIGURES_DIR / "fig06a_shap_global.png",
         )
 
     log.info("Feature importance ranking:")
     for feat, info in sorted(importance.items(), key=lambda x: x[1]["rank"]):
-        log.info("  Rank %d: %-4s  |SHAP|=%.4f", info["rank"], feat, info["mean_abs_shap"])
+        log.info("  Rank %2d: %-4s  |SHAP|=%.4f", info["rank"], feat, info["mean_abs_shap"])
 
     return importance
 
