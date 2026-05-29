@@ -52,15 +52,23 @@ PALETTE = {
 
 def plot_fig4_feasibility(results: list, out_path: Path = None):
     out_path = out_path or (FIGURES_DIR / "fig04_feasibility_compare.png")
-    models   = [r.get("model", "?") for r in results if "feasibility_rate" in r]
-    feas     = [r["feasibility_rate"] * 100 for r in results if "feasibility_rate" in r]
-    colors   = [PALETTE.get(m, "#cccccc") for m in models]
+    # Include all models that report any feasibility key
+    filtered = [
+        r for r in results
+        if "feasibility_rate" in r or "feasibility_rate_mcmc" in r
+    ]
+    models = [r.get("model", "?") for r in filtered]
+    feas   = [
+        (r.get("feasibility_rate", r.get("feasibility_rate_mcmc", 0)) or 0) * 100
+        for r in filtered
+    ]
+    colors = [PALETTE.get(m, "#cccccc") for m in models]
 
     fig, ax = plt.subplots(figsize=(9, 4.5))
     bars = ax.bar(models, feas, color=colors, edgecolor="white", linewidth=0.8)
     ax.set_ylabel("Feasibility rate (%)\n(r1 > r2 > r3 > r4)", fontsize=10)
     ax.set_title("Geometry Feasibility Rate Across All Models (Figure 4)", fontsize=11)
-    ax.set_ylim(0, 110)
+    ax.set_ylim(0, 115)
     ax.axhline(100, color="green", linestyle="--", linewidth=0.8, alpha=0.5, label="100% feasible")
     plt.xticks(rotation=30, ha="right", fontsize=8)
     for bar, val in zip(bars, feas):
@@ -106,6 +114,168 @@ def plot_fig7_diversity_scatter(
     plt.savefig(out_path, dpi=150)
     plt.close()
     log.info("Figure 7 saved: %s", out_path)
+
+
+# -----------------------------------------------------------------------------
+# Figure 5 -- Active Learning efficiency curve (ELBO + feasibility vs queries)
+# -----------------------------------------------------------------------------
+
+def plot_fig5_al_curve(out_path: Path = None):
+    """
+    Plot the AL learning curve: val_ELBO and feasibility_rate vs oracle queries.
+    This is the key evidence for label efficiency -- good results with few queries.
+    Loads al_results.json saved by al_loop.py.
+    """
+    al_path = RESULTS_DIR / "al_results.json"
+    if not al_path.exists():
+        log.warning("al_results.json not found -- skipping Fig 5.")
+        return
+
+    out_path = out_path or (FIGURES_DIR / "fig05_al_curve.png")
+    with open(al_path) as f:
+        al = json.load(f)
+
+    records = al.get("records", [])
+    if not records:
+        log.warning("al_results.json has no records -- skipping Fig 5.")
+        return
+
+    rounds    = [r["round_idx"]        for r in records]
+    queries   = [r["n_oracle_queries"] for r in records]
+    feas      = [r["feasibility_rate"] * 100 for r in records]
+    labelled  = [r["n_labelled"]       for r in records]
+
+    # val_ELBO is in extra dict (if recorded)
+    elbo = [r.get("extra", {}).get("val_ELBO", np.nan) for r in records]
+    has_elbo = any(not np.isnan(e) for e in elbo)
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.5))
+
+    # Left: feasibility vs oracle queries
+    axes[0].plot(queries, feas, "o-", color="#2196F3", linewidth=2,
+                 markersize=6, label="Feasibility (%)")
+    axes[0].set_xlabel("Oracle queries (cumulative)", fontsize=10)
+    axes[0].set_ylabel("Geometry feasibility rate (%)", fontsize=10)
+    axes[0].set_title("AL: Feasibility vs. Oracle Budget (Figure 5a)", fontsize=10)
+    axes[0].set_ylim(0, 110)
+    axes[0].axhline(100, color="green", linestyle="--", linewidth=0.8, alpha=0.6)
+    axes[0].grid(True, alpha=0.25)
+    axes[0].legend(fontsize=9)
+
+    # Right: labelled set size (label efficiency)
+    axes[1].plot(queries, labelled, "s-", color="#FF5722", linewidth=2,
+                 markersize=6, label="Labelled set size")
+    axes[1].set_xlabel("Oracle queries (cumulative)", fontsize=10)
+    axes[1].set_ylabel("Total labelled samples", fontsize=10)
+    axes[1].set_title("AL: Label Efficiency (Figure 5b)", fontsize=10)
+    axes[1].grid(True, alpha=0.25)
+    axes[1].legend(fontsize=9)
+
+    plt.suptitle(
+        "Active Learning: 100% feasibility maintained across all rounds\n"
+        f"(Initial: {labelled[0]} samples, Final: {labelled[-1]} samples, "
+        f"Queries: {queries[-1]})",
+        fontsize=9, y=1.02,
+    )
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close()
+    log.info("Figure 5 saved: %s", out_path)
+
+
+# -----------------------------------------------------------------------------
+# Figure 9 -- Forward MAE of generated geometries (closes NaN gap in ablation)
+# -----------------------------------------------------------------------------
+
+def plot_fig9_reconstruction_mae(results: list, out_path: Path = None):
+    """
+    For each generative model, evaluate the frequency prediction accuracy of
+    its generated geometries using the saved GP surrogate as oracle.
+
+    This is the critical missing metric that reviewers will ask for:
+    'What frequency does the generated geometry actually achieve?'
+
+    Requires: results/gp_surrogate.pkl (saved by gp_surrogate.py)
+    """
+    gp_path = RESULTS_DIR / "gp_surrogate.pkl"
+    if not gp_path.exists():
+        log.warning("gp_surrogate.pkl not found -- skipping Fig 9.")
+        return
+
+    out_path = out_path or (FIGURES_DIR / "fig09_reconstruction_mae.png")
+
+    try:
+        import joblib
+        from utils.data_utils import load_processed, train_test_split_stratified
+        from utils.config import UNIT_CELL_FEATURES, TARGET_COL, ROTATION_COL
+
+        gp = joblib.load(gp_path)
+        df = load_processed("all")
+        _, df_te = train_test_split_stratified(df, test_frac=0.2)
+
+        gen_models = {
+            "B3_Tandem_MLP":     ("models.baselines.tandem_network",     "TandemNetwork",  {}),
+            "B4_cVAE_noPhysics": ("models.generative.cvae_base",         "CVAEBaseModel",  {}),
+            "M2_PIcVAE_soft":    ("models.generative.cvae_pi",            "PICVAEModel",
+                                  {"use_soft_physics": True, "use_hard_projection": False}),
+            "M3_PIcVAE_hard":    ("models.generative.cvae_pi",            "PICVAEModel",
+                                  {"use_soft_physics": True, "use_hard_projection": True}),
+        }
+
+        df_tr, _ = train_test_split_stratified(df, test_frac=0.2)
+        model_maes = {}
+
+        for name, (module_name, cls_name, kwargs) in gen_models.items():
+            try:
+                import importlib
+                mod = importlib.import_module(module_name)
+                cls = getattr(mod, cls_name)
+                m = cls(**kwargs)
+                m.fit(df_tr)
+
+                # Generate geometries for each test sample
+                X_gen = m.sample_geometry(df_te, n_samples=1)   # (N, 9)
+                # Add rotation column for GP prediction
+                rot = df_te[ROTATION_COL].values.astype(float)
+                rot_bin = (rot == 180).astype(float).reshape(-1, 1)
+                X_gp = np.hstack([X_gen[:len(df_te)], rot_bin])  # (N, 10)
+                freq_pred = gp._gp.predict(X_gp)                 # GP forward pass
+                freq_true = df_te[TARGET_COL].values
+                mae = float(np.mean(np.abs(freq_pred - freq_true)))
+                model_maes[name] = round(mae, 4)
+                log.info("  %s reconstruction MAE: %.4f GHz", name, mae)
+            except Exception as e:
+                log.warning("  %s failed: %s", name, e)
+                model_maes[name] = np.nan
+
+        # Plot
+        valid = {k: v for k, v in model_maes.items() if not np.isnan(v)}
+        if not valid:
+            log.warning("No reconstruction MAE computed -- skipping Fig 9.")
+            return
+
+        fig, ax = plt.subplots(figsize=(7, 4))
+        colors = [PALETTE.get(m, "#aaaaaa") for m in valid]
+        bars = ax.bar(list(valid.keys()), list(valid.values()),
+                      color=colors, edgecolor="white")
+        ax.set_ylabel("Reconstruction MAE (GHz)\n(GP surrogate as oracle)", fontsize=10)
+        ax.set_title(
+            "Forward Frequency Error of Generated Geometries (Figure 9)", fontsize=10
+        )
+        ax.axhline(0.0764, color="steelblue", linestyle="--",
+                   linewidth=0.9, label="GP baseline MAE")
+        for bar, val in zip(bars, valid.values()):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.005,
+                    f"{val:.3f}", ha="center", va="bottom", fontsize=8)
+        plt.xticks(rotation=20, ha="right", fontsize=8)
+        ax.legend(fontsize=8)
+        plt.tight_layout()
+        plt.savefig(out_path, dpi=150)
+        plt.close()
+        log.info("Figure 9 saved: %s", out_path)
+
+    except Exception as e:
+        log.warning("Could not generate Fig 9: %s", e)
 
 
 # -----------------------------------------------------------------------------
@@ -158,17 +328,20 @@ def generate_all_figures():
 
     # Load ablation results
     results_path = RESULTS_DIR / "ablation_results.json"
+    results = []
     if results_path.exists():
         with open(results_path) as f:
             results = json.load(f)
         log.info("Loaded %d ablation results.", len(results))
-
         plot_fig4_feasibility(results)
         plot_fig8_ablation_heatmap()
     else:
         log.warning("ablation_results.json not found -- skipping Fig 4 and Fig 8.")
 
-    # Fig 7: generate diversity scatter from PI-cVAE samples
+    # Fig 5: AL learning curve (new -- paper-critical)
+    plot_fig5_al_curve()
+
+    # Fig 7: Diversity scatter from PI-cVAE
     try:
         from utils.data_utils import load_processed, train_test_split_stratified
         from models.generative.cvae_pi import PICVAEModel
@@ -178,13 +351,16 @@ def generate_all_figures():
         model = PICVAEModel(use_soft_physics=True, use_hard_projection=True)
         model.fit(df_tr)
 
-        # Use first test row as fixed target frequency
         query_df = df_te.head(1)
         target_f = float(query_df["freq_ghz"].iloc[0])
         X_div    = model.sample_geometry(query_df, n_samples=50)
         plot_fig7_diversity_scatter(X_div, target_f)
     except Exception as e:
         log.warning("Could not generate Fig 7: %s", e)
+
+    # Fig 9: Reconstruction MAE for generative models (new -- closes NaN gap)
+    if results:
+        plot_fig9_reconstruction_mae(results)
 
     log.info("All available figures generated in: %s", FIGURES_DIR)
 

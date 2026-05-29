@@ -117,6 +117,54 @@ class GPSurrogate:
         y_true = df_test[TARGET_COL].values
         return compute_regression_metrics(y_true, y_pred, model_name="GP_Matern")
 
+    def cross_validate(self, df: pd.DataFrame, n_folds: int = 5) -> dict:
+        """
+        5-fold cross-validated R² and MAE on a dataset.
+
+        This is the key evidence that results are not overfitting to the 111
+        HF samples. Reviewers will demand this for any <200 sample paper.
+
+        Returns
+        -------
+        dict with 'cv_R2_mean', 'cv_R2_std', 'cv_MAE_mean', 'cv_MAE_std'
+        """
+        from sklearn.model_selection import KFold
+
+        kf = KFold(n_splits=n_folds, shuffle=True, random_state=GLOBAL_SEED)
+        r2_scores, mae_scores = [], []
+
+        X_all = df[UNIT_CELL_FEATURES].values
+        rot   = (df[ROTATION_COL] == 180).values.reshape(-1, 1).astype(float)
+        y_all = df[TARGET_COL].values
+
+        log.info("Running %d-fold CV on %d samples...", n_folds, len(df))
+
+        for fold_i, (tr_idx, te_idx) in enumerate(kf.split(X_all)):
+            df_tr_cv = df.iloc[tr_idx]
+            df_te_cv = df.iloc[te_idx]
+
+            gp_cv = GPSurrogate(nu=self.nu, n_restarts=self.n_restarts)
+            gp_cv.fit(df_tr_cv)
+            metrics = gp_cv.evaluate(df_te_cv)
+            r2_scores.append(metrics["R2"])
+            mae_scores.append(metrics["MAE_GHz"])
+            log.info("  Fold %d/%d: R2=%.4f, MAE=%.4f GHz",
+                     fold_i + 1, n_folds, metrics["R2"], metrics["MAE_GHz"])
+
+        result = {
+            "cv_R2_mean":  round(float(np.mean(r2_scores)),  4),
+            "cv_R2_std":   round(float(np.std(r2_scores)),   4),
+            "cv_MAE_mean": round(float(np.mean(mae_scores)), 4),
+            "cv_MAE_std":  round(float(np.std(mae_scores)),  4),
+            "n_folds":     n_folds,
+            "n_samples":   len(df),
+        }
+        log.info("CV result: R2=%.4f±%.4f, MAE=%.4f±%.4f GHz",
+                 result["cv_R2_mean"], result["cv_R2_std"],
+                 result["cv_MAE_mean"], result["cv_MAE_std"])
+        return result
+
+
     def save(self, path: Path = None):
         path = path or (RESULTS_DIR / "gp_surrogate.pkl")
         Path(path).parent.mkdir(parents=True, exist_ok=True)
@@ -151,4 +199,17 @@ if __name__ == "__main__":
     print("\n-- GP Surrogate Metrics (HF data) --")
     print(json.dumps(metrics, indent=2))
 
+    # 5-fold CV on the full HF dataset (111 samples) for reviewers
+    cv_results = gp.cross_validate(df, n_folds=5)
+    print("\n-- GP 5-Fold CV (111 HF samples) --")
+    print(json.dumps(cv_results, indent=2))
+
+    # Save CV results to disk
+    cv_out = RESULTS_DIR / "gp_cv_results.json"
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    with open(cv_out, "w") as f:
+        json.dump({**metrics, **cv_results}, f, indent=2)
+    log.info("CV results saved: %s", cv_out)
+
     gp.save()
+

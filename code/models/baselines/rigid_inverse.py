@@ -87,6 +87,7 @@ class RIGIDInverse:
             n_estimators=self.n_estimators,
             max_depth=self.max_depth,
             random_state=GLOBAL_SEED,
+            oob_score=True,   # enables out-of-bag R² -- fixes the "N/A" OOB report
             n_jobs=-1,
         )
         self._rf.fit(X, y)
@@ -96,8 +97,7 @@ class RIGIDInverse:
         hi = np.array([PARAM_BOUNDS[c][1] for c in UNIT_CELL_FEATURES])
         self._param_ranges = np.stack([lo, hi], axis=1)
 
-        oob = self._rf.oob_score_ if hasattr(self._rf, "oob_score_") else None
-        log.info("RF fitted. OOB R2: %s", f"{oob:.4f}" if oob else "N/A")
+        log.info("RF fitted. OOB R2: %.4f", self._rf.oob_score_)
         return self
 
     def predict_forward(self, df: pd.DataFrame) -> np.ndarray:
@@ -238,9 +238,19 @@ class RIGIDInverse:
         return np.array(all_best)  # (N, 9)
 
     def evaluate(self, df_test: pd.DataFrame) -> dict:
+        """
+        Evaluate RIGID on test set.
+
+        Returns BOTH forward accuracy (RF predicts frequency from true geometry)
+        AND inverse quality (MCMC-generated geometries satisfy r1>r2>r3>r4).
+
+        This dual reporting is critical for reviewer credibility:
+          - Forward accuracy proves the RF surrogate is working
+          - MCMC feasibility proves the MCMC inverse is searching valid space
+        """
         log.info("Forward evaluation on %d test samples...", len(df_test))
-        y_pred  = self.predict_forward(df_test)
-        y_true  = df_test[TARGET_COL].values
+        y_pred = self.predict_forward(df_test)
+        y_true = df_test[TARGET_COL].values
         fwd_met = compute_regression_metrics(y_true, y_pred, model_name="RIGID_RF_Forward")
 
         log.info("Running batched MCMC inverse (%d samples, %d chains, %d steps)...",
@@ -248,7 +258,19 @@ class RIGIDInverse:
         geoms = self.sample_inverse(df_test)
         feas  = geometry_feasibility_rate(geoms)
 
-        return {**fwd_met, "feasibility_rate_mcmc": feas}
+        # Compute forward frequency of the generated geometries (reconstruction MAE)
+        # This answers: "how close is the generated geometry's frequency to the target?"
+        rot_col  = (df_test[ROTATION_COL] == 180).values.astype(float).reshape(-1, 1)
+        X_recon  = np.hstack([geoms, rot_col])  # (N, 10)
+        freq_recon = self._rf.predict(X_recon)   # RF forward pass on generated geoms
+        recon_mae  = float(np.mean(np.abs(freq_recon - y_true)))
+        log.info("MCMC reconstruction MAE (RF oracle): %.4f GHz", recon_mae)
+
+        return {
+            **fwd_met,
+            "feasibility_rate_mcmc": feas,
+            "reconstruction_mae_ghz": round(recon_mae, 4),
+        }
 
     def save(self, path: Path = None):
         path = path or (RESULTS_DIR / "rigid_inverse.pkl")
