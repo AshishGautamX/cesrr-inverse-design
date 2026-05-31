@@ -136,10 +136,22 @@ def _add_gp_reconstruction_mae(
          feed through GP to get predicted frequency, compute MAE vs target
     """
     import joblib
+    import sys as _sys
     gp_path = RESULTS_DIR / "gp_surrogate.pkl"
     if not gp_path.exists():
         log.warning("gp_surrogate.pkl not found -- skipping reconstruction MAE pass.")
         return all_results
+
+    # Fix pickle __main__ resolution:
+    # gp_surrogate.py is run as a subprocess (__main__), so GPSurrogate and
+    # CeSRRScaler are pickled with module='__main__'. When loaded from
+    # ablation_runner.py (a different __main__), pickle can't find the class.
+    # Solution: register them in __main__ before loading.
+    from models.baselines.gp_surrogate import GPSurrogate as _GPSurrogate
+    from utils.data_utils import CeSRRScaler as _CeSRRScaler
+    import __main__ as _main_mod
+    _main_mod.GPSurrogate = _GPSurrogate
+    _main_mod.CeSRRScaler = _CeSRRScaler
 
     gp = joblib.load(gp_path)
     log.info("Loaded GP surrogate for reconstruction MAE computation.")
