@@ -168,13 +168,7 @@ class GPSurrogate:
     def save(self, path: Path = None):
         path = path or (RESULTS_DIR / "gp_surrogate.pkl")
         Path(path).parent.mkdir(parents=True, exist_ok=True)
-        # Ensure pickle stores the canonical module path, not '__main__'.
-        # Without this, loading from any other script fails with:
-        #   AttributeError: Can't get attribute 'GPSurrogate' on <module '__main__' ...>
-        _orig_module = self.__class__.__module__
-        self.__class__.__module__ = "models.baselines.gp_surrogate"
         joblib.dump(self, path)
-        self.__class__.__module__ = _orig_module
         log.info("GP surrogate saved: %s", path)
 
     @classmethod
